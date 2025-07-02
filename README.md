@@ -1,69 +1,50 @@
-# React + TypeScript + Vite
+📘 Documentación del Proyecto Frontend — ClonAI Mini Front
+🎯 Objetivo
+Este proyecto es una interfaz frontend construida con React + Vite, diseñada bajo una estructura modular y con una arquitectura pensada para crecer usando buenas prácticas.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Está pensado como base para una plataforma donde solo se tiene una vista principal, con posibles componentes reutilizables.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🧱 Estructura de Carpetas
+bash
+Copiar
+Editar
+├── README.md                  # Documentación del proyecto
+├── eslint.config.js           # Reglas personalizadas de ESLint
+├── index.html                 # HTML principal (Vite lo usa como base)
+├── package.json               # Dependencias y scripts
+├── package-lock.json          # Lockfile para versiones exactas
+├── postcss.config.cjs         # Configuración de PostCSS
+├── project-for-ai-minifiedFront.json  # Archivo de análisis
+├── prueba.js                  # Archivo temporal de prueba
+├── public/
+│   └── vite.svg               # Imagen usada por defecto (logo Vite)
+├── src/
+│   ├── App.css                # Estilos específicos para `App.tsx`
+│   ├── App.tsx                # Componente raíz principal
+│   ├── api/
+│   │   └── apiClient.ts       # Cliente Axios para peticiones HTTP
+│   ├── core/
+│   │   ├── layouts/           # (Futuro) Layouts globales como PublicLayout o AdminLayout
+│   │   ├── router/            # Manejo de rutas (AppRouter.tsx, etc.)
+│   │   └── styles/            # Estilos globales centralizados
+│   ├── index.css              # Estilos base con Tailwind
+│   ├── main.tsx               # Punto de entrada de la aplicación (ReactDOM)
+│   ├── pages/                 # Vistas principales (landing, panel, etc.)
+│   ├── sections/
+│   │   ├── Contacto/          # Sección "Contacto"
+│   │   ├── Filosofia/         # Sección "Filosofía"
+│   │   ├── Historia/          # Sección "Historia"
+│   │   ├── Inicio/            # Sección de inicio o bienvenida
+│   │   └── Logros/            # Sección de logros del dojo
+│   ├── shared/
+│   │   ├── assets/            # Imágenes, íconos, logos, videos
+│   │   ├── components/        # Componentes reutilizables (Button, Modal, Header, etc.)
+│   │   ├── constants/         # Constantes globales (ej. textos, rutas, enums)
+│   │   ├── lib/               # Hooks reutilizables y funciones utilitarias
+│   │   └── types/             # Tipado compartido en TypeScript
+│   └── vite-env.d.ts          # Tipado de entorno para Vite
+├── tailwind.config.js         # Configuración de TailwindCSS
+├── tsconfig.json              # Configuración general de TypeScript
+├── tsconfig.app.json          # Config TS para el frontend
+├── tsconfig.node.json         # Config TS para scripts y archivos Node
+└── vite.config.ts             # Configuración de Vite (plugins, rutas alias, etc.)
