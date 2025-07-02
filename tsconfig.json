@@ -1,0 +1,71 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    // Estrictas
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+
+    // Detección de errores y rendimiento
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Alias
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/core/*": ["src/core/*"],
+      "@/domains/*": ["src/domains/*"],
+      "@/features/*": ["src/features/*"],
+      "@/shared/*": ["src/shared/*"],
+      "@/styles/*": ["src/core/styles/*"],
+      "@/tokens/*": ["src/core/styles/tokens/*"],
+      "@/presets/*": ["src/core/styles/presettedStyles/*"],
+      "@/ui/*": ["src/shared/components/ui/*"],
+      "@/utils/*": ["src/shared/lib/utils/*"],
+      "@/lib/*": ["src/shared/lib/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/components/*": ["src/shared/components/*"]
+    },
+
+    // Extra
+    "allowJs": false,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "incremental": true,
+    "removeComments": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tailwind.config.js",
+    "eslint.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
