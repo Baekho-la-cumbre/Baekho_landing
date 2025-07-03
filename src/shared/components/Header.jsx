@@ -3,7 +3,8 @@ import MobileMenu from './MobileMenu';
 
 const navItems = [
   { label: 'Inicio', id: 'inicio' },
-  { label: 'Trayectoria', id: 'trayectoria' },
+  { label: 'Historia', id: 'trayectoria' },
+  { label: 'Galería', id: 'galeria' },
   { label: 'Logros', id: 'logros' },
   { label: 'Filosofía', id: 'filosofia' },
   { label: 'Contacto', id: 'contacto' },
