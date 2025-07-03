@@ -1,8 +1,8 @@
-import tailwindcssAnimate from "tailwindcss-animate";
-import tailwindScrollbar from "tailwind-scrollbar";
+const tailwindcssAnimate = require("tailwindcss-animate");
+const tailwindScrollbar = require("tailwind-scrollbar");
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -14,4 +14,4 @@ export default {
     tailwindcssAnimate,
     tailwindScrollbar({ nocompatible: true }),
   ],
-}
+};

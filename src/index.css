@@ -1,3 +1,112 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .header-nav-btn {
+    font-size: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .header-logo-img {
+    width: 6rem;
+    height: 4rem;
+  }
+}
+@media (max-width: 767px) {
+  .header-nav-btn {
+    font-size: 0.875rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .header-logo-img {
+    width: 4rem;
+    height: 3rem;
+  }
+}
+
+.header-nav-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  border-radius: 0.5rem;
+}
+.header-nav-btn::before, .header-nav-btn::after, .header-nav-btn span::before, .header-nav-btn span::after {
+  content: '';
+  position: absolute;
+  background: #FE5900;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  z-index: 2;
+  border-radius: 0.5rem;
+}
+/* Top border */
+.header-nav-btn::before {
+  top: 0; left: 0; right: 0; height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+/* Right border */
+.header-nav-btn span::before {
+  top: 0; right: 0; bottom: 0; width: 2px;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+/* Bottom border */
+.header-nav-btn::after {
+  left: 0; right: 0; bottom: 0; height: 2px;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+/* Left border */
+.header-nav-btn span::after {
+  top: 0; left: 0; bottom: 0; width: 2px;
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+.header-nav-btn:hover::before,
+.header-nav-btn:focus::before,
+.header-nav-btn.gold::before,
+.header-nav-btn.active::before {
+  transform: scaleX(1);
+}
+.header-nav-btn:hover::after,
+.header-nav-btn:focus::after,
+.header-nav-btn.gold::after,
+.header-nav-btn.active::after {
+  transform: scaleX(1);
+}
+.header-nav-btn:hover span::before,
+.header-nav-btn:focus span::before,
+.header-nav-btn.gold span::before,
+.header-nav-btn.active span::before {
+  transform: scaleY(1);
+}
+.header-nav-btn:hover span::after,
+.header-nav-btn:focus span::after,
+.header-nav-btn.gold span::after,
+.header-nav-btn.active span::after {
+  transform: scaleY(1);
+}
+.header-nav-btn .border-anim {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s;
+  z-index: 3;
+}
+.header-nav-btn.gold .border-anim {
+  border-color: gold;
+}
+.header-nav-btn.red .border-anim,
+.header-nav-btn.active .border-anim {
+  border-color: #D42D2D;
+}
+/* Cuando está activo, oculta los bordes dorados animados */
+.header-nav-btn.active::before,
+.header-nav-btn.active::after,
+.header-nav-btn.active span::before,
+.header-nav-btn.active span::after {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
