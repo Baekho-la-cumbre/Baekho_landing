@@ -69,7 +69,7 @@ const Contacto = () => (
               Envíanos un <span className="text-red-500">Mensaje</span>
             </h3>
             <form className="space-y-6">
-              <div>
+          <div>
                 <label htmlFor="nombre" className="block text-gray-300 font-semibold mb-2">
                   Nombre Completo *
                 </label>
@@ -81,8 +81,8 @@ const Contacto = () => (
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all duration-300 hover:border-red-400"
                   placeholder="Tu nombre completo"
                 />
-              </div>
-              <div>
+          </div>
+          <div>
                 <label htmlFor="email" className="block text-gray-300 font-semibold mb-2">
                   Correo Electrónico *
                 </label>
@@ -94,8 +94,8 @@ const Contacto = () => (
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all duration-300 hover:border-red-400"
                   placeholder="tu@email.com"
                 />
-              </div>
-              <div>
+          </div>
+          <div>
                 <label htmlFor="mensaje" className="block text-gray-300 font-semibold mb-2">
                   Mensaje *
                 </label>
@@ -107,14 +107,14 @@ const Contacto = () => (
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 transition-all duration-300 resize-none hover:border-red-400"
                   placeholder="Cuéntanos sobre tu interés en el Taekwondo, tu experiencia previa, horarios preferidos, etc."
                 />
-              </div>
+          </div>
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 interactive-btn"
               >
                 Enviar Mensaje
               </button>
-            </form>
+        </form>
           </InteractiveCard>
         </ScrollReveal>
         {/* Información de Contacto y Horarios */}
@@ -216,8 +216,8 @@ const Contacto = () => (
           </div>
         </div>
       </ScrollReveal>
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
 
 export default Contacto; 

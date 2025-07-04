@@ -8,7 +8,11 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        karate: ['Karate', 'sans-serif'],
+      },
+    },
   },
   plugins: [
     tailwindcssAnimate,

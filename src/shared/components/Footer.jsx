@@ -39,8 +39,8 @@ const Footer = () => (
     <hr className="my-6 border-[#D42D2D] opacity-40" />
     <div className="text-center text-gray-400 text-xs">
       © 2024 Academia Deportiva Baekho. Todos los derechos reservados.
-    </div>
-  </footer>
-);
+      </div>
+    </footer>
+  );
 
 export default Footer; 

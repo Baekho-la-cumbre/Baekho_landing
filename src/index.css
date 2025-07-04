@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Karate';
+  src: url('./shared/fonts/Karate.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @media (max-width: 1024px) and (min-width: 768px) {
   .header-nav-btn {
     font-size: 1rem;

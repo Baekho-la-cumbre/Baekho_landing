@@ -10,7 +10,7 @@ const Inicio = () => {
       <div className="absolute inset-0 z-0">
         <div
         className="absolute inset-0 w-full h-full bg-center bg-cover z-0"
-        style={{ backgroundImage: "url('public/ImgInicio.jpg')" }}
+        style={{ backgroundImage: "url('/ImgInicio.jpg')" }}
         />
         {/* Si tienes un video, puedes ponerlo aquí */}
         {/* <video autoPlay loop muted className="w-full h-full object-cover">...</video> */}
@@ -21,11 +21,11 @@ const Inicio = () => {
 
       {/* Contenido principal */}
       <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
-        <h1 className="text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-lg mb-2">
+        <h1 className=" text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-lg mb-2">
           BAEKHO
         </h1>
         <h2 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg mb-6">
-          ACADEMIA DEPORTIVA
+          CLUB DEPORTIVA
         </h2>
         <p className="text-lg md:text-xl text-gray-200 mb-2">
           Forjando campeones, inspirando futuros.

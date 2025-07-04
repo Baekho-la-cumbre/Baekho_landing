@@ -50,18 +50,58 @@ const AnimatedCounter = ({ end, suffix = "", className = "" }) => {
   return <span className={className}>{count}{suffix}</span>;
 };
 
-// InteractiveCard
-const InteractiveCard = ({ children, className = "", glowColor }) => (
-  <div
-    className={
-      `transition-shadow duration-300 hover:shadow-lg hover:shadow-${glowColor || "red"}-500/30 ` +
-      className
-    }
-    style={glowColor ? { boxShadow: `0 0 24px 0 ${glowColor}` } : {}}
-  >
-    {children}
-  </div>
-);
+// InteractiveCard con efecto glow interactivo
+const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+  };
+
+  const glowColors = {
+    red: "rgba(239, 68, 68, 0.3)",
+    yellow: "rgba(234, 179, 8, 0.3)",
+    orange: "rgba(249, 115, 22, 0.3)",
+  };
+
+  return (
+    <div
+      className={`relative overflow-hidden transition-all duration-300 transform ${
+        isHovered ? "scale-105 border-[2.7px]" : "border-2"
+      } border-red-500 ${className} rounded-2xl`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: isHovered
+          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColors[glowColor] || glowColors.red}, transparent 50%)`
+          : "transparent",
+        borderColor: "#ef4444",
+      }}
+    >
+      {children}
+      {isHovered && (
+        <div
+          className="absolute pointer-events-none transition-opacity duration-300"
+          style={{
+            left: mousePosition.x - 50,
+            top: mousePosition.y - 50,
+            width: 100,
+            height: 100,
+            background: `radial-gradient(circle, ${glowColors[glowColor] || glowColors.red}, transparent 70%)`,
+            borderRadius: "50%",
+            opacity: 0.6,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
 // Datos de ejemplo para el carrusel
 const historiaData = [
@@ -111,7 +151,6 @@ const historiaData = [
 
 const stats = [
   { value: 500, label: "Estudiantes", color: "red", suffix: "+" },
-  { value: 50, label: "Medallas", color: "yellow", suffix: "+" },
   { value: 15, label: "Años", color: "red", suffix: "+" },
   { value: 100, label: "Dedicación", color: "orange", suffix: "%" },
 ];
@@ -143,8 +182,8 @@ const TrayectoriaCarousel = () => {
           <p className="text-xl text-gray-200 mb-4 leading-relaxed max-w-2xl">{slide.desc}</p>
           <div className="mt-2">
             <div className="bg-gradient-to-r from-[#2a0a0a] to-[#3a1a1a] border border-[#D42D2D] rounded-xl px-8 py-5 flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-[#FE5900] inline-block"></span>
-              <span className="text-[#FE5900] font-bold">Logro destacado:</span>
+              <span className="w-3 h-3 rounded-full bg-[#D42D2D] inline-block"></span>
+              <span className="text-[#D42D2D] font-bold">Logro destacado:</span>
               <span className="ml-2 text-white font-extrabold">{slide.logro}</span>
             </div>
           </div>
@@ -196,15 +235,15 @@ const Historia = () => {
           <TrayectoriaCarousel />
         </ScrollReveal>
         <ScrollReveal delay={400}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center mt-16">
             {stats.map((stat) => (
               <InteractiveCard
                 key={stat.label}
-                className={`bg-black/30 rounded-xl p-6 border border-${stat.color}-500/20 hover:border-${stat.color}-500/50`}
+                className={"bg-black/30 rounded-2xl p-6"}
                 glowColor={stat.color === "yellow" ? "#facc15" : stat.color === "orange" ? "#fb923c" : "#ef4444"}
               >
-                <AnimatedCounter end={stat.value} suffix={stat.suffix} className={`text-4xl font-black text-${stat.color}-500 mb-2`} />
-                <div className="text-gray-400">{stat.label}</div>
+                <AnimatedCounter end={stat.value} suffix={stat.suffix} className="text-4xl font-black text-white mb-2" />
+                <div className="text-white font-bold">{stat.label}</div>
               </InteractiveCard>
             ))}
           </div>

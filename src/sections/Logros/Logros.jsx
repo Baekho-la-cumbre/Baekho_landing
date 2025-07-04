@@ -50,18 +50,59 @@ const AnimatedCounter = ({ end, suffix = "", className = "" }) => {
   return <span className={className}>{count}{suffix}</span>;
 };
 
-// InteractiveCard simple
-const InteractiveCard = ({ children, className = "", glowColor }) => (
-  <div
-    className={
-      `transition-shadow duration-300 hover:shadow-lg hover:shadow-${glowColor || "red"}-500/30 ` +
-      className
-    }
-    style={glowColor ? { boxShadow: `0 0 24px 0 ${glowColor}` } : {}}
-  >
-    {children}
-  </div>
-);
+// InteractiveCard con efecto glow interactivo
+const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
+  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+  };
+
+  const glowColors = {
+    red: "rgba(239, 68, 68, 0.3)",
+    yellow: "rgba(234, 179, 8, 0.3)",
+    orange: "rgba(249, 115, 22, 0.3)",
+    "#FE5900": "#FE5900", // Naranja sólido
+  };
+
+  return (
+    <div
+      className={`relative overflow-hidden transition-all duration-300 transform ${
+        isHovered ? "scale-105 border-[2.7px]" : "border-2"
+      } border-red-500 ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: isHovered
+          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColors[glowColor] || glowColors.red} 0%, transparent 70%)`
+          : "transparent",
+        borderColor: "#ef4444",
+      }}
+    >
+      {children}
+      {isHovered && (
+        <div
+          className="absolute pointer-events-none transition-opacity duration-300"
+          style={{
+            left: mousePosition.x - 50,
+            top: mousePosition.y - 50,
+            width: 100,
+            height: 100,
+            background: `radial-gradient(circle, ${glowColors[glowColor] || glowColors.red}, transparent 70%)`,
+            borderRadius: "50%",
+            opacity: 0.6,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
 // Datos de ejemplo
 const logrosData = [
@@ -76,13 +117,13 @@ const logrosData = [
 const atletasDestacados = [
   {
     nombre: "Ana Pérez",
-    imagen: null,
+    imagen: "/deportista1.jpg",
     categoria: "Cinturón Negro 2º Dan",
     logros: "Campeona Nacional 2024, 3 medallas de oro."
   },
   {
     nombre: "Carlos López",
-    imagen: null,
+    imagen: "/deportista2.jpg",
     categoria: "Cinturón Negro 1º Dan",
     logros: "Subcampeón Internacional 2024, 2 medallas de plata."
   },
@@ -162,9 +203,9 @@ const Logros = () => (
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {atletasDestacados.map((atleta, index) => (
             <ScrollReveal key={index} delay={index * 200}>
-              <InteractiveCard className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 rounded-lg blur opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
-                <div className="relative bg-black/90 border border-red-500/30 rounded-lg p-6 transform group-hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/25">
+              <InteractiveCard className="group relative rounded-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity duration-300 overflow-hidden"></div>
+                <div className="relative bg-black/90 p-6 rounded-2xl">
                   <div className="text-center mb-6">
                     <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-red-500 overflow-hidden transform group-hover:rotate-3 transition-transform duration-300 bg-gray-200 flex items-center justify-center">
                       {atleta.imagen ? (
@@ -197,28 +238,26 @@ const Logros = () => (
           <h3 className="text-3xl font-black text-white mb-8 text-center">
             ESTADÍSTICAS DE <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">EXCELENCIA</span>
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="transform hover:scale-110 transition-transform duration-300">
-              <AnimatedCounter end={50} suffix="+" className="text-4xl font-black text-red-500 mb-2" />
-              <div className="text-gray-300">Medallas Ganadas</div>
-            </div>
-            <div className="transform hover:scale-110 transition-transform duration-300">
-              <AnimatedCounter end={15} className="text-4xl font-black text-yellow-500 mb-2" />
-              <div className="text-gray-300">Campeones Nacionales</div>
-            </div>
-            <div className="transform hover:scale-110 transition-transform duration-300">
-              <AnimatedCounter end={8} className="text-4xl font-black text-red-500 mb-2" />
-              <div className="text-gray-300">Competencias Internacionales</div>
-            </div>
-            <div className="transform hover:scale-110 transition-transform duration-300">
-              <AnimatedCounter end={100} suffix="%" className="text-4xl font-black text-yellow-500 mb-2" />
-              <div className="text-gray-300">Dedicación</div>
+          <div className="w-full flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
+              <div className="transform hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={50} suffix="+" className="text-4xl font-black text-white mb-2" />
+                <div className="text-white">Medallas Ganadas</div>
+              </div>
+              <div className="transform hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={15} className="text-4xl font-black text-white mb-2" />
+                <div className="text-white">Campeones Nacionales</div>
+              </div>
+              <div className="transform hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={8} className="text-4xl font-black text-white mb-2" />
+                <div className="text-white">Campeones Departamentales</div>
+              </div>
             </div>
           </div>
         </div>
       </ScrollReveal>
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
 
 export default Logros; 

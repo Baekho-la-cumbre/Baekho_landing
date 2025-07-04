@@ -8,7 +8,7 @@ const momentos = [
 ];
 
 const MomentoCard = ({ tipo, src, titulo }) => (
-  <div className="relative bg-gray-100 rounded-xl border-2 border-[#D42D2D] shadow-lg overflow-hidden group">
+  <div className="relative bg-gray-100 rounded-xl border-2 border-[#D42D2D] shadow-lg overflow-hidden group transition-transform duration-300 transform hover:scale-105">
     {tipo === "imagen" ? (
       <img src={src} alt={titulo} className="w-full h-56 object-cover" />
     ) : (

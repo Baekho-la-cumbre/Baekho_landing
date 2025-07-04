@@ -30,17 +30,59 @@ const ScrollReveal = ({ children, delay = 0 }) => {
 };
 
 // InteractiveCard simple
-const InteractiveCard = ({ children, className = "", glowColor }) => (
-  <div
-    className={
-      `transition-shadow duration-300 hover:shadow-lg hover:shadow-${glowColor || "red"}-500/30 ` +
-      className
-    }
-    style={glowColor ? { boxShadow: `0 0 24px 0 ${glowColor}` } : {}}
-  >
-    {children}
-  </div>
-);
+const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
+  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+  };
+
+  const glowColors = {
+    red: "rgba(239, 68, 68, 0.3)",
+    yellow: "rgba(234, 179, 8, 0.3)",
+    orange: "rgba(249, 115, 22, 0.3)",
+    "#FE5900": "#FE5900",
+    "#D42D2D": "#D42D2D",
+  };
+
+  return (
+    <div
+      className={`relative overflow-hidden transition-all duration-300 transform ${
+        isHovered ? "scale-105 border-[2.7px]" : "border-2"
+      } border-red-500 rounded-md ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        background: isHovered
+          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColors[glowColor] || glowColors.red}, transparent 50%)`
+          : "transparent",
+        borderColor: "#ef4444",
+      }}
+    >
+      {children}
+      {isHovered && (
+        <div
+          className="absolute pointer-events-none transition-opacity duration-300"
+          style={{
+            left: mousePosition.x - 50,
+            top: mousePosition.y - 50,
+            width: 100,
+            height: 100,
+            background: `radial-gradient(circle, ${glowColors[glowColor] || glowColors.red}, transparent 70%)`,
+            borderRadius: "50%",
+            opacity: 0.6,
+            pointerEvents: "none",
+          }}
+        />
+      )}
+    </div>
+  );
+};
 
 // Valores de ejemplo
 const valoresData = [
@@ -72,10 +114,10 @@ const Filosofia = () => (
       {/* Misión */}
       <ScrollReveal delay={200}>
         <div className="mb-16">
-          <InteractiveCard className="bg-gradient-to-r from-red-900/30 to-black/50 rounded-2xl p-8 md:p-12 border border-red-500/30">
+          <InteractiveCard className="bg-black/30 rounded-xl p-6">
             <div className="flex items-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mr-6 animate-pulse">
-                <span className="text-2xl font-black text-white">M</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mr-6 bg-black/0">
+                <img src="/calvin.png" alt="Calvin" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-3xl md:text-4xl font-black text-white">
                 NUESTRA <span className="text-red-500">MISIÓN</span>
@@ -92,15 +134,15 @@ const Filosofia = () => (
       <ScrollReveal delay={300}>
         <div className="mb-16">
           <InteractiveCard
-            className="bg-gradient-to-l from-yellow-900/30 to-black/50 rounded-2xl p-8 md:p-12 border border-yellow-500/30"
-            glowColor="yellow"
+            className="bg-black/30 rounded-xl p-6"
+            glowColor="orange"
           >
             <div className="flex items-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full flex items-center justify-center mr-6 animate-pulse">
-                <span className="text-2xl font-black text-white">V</span>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mr-6 bg-black/0">
+                <img src="/calvin.png" alt="Calvin" className="w-14 h-14 object-contain" />
               </div>
               <h3 className="text-3xl md:text-4xl font-black text-white">
-                NUESTRA <span className="text-yellow-500">VISIÓN</span>
+                NUESTRA <span className="text-orange-500">VISIÓN</span>
               </h3>
             </div>
             <p className="text-lg text-gray-300 leading-relaxed">
@@ -123,16 +165,14 @@ const Filosofia = () => (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {valoresData.map((item, index) => (
             <ScrollReveal key={index} delay={index * 100}>
-              <InteractiveCard className="group h-full">
-                <div className="bg-black/80 border border-red-500/30 rounded-lg p-6 h-full hover:border-red-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/25">
-                  <div className="text-center mb-4">
-                    <div className="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
-                      {item.icono}
-                    </div>
-                    <h4 className="text-xl font-black text-red-400 mb-4">{item.valor}</h4>
+              <InteractiveCard className="bg-black/30 rounded-xl p-6">
+                <div className="text-center mb-4">
+                  <div className="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                    {item.icono}
                   </div>
-                  <p className="text-gray-300 text-sm leading-relaxed text-center">{item.descripcion}</p>
+                  <h4 className="text-xl font-black text-red-400 mb-4">{item.valor}</h4>
                 </div>
+                <p className="text-gray-300 text-sm leading-relaxed text-center">{item.descripcion}</p>
               </InteractiveCard>
             </ScrollReveal>
           ))}
@@ -194,8 +234,8 @@ const Filosofia = () => (
           </InteractiveCard>
         </div>
       </ScrollReveal>
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
 
 export default Filosofia; 
