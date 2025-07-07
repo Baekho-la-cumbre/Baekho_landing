@@ -37,12 +37,14 @@ const Footer = () => (
       {/* Enlaces rápidos */}
       <div className="flex flex-col gap-2 md:items-left">
         <span className="text-white font-bold mb-2">Enlaces Rápidos</span>
-        <a href="#inicio" className="text-gray-300 hover:text-[#D42D2D] transition">Inicio</a>
-        <a href="#historia" className="text-gray-300 hover:text-[#D42D2D] transition">Historia</a>
-        <a href="#galeria" className="text-gray-300 hover:text-[#D42D2D] transition">Galeria</a>
-        <a href="#logros" className="text-gray-300 hover:text-[#D42D2D] transition">Logros</a>
-        <a href="#filosofia" className="text-gray-300 hover:text-[#D42D2D] transition">Filosofía</a>
-        <a href="#contacto" className="text-gray-300 hover:text-[#D42D2D] transition">Contacto</a>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-left">
+          <a href="#inicio" className="text-gray-300 hover:text-[#D42D2D] transition">Inicio</a>
+          <a href="#logros" className="text-gray-300 hover:text-[#D42D2D] transition">Logros</a>
+          <a href="#historia" className="text-gray-300 hover:text-[#D42D2D] transition">Historia</a>
+          <a href="#filosofia" className="text-gray-300 hover:text-[#D42D2D] transition">Filosofía</a>
+          <a href="#galeria" className="text-gray-300 hover:text-[#D42D2D] transition">Galeria</a>
+          <a href="#contacto" className="text-gray-300 hover:text-[#D42D2D] transition">Contacto</a>
+        </div>
       </div>
       {/* Contacto */}
       <div className="flex flex-col gap-2 md:items-left">
