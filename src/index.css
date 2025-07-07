@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: 'Karate';
   src: url('./shared/fonts/Karate.ttf') format('truetype');

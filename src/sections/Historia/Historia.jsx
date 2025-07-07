@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
+
 // Simple ScrollReveal (fade-in on scroll)
 const ScrollReveal = ({ children, delay = 0 }) => {
   const ref = useRef();
@@ -222,8 +223,9 @@ const TrayectoriaCarousel = () => {
 };
 
 const Historia = () => {
+  
   return (
-    <section id="trayectoria" className="py-20 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
+    <section id="historia" className="py-20 px-4 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-red-900/5 to-orange-900/5"></div>
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
@@ -251,6 +253,7 @@ const Historia = () => {
       </div>
     </section>
   );
+  
 };
 
 export default Historia; 
