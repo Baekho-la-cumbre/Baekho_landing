@@ -6,10 +6,12 @@ import Logros from '../sections/Logros/Logros.jsx';
 import Filosofia from '../sections/Filosofia/Filosofia.jsx';
 import Contacto from '../sections/Contacto/Contacto.jsx';
 import Footer from '../shared/components/Footer.jsx';
+import ScrollPag from '../shared/components/ScrollPag.jsx';
 
 function Landing() {
   return (
     <div>
+      <ScrollPag />
       <Header />
       <Inicio />
       <Historia />
