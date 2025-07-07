@@ -172,7 +172,7 @@ const Contacto = () => (
                   <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
-                  <div>
+          <div>
                     <h4 className="text-white font-semibold mb-1">Dirección</h4>
                     <p className="text-gray-300">carrera 9AE 29A-56<br />Floridablanca, Colombia</p>
                   </div>
@@ -180,8 +180,8 @@ const Contacto = () => (
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
                   <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                     <Phone className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
+          </div>
+          <div>
                     <h4 className="text-white font-semibold mb-1">Teléfono</h4>
                     <p className="text-gray-300">+57 317 7688456</p>
                   </div>
@@ -189,8 +189,8 @@ const Contacto = () => (
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
                   <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                     <Mail className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
+          </div>
+          <div>
                     <h4 className="text-white font-semibold mb-1">Correo</h4>
                     <p className="text-gray-300">Baekhotaekwondo2016@outlook.com</p>
                   </div>

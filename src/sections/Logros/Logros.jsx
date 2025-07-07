@@ -133,12 +133,12 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
 
 // Datos de ejemplo
 const logrosData = [
-  { atleta: "Ana Pérez", año: 2024, competencia: "Campeonato Nacional", medalla: "Oro" },
-  { atleta: "Carlos López", año: 2024, competencia: "Open Internacional", medalla: "Plata" },
-  { atleta: "María González", año: 2023, competencia: "Copa Panamericana", medalla: "Oro" },
-  { atleta: "Diego Marín", año: 2023, competencia: "Torneo Regional", medalla: "Bronce" },
-  { atleta: "Sofía Ruiz", año: 2023, competencia: "Campeonato Juvenil", medalla: "Plata" },
-  { atleta: "Andrés Castro", año: 2022, competencia: "Copa Nacional", medalla: "Oro" },
+  { atleta: "Ana Pérez", año: 2024, competencia: "Campeonato Nacional", medalla: "Oro", foto: "/deportista1.jpg" },
+  { atleta: "Carlos López", año: 2024, competencia: "Open Internacional", medalla: "Plata", foto: "/deportista2.jpg" },
+  { atleta: "María González", año: 2023, competencia: "Copa Panamericana", medalla: "Oro", foto: "/deportista1.jpg" },
+  { atleta: "Diego Marín", año: 2023, competencia: "Torneo Regional", medalla: "Bronce", foto: "/deportista2.jpg" },
+  { atleta: "Sofía Ruiz", año: 2023, competencia: "Campeonato Juvenil", medalla: "Plata", foto: "/deportista1.jpg" },
+  { atleta: "Andrés Castro", año: 2022, competencia: "Copa Nacional", medalla: "Oro", foto: "/deportista2.jpg" },
 ];
 
 const atletasDestacados = [
@@ -175,8 +175,10 @@ const Logros = () => (
       {/* Header */}
       <ScrollReveal>
         <div className="flex flex-col items-center justify-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 text-center">
+          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 text-center flex items-center gap-3">
+            <span className="text-5xl">🏅</span>
             NUESTROS <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">LOGROS</span>
+            <span className="text-5xl">🏅</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl text-center">
             El fruto del esfuerzo, la disciplina y la dedicación de nuestros atletas
@@ -184,73 +186,137 @@ const Logros = () => (
         </div>
       </ScrollReveal>
 
-      {/* Reconocimientos */}
-      <div className="mb-20">
-        <ScrollReveal delay={200}>
-          <h3 className="text-3xl md:text-4xl font-black text-white mb-12 text-center">
-            RECONOCIMIENTOS <span className="text-orange-500 drop-shadow-[0_0_16px_#FE5900]">RECIENTES</span>
-          </h3>
-        </ScrollReveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {logrosData.map((logro, index) => (
-            <ScrollReveal key={index} delay={index * 100}>
-              <InteractiveCard className="bg-black/80 border border-red-500/30 rounded-lg p-6 hover:border-red-500/60 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-red-500/25">
-                <div className="flex items-center mb-4">
-                  <div
-                    className={`w-12 h-12 rounded-full border-2 ${getMedallaColor(logro.medalla)} flex items-center justify-center mr-4 animate-pulse`}
-                  >
-                    <span className="font-bold text-sm">{logro.medalla[0]}</span>
-                  </div>
-                  <div>
-                    <h4 className="text-white font-bold text-lg">{logro.atleta}</h4>
-                    <p className="text-gray-400 text-sm">{logro.año}</p>
-                  </div>
-                </div>
-                <p className="text-gray-300 text-sm">{logro.competencia}</p>
-                <div className="mt-4 pt-4 border-t border-gray-700">
-                  <span
-                    className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getMedallaColor(logro.medalla)} bg-opacity-20`}
-                  >
-                    {logro.medalla}
-                  </span>
-                </div>
-              </InteractiveCard>
-            </ScrollReveal>
-          ))}
-        </div>
-      </div>
-
       {/* Atletas Destacados */}
       <div>
         <ScrollReveal>
-          <h3 className="text-3xl md:text-4xl font-black text-white mb-12 text-center">
-            ATLETAS <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">DESTACADOS</span>
+          <h3 className="text-3xl md:text-4xl font-black text-red-500 mb-12 text-center drop-shadow-[0_0_24px_#D42D2D] tracking-widest flex items-center justify-center gap-2">
+            <span className="text-3xl md:text-4xl">🏆</span>
+            ATLETAS DESTACADOS
+            <span className="text-3xl md:text-4xl">🏆</span>
           </h3>
         </ScrollReveal>
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {atletasDestacados.map((atleta, index) => (
             <ScrollReveal key={index} delay={index * 200}>
-              <InteractiveCard className="group relative rounded-2xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition-opacity duration-300 overflow-hidden"></div>
-                <div className="relative bg-black/90 p-6 rounded-2xl">
-                  <div className="text-center mb-6">
-                    <div className="w-32 h-32 mx-auto mb-4 rounded-full border-4 border-red-500 overflow-hidden transform group-hover:rotate-3 transition-transform duration-300 bg-gray-200 flex items-center justify-center">
-                      {atleta.imagen ? (
-                        <img
-                          src={atleta.imagen}
-                          alt={atleta.nombre}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <span className="text-5xl text-gray-400">🧑‍🎓</span>
-                      )}
-                    </div>
-                    <h4 className="text-2xl font-bold text-white mb-2">{atleta.nombre}</h4>
-                    <p className="text-red-400 font-semibold mb-4">{atleta.categoria}</p>
+              <div className="relative group rounded-3xl overflow-visible shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99]">
+                {/* Fondo decorativo (fondocard.png) */}
+                <img
+                  src="/fondocard.png"
+                  alt="Fondo decorativo"
+                  className="absolute inset-0 w-full h-full object-cover opacity-30 brightness-125 pointer-events-none select-none z-0"
+                  style={{ zIndex: 0 }}
+                />
+                {/* Fondo decorativo (emoji corazón) */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none z-10">
+                  <span className="text-[8rem] text-red-500">❤️</span>
+                </div>
+                <div className="relative z-10 bg-black/60 rounded-3xl p-8 flex flex-col items-center">
+                  <div className="w-36 h-36 mx-auto mb-4 rounded-full border-8 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden">
+                    {atleta.imagen ? (
+                      <img
+                        src={atleta.imagen}
+                        alt={atleta.nombre}
+                        className="w-full h-full object-cover rounded-full border-4 border-white shadow-xl"
+                      />
+                    ) : (
+                      <span className="text-6xl text-red-400">🧑‍🎓</span>
+                    )}
                   </div>
-                  <div className="bg-gray-900/50 rounded-lg p-4">
-                    <h5 className="text-orange-400 font-bold mb-2">Logros Principales:</h5>
-                    <p className="text-gray-300 text-sm leading-relaxed">{atleta.logros}</p>
+                  <h4 className="text-3xl md:text-4xl font-black text-red-400 mb-2 text-center tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow">
+                    {atleta.nombre}
+                  </h4>
+                  <p className="text-red-200 font-semibold mb-4 text-lg text-center drop-shadow">{atleta.categoria}</p>
+                  <div className="bg-red-50/10 rounded-xl p-4 border border-red-200/30 w-full">
+                    <h5 className="text-red-400 font-bold mb-2 text-center">Inspirando a nuestra comunidad:</h5>
+                    <p className="text-red-100 text-base leading-relaxed text-center">{atleta.logros} <br/> <span className='italic text-sm text-orange-300'>Ejemplo de dedicación y excelencia.</span></p>
+                  </div>
+                </div>
+                {/* Efecto de resplandor al hacer hover */}
+                <div className="absolute inset-0 rounded-3xl pointer-events-none group-hover:shadow-[0_0_64px_16px_#D42D2D99] transition-all duration-300" />
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+      <br /><br /><br />
+
+      {/* Reconocimientos */}
+      <div className="mb-20">
+        <ScrollReveal delay={200}>
+          <h3 className="text-3xl md:text-4xl font-black text-white mb-12 text-center flex items-center justify-center gap-2">
+            <span className="text-3xl md:text-4xl">🥋</span>
+            RECONOCIMIENTOS <span className="text-orange-500 drop-shadow-[0_0_16px_#FE5900]">RECIENTES</span>
+            <span className="text-3xl md:text-4xl">🥋</span>
+          </h3>
+        </ScrollReveal>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {logrosData.map((logro, index) => (
+            <ScrollReveal key={index} delay={index * 100}>
+              <InteractiveCard
+                className="bg-gradient-to-br from-black/80 to-gray-900/80 p-8 rounded-2xl shadow-xl flex flex-col items-center border-4 min-h-[320px] relative overflow-hidden"
+                style={{
+                  borderColor:
+                    logro.medalla === "Oro"
+                      ? "#FFD700"
+                      : logro.medalla === "Plata"
+                      ? "#C0C0C0"
+                      : logro.medalla === "Bronce"
+                      ? "#FF8C00"
+                      : "#ef4444",
+                  boxShadow:
+                    logro.medalla === "Oro"
+                      ? "0 0 32px 0 #FFD70055"
+                      : logro.medalla === "Plata"
+                      ? "0 0 32px 0 #C0C0C055"
+                      : logro.medalla === "Bronce"
+                      ? "0 0 32px 0 #FF8C0055"
+                      : "0 0 16px 0 #ef444455",
+                }}
+              >
+                {/* Fondo de la tarjeta: imagen opaca */}
+                <img
+                  src="/fondocard.png"
+                  alt="Fondo decorativo"
+                  className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none select-none"
+                  style={{ zIndex: 0 }}
+                />
+                {/* Contenido principal (z-10) */}
+                <div className="relative z-10 flex flex-col items-center w-full h-full">
+                  {/* Foto del deportista con borde de color de medalla y año */}
+                  <div
+                    className="w-20 h-20 rounded-full mb-4 shadow-lg flex items-center justify-center overflow-hidden relative"
+                    style={{
+                      border: '4px solid ' + (
+                        logro.medalla === "Oro"
+                          ? "#FFD700"
+                          : logro.medalla === "Plata"
+                          ? "#C0C0C0"
+                          : logro.medalla === "Bronce"
+                          ? "#FF8C00"
+                          : "#fff"
+                      ),
+                    }}
+                  >
+                    <img
+                      src={logro.foto || "/deportista1.jpg"}
+                      alt={logro.atleta}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  {/* Nombre del atleta */}
+                  <h4 className="text-white font-extrabold text-xl md:text-2xl mb-1 text-center tracking-wide">
+                    {logro.atleta}
+                  </h4>
+                  {/* Competencia */}
+                  <p className="text-gray-300 text-base mb-2 text-center italic">{logro.competencia}</p>
+                  {/* Descripción del mérito en div traslúcido con emoji */}
+                  <div className="mb-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2">
+                    <span className="text-xl">
+                      {logro.medalla === "Oro" ? "🥇" : logro.medalla === "Plata" ? "🥈" : "🥉"}
+                    </span>
+                    <span className="text-gray-100 text-sm text-center">
+                      {`${logro.atleta} obtuvo la medalla de ${logro.medalla.toLowerCase()} en el ${logro.competencia}, ${logro.año}.`}
+                    </span>
                   </div>
                 </div>
               </InteractiveCard>
@@ -283,8 +349,8 @@ const Logros = () => (
           </div>
         </div>
       </ScrollReveal>
-      </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 
 export default Logros; 
