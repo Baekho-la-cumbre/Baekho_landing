@@ -159,7 +159,7 @@ const Contacto = () => (
             </form>
           </InteractiveCard>
         </ScrollReveal>
-        {/* Información de Contacto y Horarios */}
+        {/* Información de Contacto*/}
         <div className="space-y-8">
           {/* Datos de Contacto */}
           <ScrollReveal delay={300}>
@@ -170,27 +170,27 @@ const Contacto = () => (
               <div className="space-y-6">
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
                   <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-white" />
+                    <img src="/gps.png" alt="Ubicación" className="w-7 h-7 -mh-1" />
                   </div>
-          <div>
+                  <div>
                     <h4 className="text-white font-semibold mb-1">Dirección</h4>
                     <p className="text-gray-300">carrera 9AE 29A-56<br />Floridablanca, Colombia</p>
                   </div>
                 </div>
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <Phone className="w-6 h-6 text-white" />
-          </div>
-          <div>
-                    <h4 className="text-white font-semibold mb-1">Teléfono</h4>
+                  <div className="w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                    <img src="/whatsapp.png" alt="WhatsApp" className="w-12 h-12" />
+                  </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-1">WhatsApp</h4>
                     <p className="text-gray-300">+57 317 7688456</p>
                   </div>
                 </div>
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                    <Mail className="w-6 h-6 text-white" />
-          </div>
-          <div>
+                  <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                    <img src="/gmail.png" alt="Correo" className="w-7 h-7" />
+                  </div>
+                  <div>
                     <h4 className="text-white font-semibold mb-1">Correo</h4>
                     <p className="text-gray-300">Baekhotaekwondo2016@outlook.com</p>
                   </div>

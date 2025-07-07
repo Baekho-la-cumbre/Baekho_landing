@@ -7,6 +7,8 @@ import Filosofia from '../sections/Filosofia/Filosofia.jsx';
 import Contacto from '../sections/Contacto/Contacto.jsx';
 import Footer from '../shared/components/Footer.jsx';
 import ScrollPag from '../shared/components/ScrollPag.jsx';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Landing() {
   return (

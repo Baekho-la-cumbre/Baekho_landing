@@ -188,45 +188,45 @@ const Filosofia = () => (
             </h3>
             {/* Frase Principal */}
             <div className="text-center mb-12">
-              <div className="text-2xl md:text-3xl font-black text-transparent bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text mb-4 drop-shadow-[0_0_16px_#D42D2D]">
+              <div className="text-2xl md:text-3xl font-black mb-4 drop-shadow-[0_0_16px_#D42D2D] text-red-500">
                 "DETRÁS DEL MIEDO, ESTÁN MIS SUEÑOS"
               </div>
-              <div className="w-24 h-1 bg-gradient-to-r from-red-500 to-yellow-500 mx-auto animate-pulse"></div>
+              <div className="w-24 h-1 mx-auto bg-[#D42D2D]"></div>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Entrena con propósito y pasión</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Respeta a todos, teme a ninguno</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">La derrota es temporal, rendirse es permanente</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Ayuda a tus compañeros a crecer</p>
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Mantén la mente abierta al aprendizaje</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Honra la tradición, abraza la innovación</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">Sé un ejemplo dentro y fuera del dojang</p>
                 </div>
                 <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full mr-4 animate-pulse"></div>
+                  <div className="w-3 h-3 bg-red-500 rounded-full mr-4 "></div>
                   <p className="text-gray-300">La verdadera victoria es sobre uno mismo</p>
                 </div>
               </div>
