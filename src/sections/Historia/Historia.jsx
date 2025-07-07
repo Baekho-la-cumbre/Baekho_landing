@@ -30,25 +30,56 @@ const ScrollReveal = ({ children, delay = 0 }) => {
   );
 };
 
-// AnimatedCounter
-const AnimatedCounter = ({ end, suffix = "", className = "" }) => {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    let start = 0;
-    const duration = 1200;
-    const step = Math.ceil(end / (duration / 16));
-    const interval = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(interval);
+// AnimatedCounter avanzado con IntersectionObserver y easing
+const AnimatedCounter = ({ end, duration = 2000, suffix = "", className = "" }) => {
+  const [count, setCount] = React.useState(0);
+  const ref = React.useRef(null);
+  const animationRef = React.useRef();
+
+  // Reinicia la animación cada vez que entra al viewport
+  React.useEffect(() => {
+    let observer;
+    let timeoutId;
+    const handleIntersect = (entries) => {
+      if (entries[0].isIntersecting) {
+        // Reinicia el contador y la animación
+        setCount(0);
+        let startTime;
+        const animate = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          // No redondear hacia abajo, sino hacia el valor real, y asegurar que el último frame sea el valor final
+          if (progress < 1) {
+            setCount(Math.floor(easeOutQuart * end));
+            animationRef.current = requestAnimationFrame(animate);
+          } else {
+            setCount(end);
+          }
+        };
+        // Pequeño timeout para reiniciar la animación si el usuario scrollea rápido
+        timeoutId = setTimeout(() => {
+          animationRef.current = requestAnimationFrame(animate);
+        }, 10);
       } else {
-        setCount(start);
+        // Si sale del viewport, cancela la animación
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
       }
-    }, 16);
-    return () => clearInterval(interval);
-  }, [end]);
-  return <span className={className}>{count}{suffix}</span>;
+    };
+    observer = new window.IntersectionObserver(handleIntersect, { threshold: 0.5 });
+    if (ref.current) observer.observe(ref.current);
+    return () => {
+      if (observer && ref.current) observer.unobserve(ref.current);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [end, duration]);
+
+  return (
+    <div ref={ref} className={className}>
+      {count}{suffix}
+    </div>
+  );
 };
 
 // InteractiveCard con efecto glow interactivo
@@ -244,7 +275,7 @@ const Historia = () => {
                 className={"bg-black/30 rounded-2xl p-6"}
                 glowColor={stat.color === "yellow" ? "#facc15" : stat.color === "orange" ? "#fb923c" : "#ef4444"}
               >
-                <AnimatedCounter end={stat.value} suffix={stat.suffix} className="text-4xl font-black text-white mb-2" />
+                <AnimatedCounter end={stat.value} duration={2000} suffix={stat.suffix} className="text-4xl font-black text-white mb-2" />
                 <div className="text-white font-bold">{stat.label}</div>
               </InteractiveCard>
             ))}

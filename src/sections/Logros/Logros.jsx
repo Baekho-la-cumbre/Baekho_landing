@@ -29,25 +29,52 @@ const ScrollReveal = ({ children, delay = 0 }) => {
   );
 };
 
-// AnimatedCounter simple
-const AnimatedCounter = ({ end, suffix = "", className = "" }) => {
+// AnimatedCounter avanzado con IntersectionObserver y easing
+const AnimatedCounter = ({ end, duration = 2000, suffix = "", className = "" }) => {
   const [count, setCount] = React.useState(0);
+  const ref = React.useRef(null);
+  const animationRef = React.useRef();
+
+  // Reinicia la animación cada vez que entra al viewport
   React.useEffect(() => {
-    let start = 0;
-    const duration = 1200;
-    const step = Math.ceil(end / (duration / 16));
-    const interval = setInterval(() => {
-      start += step;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(interval);
+    let observer;
+    let timeoutId;
+    const handleIntersect = (entries) => {
+      if (entries[0].isIntersecting) {
+        setCount(0);
+        let startTime;
+        const animate = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+          if (progress < 1) {
+            setCount(Math.floor(easeOutQuart * end));
+            animationRef.current = requestAnimationFrame(animate);
+          } else {
+            setCount(end);
+          }
+        };
+        timeoutId = setTimeout(() => {
+          animationRef.current = requestAnimationFrame(animate);
+        }, 10);
       } else {
-        setCount(start);
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
       }
-    }, 16);
-    return () => clearInterval(interval);
-  }, [end]);
-  return <span className={className}>{count}{suffix}</span>;
+    };
+    observer = new window.IntersectionObserver(handleIntersect, { threshold: 0.5 });
+    if (ref.current) observer.observe(ref.current);
+    return () => {
+      if (observer && ref.current) observer.unobserve(ref.current);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [end, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {count}{suffix}
+    </span>
+  );
 };
 
 // InteractiveCard con efecto glow interactivo
@@ -241,15 +268,15 @@ const Logros = () => (
           <div className="w-full flex justify-center">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
               <div className="transform hover:scale-110 transition-transform duration-300">
-                <AnimatedCounter end={50} suffix="+" className="text-4xl font-black text-white mb-2" />
+                <AnimatedCounter end={50} duration={2000} suffix="+" className="text-4xl font-black text-white mb-2" />
                 <div className="text-white">Medallas Ganadas</div>
               </div>
               <div className="transform hover:scale-110 transition-transform duration-300">
-                <AnimatedCounter end={15} className="text-4xl font-black text-white mb-2" />
+                <AnimatedCounter end={15} duration={2000} className="text-4xl font-black text-white mb-2" />
                 <div className="text-white">Campeones Nacionales</div>
               </div>
               <div className="transform hover:scale-110 transition-transform duration-300">
-                <AnimatedCounter end={8} className="text-4xl font-black text-white mb-2" />
+                <AnimatedCounter end={8} duration={2000} className="text-4xl font-black text-white mb-2" />
                 <div className="text-white">Campeones Departamentales</div>
               </div>
             </div>
