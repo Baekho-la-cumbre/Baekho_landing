@@ -132,7 +132,7 @@ const Contacto = () => (
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Dirección</h4>
-                    <p className="text-gray-300">Calle Falsa 123<br />Ciudad, País</p>
+                    <p className="text-gray-300">carrera 9AE 29A-56<br />Floridablanca, Colombia</p>
                   </div>
                 </div>
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
@@ -141,7 +141,7 @@ const Contacto = () => (
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Teléfono</h4>
-                    <p className="text-gray-300">+12 345 678 900</p>
+                    <p className="text-gray-300">+57 317 7688456</p>
                   </div>
                 </div>
                 <div className="flex items-start transform hover:translate-x-2 transition-transform duration-300">
@@ -150,7 +150,7 @@ const Contacto = () => (
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Correo</h4>
-                    <p className="text-gray-300">info@baekhoacademy.com</p>
+                    <p className="text-gray-300">Baekhotaekwondo2016@outlook.com</p>
                   </div>
                 </div>
               </div>
@@ -163,9 +163,15 @@ const Contacto = () => (
                 Síguenos en <span className="text-red-500">Redes</span>
               </h3>
               <div className="flex space-x-6">
-                <a href="#" className="text-pink-500 hover:text-pink-400 text-3xl"><i className="fab fa-instagram">&#xf16d;</i></a>
-                <a href="#" className="text-blue-400 hover:text-blue-300 text-3xl"><i className="fab fa-twitter">&#xf099;</i></a>
-                <a href="#" className="text-blue-600 hover:text-blue-500 text-3xl"><i className="fab fa-facebook">&#xf09a;</i></a>
+                <a href="https://www.facebook.com/share/1BoxMgww6V/" target="_blank" rel="noopener noreferrer">
+                  <img src="/facebook.png" alt="Facebook" className="w-8 h-8 inline" />
+                </a>
+                <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
+                  <img src="/tik-tok.png" alt="TikTok" className="w-8 h-8 inline" />
+                </a>
+                <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
+                  <img src="/instagram.png" alt="Instagram" className="w-8 h-8 inline" />
+                </a>
               </div>
             </InteractiveCard>
           </ScrollReveal>

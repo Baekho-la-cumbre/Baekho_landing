@@ -47,7 +47,7 @@ const Footer = () => (
       {/* Contacto */}
       <div className="flex flex-col gap-2 md:items-left">
         <span className="text-white font-bold mb-2">Contacto</span>
-        <span className="text-gray-300 text-sm">carrera 9AE 29A-56, Floridablanca, Colombia</span>
+        <span className="text-gray-300 text-sm">CRA 9AE #29A-56, Floridablanca, Santander</span>
         <span className="text-gray-300 text-sm">+57 317 7688456</span>
         <a href="mailto:info@baekhoacademy.com" className="text-gray-300 text-sm hover:text-[#D42D2D] transition">Baekhotaekwondo2016@outlook.com</a>
       </div>
