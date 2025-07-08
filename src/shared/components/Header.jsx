@@ -50,7 +50,8 @@ function HeaderNav() {
   };
 
   return (
-    <nav className="hidden md:flex space-x-8">
+    // Cambia de 'md:flex' a 'lg:flex' para que el menú horizontal solo aparezca en >=1024px
+    <nav className="hidden lg:flex space-x-8">
       {navItems.map((item) => {
         let base =
           "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
@@ -100,28 +101,35 @@ function Header() {
             className="header-logo-img h-19 w-32 mr-2 -mt-1"
             style={{ filter: 'drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)' }}
           />
-            <div className="flex flex-col">
-              <span className="text-2xl font-bold text-gray-800 tracking-wide text-white">BAEKHO </span>
-              <span
-                className="text-xs font-bold tracking-wide"
-                style={{ color: '#D42D2D' }}
-              >
-                ACADEMIA DEPORTIVA
-              </span>
-            </div>
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold text-gray-800 tracking-wide text-white">BAEKHO </span>
+            <span
+              className="text-xs font-bold tracking-wide"
+              style={{ color: '#D42D2D' }}
+            >
+              ACADEMIA DEPORTIVA
+            </span>
+          </div>
         </div>
 
         {/* Navegación */}
         <HeaderNav />
-        {/* Menú móvil */}
-        <div className="md:hidden">
-          <button className="text-gray-700 hover:text-blue-600 focus:outline-none" onClick={() => setMobileOpen(true)}>
+        {/* Menú móvil/tablet: visible en <1024px */}
+        <div className="lg:hidden">
+          <button
+            className="text-gray-700 hover:text-blue-600 focus:outline-none"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Abrir menú de navegación"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+          >
             <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
-        <MobileMenu open={mobileOpen} setOpen={setMobileOpen} navItems={navItems} />
+        {/* El id se usa para aria-controls */}
+        <MobileMenu open={mobileOpen} setOpen={setMobileOpen} navItems={navItems} id="mobile-menu" />
       </div>
     </header>
   );
