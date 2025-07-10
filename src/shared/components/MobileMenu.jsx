@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function MobileMenu({ open, setOpen, navItems }) {
+function MobileMenu({ open, setOpen, navItems, id }) {
   const [active, setActive] = useState('inicio');
   const [goldBorder, setGoldBorder] = useState(null);
 
@@ -51,17 +51,24 @@ function MobileMenu({ open, setOpen, navItems }) {
       className={`fixed inset-0 z-50 transition-all duration-300 ${open ? 'visible' : 'invisible'}`}
       style={{ background: open ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)' }}
       onClick={handleOverlayClick}
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="mobile-menu-label"
+      aria-hidden={!open}
     >
       <aside
         className={`fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-black via-red-900 to-red-700 shadow-lg transform transition-transform duration-300 ${open ? 'translate-x-0' : 'translate-x-full'}`}
+        id={id}
       >
         <button
           className="absolute top-4 right-4 text-white text-2xl focus:outline-none"
           onClick={() => setOpen(false)}
+          aria-label="Cerrar menú de navegación"
         >
           &times;
         </button>
         <nav className="flex flex-col mt-20 space-y-6 px-8">
+          <span id="mobile-menu-label" className="sr-only">Menú de navegación</span>
           {navItems.map((item) => {
             let base =
               "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
