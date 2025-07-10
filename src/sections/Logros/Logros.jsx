@@ -174,13 +174,14 @@ const Logros = () => (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
       <ScrollReveal>
-        <div className="flex flex-col items-center justify-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 text-center flex items-center gap-3">
-            <span className="text-5xl">🏅</span>
-            NUESTROS <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">LOGROS</span>
-            <span className="text-5xl">🏅</span>
+        <div className="flex flex-col items-center justify-center mb-16 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 text-center flex flex-wrap justify-center items-center gap-2 sm:gap-3">
+            <span className="text-2xl sm:text-3xl">🏅</span>
+            NUESTROS{" "}
+            <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">LOGROS</span>
+            <span className="text-2xl sm:text-3xl">🏅</span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl text-center">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl text-center">
             El fruto del esfuerzo, la disciplina y la dedicación de nuestros atletas
           </p>
         </div>
@@ -243,10 +244,11 @@ const Logros = () => (
       {/* Reconocimientos */}
       <div className="mb-20">
         <ScrollReveal delay={200}>
-          <h3 className="text-3xl md:text-4xl font-black text-white mb-12 text-center flex items-center justify-center gap-2">
-            <span className="text-3xl md:text-4xl">🥋</span>
-            RECONOCIMIENTOS <span className="text-orange-500 drop-shadow-[0_0_16px_#FE5900]">RECIENTES</span>
-            <span className="text-3xl md:text-4xl">🥋</span>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-12 text-center flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4">
+            <span className="text-xl sm:text-2xl">🥋</span>
+            RECONOCIMIENTOS{" "}
+            <span className="text-orange-500 drop-shadow-[0_0_16px_#FE5900]">RECIENTES</span>
+            <span className="text-xl sm:text-2xl">🥋</span>
           </h3>
         </ScrollReveal>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
