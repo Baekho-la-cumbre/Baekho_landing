@@ -2,9 +2,9 @@ import React from "react";
 
 const Footer = () => (
   <footer className="bg-gradient-to-r from-[#2a0a0a] to-[#181c24] pt-12 pb-4 px-4 border-t-2 border-[#D42D2D]">
-    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start justify-items-center md:justify-items-start">
       {/* Logo y descripción */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
         <div className="flex items-top gap-3 ">
         <div className="flex items-top h-19">
           <img
@@ -35,7 +35,7 @@ const Footer = () => (
         </div>
       </div>
       {/* Enlaces rápidos */}
-      <div className="flex flex-col gap-2 md:items-left">
+      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
         <span className="text-white font-bold mb-2">Enlaces Rápidos</span>
         <div className="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-left">
           <a href="#inicio" className="text-gray-300 hover:text-[#D42D2D] transition">Inicio</a>
@@ -47,7 +47,7 @@ const Footer = () => (
         </div>
       </div>
       {/* Contacto */}
-      <div className="flex flex-col gap-2 md:items-left">
+      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
         <span className="text-white font-bold mb-2">Contacto</span>
         <span className="text-gray-300 text-sm">CRA 9AE #29A-56, Floridablanca, Santander</span>
         <span className="text-gray-300 text-sm">+57 317 7688456</span>
