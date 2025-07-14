@@ -34,10 +34,17 @@ const Footer = () => (
           </a>
         </div>
       </div>
+      {/* Contacto */}
+      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
+        <span className="text-white font-bold mb-2">Contacto</span>
+        <span className="text-gray-300 text-sm">CRA 9AE #29A-56, Floridablanca, Santander</span>
+        <span className="text-gray-300 text-sm">+57 317 7688456</span>
+        <a href="mailto:info@baekhoacademy.com" className="text-gray-300 text-sm hover:text-[#D42D2D] transition">Baekhotaekwondo2016@outlook.com</a>
+      </div>
       {/* Enlaces rápidos */}
       <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
         <span className="text-white font-bold mb-2">Enlaces Rápidos</span>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-left">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-1 w-full text-left">
           <a href="#inicio" className="text-gray-300 hover:text-[#D42D2D] transition">Inicio</a>
           <a href="#logros" className="text-gray-300 hover:text-[#D42D2D] transition">Logros</a>
           <a href="#historia" className="text-gray-300 hover:text-[#D42D2D] transition">Historia</a>
@@ -45,13 +52,6 @@ const Footer = () => (
           <a href="#galeria" className="text-gray-300 hover:text-[#D42D2D] transition">Galeria</a>
           <a href="#contacto" className="text-gray-300 hover:text-[#D42D2D] transition">Contacto</a>
         </div>
-      </div>
-      {/* Contacto */}
-      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
-        <span className="text-white font-bold mb-2">Contacto</span>
-        <span className="text-gray-300 text-sm">CRA 9AE #29A-56, Floridablanca, Santander</span>
-        <span className="text-gray-300 text-sm">+57 317 7688456</span>
-        <a href="mailto:info@baekhoacademy.com" className="text-gray-300 text-sm hover:text-[#D42D2D] transition">Baekhotaekwondo2016@outlook.com</a>
       </div>
     </div>
     <hr className="my-6 border-[#D42D2D] opacity-40" />
