@@ -5,15 +5,15 @@ const Footer = () => (
     <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
       {/* Logo y descripción */}
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3 mb-2">
-        <div className="flex items-center h-19">
+        <div className="flex items-top gap-3 ">
+        <div className="flex items-top h-19">
           <img
             src="/logo.svg"
             alt="Baekho Logo"
-            className="header-logo-img h-19 w-32 mr-2 -mt-1"
+            className="header-logo-img h-19 w-32 mr-2 -mt-2"
             style={{ filter: 'drop-shadow(0 0 9px white) drop-shadow(0 0 24px white)' }}
           />
-          <div>
+          <div className="hidden md:block">
             <span className="block text-lg font-bold text-white leading-tight">BAEKHO</span>
             <span className="block text-xs font-bold text-[#D42D2D]">ACADEMIA DEPORTIVA</span>
           </div>
@@ -27,10 +27,10 @@ const Footer = () => (
             <img src="/facebook.png" alt="Facebook" className="w-6 h-6 inline" />
           </a>
           <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
-            <img src="/tik-tok.png" alt="TikTok" className="w-6 h-6 inline" />
+            <img src="/tik-tok.png" alt="TikTok" className="w-7 h-7 inline" />
           </a>
           <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
-            <img src="/instagram.png" alt="Instagram" className="w-6 h-6 inline" />
+            <img src="/instagram.png" alt="Instagram" className="w-7 h-7 inline" />
           </a>
         </div>
       </div>
