@@ -43,7 +43,7 @@ const data = {
 };
 
 const HorarioGrid = () => (
-  <div className="bg-black/60 rounded-xl p-6 shadow-lg max-w-4xl w-full overflow-x-auto mx-auto border-2 border-[#D42D2D]">
+  <div className="bg-black/60 rounded-xl p-6 shadow-lg w-full mx-auto border-2 border-[#D42D2D] custom-60 overflow-x-auto">
     <h2 className="text-3xl font-bold text-center text-[#D42D2D] mb-6 drop-shadow">Horario</h2>
     <table className="min-w-full text-white text-center border-separate border-spacing-0">
       <thead>

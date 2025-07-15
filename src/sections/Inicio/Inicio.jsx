@@ -23,7 +23,7 @@ const Inicio = () => {
       </div>
 
       {/* Contenido principal o cuadrícula de horarios */}
-      <div className="relative z-10 text-center px-4 max-w-2xl mx-auto w-full">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto w-full">
         {/* Transición suave */}
         <div className={`transition-all duration-500 ${showSchedule ? "opacity-0 pointer-events-none absolute" : "opacity-100 relative"}`}>
           <h1 className=" text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-lg mb-2">
