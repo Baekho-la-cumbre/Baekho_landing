@@ -197,7 +197,7 @@ const Contacto = () => (
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Correo</h4>
-                    <p className="text-gray-300">Baekhotaekwondo2016@outlook.com</p>
+                    <p className="text-gray-300 break-all">Baekhotaekwondo2016@outlook.com</p>
                   </div>
                 </div>
               </div>
