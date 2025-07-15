@@ -228,7 +228,7 @@ const Contacto = () => (
           <ScrollReveal delay={500}>
             <InteractiveCard className="bg-black/80 border border-red-500/30 rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center">
               <a
-                href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/..."
+                href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/@7.0779666,-73.0970339,15z/data=!3m1!4b1!4m6!3m5!1s0x8e683f4005ef85b3:0xabe0ad6590ee3710!8m2!3d7.0779454!4d-73.0867341!16s%2Fg%2F11fkbcdqb5?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D/..."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 px-6 sm:px-10 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-center text-base sm:text-lg md:text-xl w-full"
