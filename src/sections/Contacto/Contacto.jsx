@@ -192,7 +192,7 @@ const Contacto = () => (
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <img src="/gmail.png" alt="Correo" className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   <div>
