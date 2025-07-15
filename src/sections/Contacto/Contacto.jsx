@@ -215,10 +215,10 @@ const Contacto = () => (
                   <img src="/facebook.png" alt="Facebook" className="w-8 h-8" />
                 </a>
                 <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
-                  <img src="/tik-tok.png" alt="TikTok" className="w-8 h-8" />
+                  <img src="/tik-tok.png" alt="TikTok" className="w-9 h-9" />
                 </a>
                 <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
-                  <img src="/instagram.png" alt="Instagram" className="w-8 h-8" />
+                  <img src="/instagram.png" alt="Instagram" className="w-9 h-9" />
                 </a>
               </div>
             </InteractiveCard>
