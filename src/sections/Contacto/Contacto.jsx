@@ -192,12 +192,12 @@ const Contacto = () => (
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                     <img src="/gmail.png" alt="Correo" className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   <div>
                     <h4 className="text-white font-semibold mb-1">Correo</h4>
-                    <p className="text-gray-300">Baekhotaekwondo2016@outlook.com</p>
+                    <p className="text-gray-300 break-all">Baekhotaekwondo2016@outlook.com</p>
                   </div>
                 </div>
               </div>
@@ -215,10 +215,10 @@ const Contacto = () => (
                   <img src="/facebook.png" alt="Facebook" className="w-8 h-8" />
                 </a>
                 <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
-                  <img src="/tik-tok.png" alt="TikTok" className="w-8 h-8" />
+                  <img src="/tik-tok.png" alt="TikTok" className="w-9 h-9" />
                 </a>
                 <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
-                  <img src="/instagram.png" alt="Instagram" className="w-8 h-8" />
+                  <img src="/instagram.png" alt="Instagram" className="w-9 h-9" />
                 </a>
               </div>
             </InteractiveCard>
@@ -228,7 +228,7 @@ const Contacto = () => (
           <ScrollReveal delay={500}>
             <InteractiveCard className="bg-black/80 border border-red-500/30 rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center">
               <a
-                href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/..."
+                href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/@7.0779666,-73.0970339,15z/data=!3m1!4b1!4m6!3m5!1s0x8e683f4005ef85b3:0xabe0ad6590ee3710!8m2!3d7.0779454!4d-73.0867341!16s%2Fg%2F11fkbcdqb5?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D/..."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold py-3 px-6 sm:px-10 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-center text-base sm:text-lg md:text-xl w-full"

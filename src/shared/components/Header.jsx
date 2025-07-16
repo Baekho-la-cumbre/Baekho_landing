@@ -92,7 +92,7 @@ function Header() {
         background: 'radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)'
       }}
     >
-      <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 ">
+      <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 header-gap-xl header-wide-xl">
         {/* Logo */}
         <div className="flex items-center h-19">
           <img

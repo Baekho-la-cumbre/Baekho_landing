@@ -176,10 +176,8 @@ const Logros = () => (
       <ScrollReveal>
         <div className="flex flex-col items-center justify-center mb-16 px-4">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 text-center flex flex-wrap justify-center items-center gap-2 sm:gap-3">
-            <span className="text-2xl sm:text-3xl">🏅</span>
             NUESTROS{" "}
             <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">LOGROS</span>
-            <span className="text-2xl sm:text-3xl">🏅</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl text-center">
             El fruto del esfuerzo, la disciplina y la dedicación de nuestros atletas
@@ -191,15 +189,13 @@ const Logros = () => (
       <div>
         <ScrollReveal>
           <h3 className="text-3xl md:text-4xl font-black text-red-500 mb-12 text-center drop-shadow-[0_0_24px_#D42D2D] tracking-widest flex items-center justify-center gap-2">
-            <span className="text-3xl md:text-4xl">🏆</span>
             ATLETAS DESTACADOS
-            <span className="text-3xl md:text-4xl">🏆</span>
           </h3>
         </ScrollReveal>
-        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto items-stretch">
           {atletasDestacados.map((atleta, index) => (
             <ScrollReveal key={index} delay={index * 200}>
-              <div className="relative group rounded-3xl overflow-visible shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99]">
+              <div className="relative group rounded-3xl overflow-visible shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-full">
                 {/* Fondo decorativo (fondocard.png) */}
                 <img
                   src="/fondocard.png"
@@ -245,17 +241,15 @@ const Logros = () => (
       <div className="mb-20">
         <ScrollReveal delay={200}>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-12 text-center flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4">
-            <span className="text-xl sm:text-2xl">🥋</span>
             RECONOCIMIENTOS{" "}
             <span className="text-orange-500 drop-shadow-[0_0_16px_#FE5900]">RECIENTES</span>
-            <span className="text-xl sm:text-2xl">🥋</span>
           </h3>
         </ScrollReveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {logrosData.map((logro, index) => (
             <ScrollReveal key={index} delay={index * 100}>
               <InteractiveCard
-                className="bg-gradient-to-br from-black/80 to-gray-900/80 p-8 rounded-2xl shadow-xl flex flex-col items-center border-4 min-h-[320px] relative overflow-hidden"
+                className="bg-gradient-to-br from-black/80 to-gray-900/80 p-8 rounded-2xl shadow-xl flex flex-col items-center border-4 min-h-[320px] relative overflow-hidden h-full"
                 style={{
                   borderColor:
                     logro.medalla === "Oro"
