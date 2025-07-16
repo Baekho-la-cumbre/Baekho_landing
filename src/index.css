@@ -11,6 +11,17 @@ html {
   font-style: normal;
 }
 
+@media (min-width: 1650px) {
+  .header-gap-xl {
+    gap: 6rem !important;
+     /* Puedes ajustar el valor, por ejemplo 6rem = 96px */
+  }  
+  .header-wide-xl {
+    max-width: 1500px !important; /* o el valor que prefieras, por ejemplo 1600px */
+  }
+  
+}
+
 @media (max-width: 1100px) and (min-width: 768px) {
   .header-nav-btn {
     font-size: 1rem;
@@ -29,8 +40,8 @@ html {
     padding-right: 0.5rem;
   }
   .header-logo-img {
-    width: 4rem;
-    height: 3rem;
+    width: 6rem;
+    height: 5rem;
   }
 }
 
