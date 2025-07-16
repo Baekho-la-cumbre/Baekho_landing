@@ -19,6 +19,9 @@ html {
   .header-wide-xl {
     max-width: 1500px !important; /* o el valor que prefieras, por ejemplo 1600px */
   }
+  .horario-width-xl {
+    max-width: 1200px;
+  }
   
 }
 
@@ -32,7 +35,10 @@ html {
     width: 6rem;
     height: 4rem;
   }
-
+  .horario-width-md {
+    max-width: 800px;
+    max-height: 40wp;
+  }
  
 }
 @media (max-width: 767px) {
@@ -45,6 +51,10 @@ html {
     width: 6rem;
     height: 5rem;
   }
+  .horario-width-sm {
+    max-width: 95vw;
+  }
+
 }
 
 .header-nav-btn {
