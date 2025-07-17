@@ -190,8 +190,6 @@ const stats = [
 // Carrusel simple
 const TrayectoriaCarousel = () => {
   const [active, setActive] = useState(historiaData.length - 3); // 2018 por defecto
-  const handlePrev = () => setActive((prev) => (prev > 0 ? prev - 1 : prev));
-  const handleNext = () => setActive((prev) => (prev < historiaData.length - 1 ? prev + 1 : prev));
   const handleYear = (idx) => setActive(idx);
   const slide = historiaData[active];
   return (
@@ -220,13 +218,7 @@ const TrayectoriaCarousel = () => {
             </div>
           </div>
         </div>
-        {/* Flechas */}
-        <button onClick={handlePrev} className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D42D2D] text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-[#D42D2D] z-10 transition-all duration-200 focus:outline-none" style={{boxShadow:'0 0 12px 0 #D42D2D'}}>
-          &#60;
-        </button>
-        <button onClick={handleNext} className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-[#D42D2D] text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg border-2 border-[#D42D2D] z-10 transition-all duration-200 focus:outline-none" style={{boxShadow:'0 0 12px 0 #D42D2D'}}>
-          &#62;
-        </button>
+        {/* Flechas eliminadas */}
       </div>
       {/* Paginación (puntos) */}
       <div className="flex justify-center gap-2 mt-6">
