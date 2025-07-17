@@ -194,9 +194,9 @@ const TrayectoriaCarousel = () => {
   const slide = historiaData[active];
   return (
     <div className="mb-8">
-      <div className="max-w-6xl mx-auto bg-black/40 border border-red-900 rounded-2xl p-6 md:p-12 flex flex-col md:flex-row gap-12 items-stretch relative shadow-lg" style={{boxShadow:'0 0 16px 0 #D42D2D88'}}>
+      <div className="max-w-6xl mx-auto bg-black/40 border border-red-900 rounded-2xl p-6 lg:p-12 flex flex-col lg:flex-row gap-12 items-stretch relative shadow-lg min-h-[340px]" style={{boxShadow:'0 0 16px 0 #D42D2D88'}}>
         {/* Imagen o placeholder */}
-        <div className="w-full md:w-[520px] h-[340px] bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden" style={{boxShadow:'0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D'}}>
+        <div className="w-full lg:w-[520px] h-full bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden" style={{boxShadow:'0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D'}}>
           <div className="absolute inset-0 pointer-events-none rounded-2xl" style={{boxShadow:'0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D'}}></div>
           {slide.img
             ? <img src={slide.img} alt={slide.title} className="w-full h-full object-cover rounded-2xl z-10" />
@@ -204,10 +204,10 @@ const TrayectoriaCarousel = () => {
           }
         </div>
         {/* Contenido */}
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-center h-full">
           <div className="flex items-center gap-4 mb-2">
             <span className="bg-gradient-to-r from-[#FE5900] to-[#D42D2D] text-white font-black px-3 py-5 rounded-full text-2xl shadow-lg border-1 border-black/30">{slide.year}</span>
-            <span className="text-3xl md:text-4xl font-black text-white drop-shadow">{slide.title}</span>
+            <span className="text-3xl lg:text-4xl font-black text-white drop-shadow">{slide.title}</span>
           </div>
           <p className="text-xl text-gray-200 mb-4 leading-relaxed max-w-2xl">{slide.desc}</p>
           <div className="mt-2">
