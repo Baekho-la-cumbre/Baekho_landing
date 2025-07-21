@@ -87,10 +87,7 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   return (
     <header
-      className="relative shadow-sm sticky top-0 z-50 w-full h-20 custom-header"
-      style={{
-        background: 'radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)'
-      }}
+      className="shadow-sm sticky top-0 z-50 w-full h-20 custom-header backdrop-blur-md"
     >
       <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 header-gap-xl header-wide-xl">
         {/* Logo */}
@@ -99,10 +96,10 @@ function Header() {
             src="/logo.svg"
             alt="Baekho Logo"
             className="header-logo-img h-19 w-32 mr-2 -mt-1"
-            style={{ filter: 'drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)' }}
+           // style={{ filter: 'drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)' }}
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-gray-800 tracking-wide text-white">BAEKHO </span>
+            <span className="text-2xl font-bold tracking-wide text-white">BAEKHO </span>
             <span
               className="text-xs font-bold tracking-wide"
               style={{ color: '#D42D2D' }}
