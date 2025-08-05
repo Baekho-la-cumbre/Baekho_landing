@@ -226,73 +226,85 @@ const TrayectoriaCarousel = () => {
 
   return (
     <div className="mb-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="relative bg-black/40 border border-red-900 rounded-2xl p-6 md:p-12 shadow-lg" style={{ boxShadow: "0 0 16px 0 #D42D2D88" }}>
-          <div className="overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4">
+        <div
+          className="relative bg-black/40 border border-red-900 rounded-2xl p-4 sm:p-6 md:p-12 shadow-lg"
+          style={{ boxShadow: "0 0 16px 0 #D42D2D88" }}
+        >
+          <div className="overflow-x-hidden">
             <div className="w-full h-full p-2">
               <div
-                className={`transition-all duration-500 ease-in-out transform flex flex-col md:flex-row gap-12 items-stretch relative ${
-                  fade
-                    ? "opacity-100 translate-x-0"
-                    : direction === "right"
-                    ? "opacity-0 translate-x-20"
-                    : "opacity-0 -translate-x-20"
-                } bg-transparent p-6 rounded-xl`}
-                style={{ maxWidth: "100%", margin: "0 auto" }}
-              >
-                {/* Imagen */}
-                <div
-                  className="w-full md:w-[520px] h-[340px] bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden"
-                  style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}
-                >
-                  <div
-                    className="absolute inset-0 pointer-events-none rounded-2xl"
-                    style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}
-                  ></div>
-                  {slide.img ? (
-                    <img
-                      src={slide.img}
-                      alt={slide.title}
-                      className="w-full h-full object-cover rounded-2xl z-10"
-                    />
-                  ) : (
-                    <span className="text-gray-400 text-6xl z-10">🖼️</span>
-                  )}
-                </div>
+  className={`transition-all duration-500 ease-in-out transform flex flex-col lg:flex-row items-stretch gap-6 lg:gap-12 relative ${
+    fade
+      ? "opacity-100 translate-x-0"
+      : direction === "right"
+      ? "opacity-0 translate-x-20"
+      : "opacity-0 -translate-x-20"
+  } bg-transparent p-6 rounded-xl`}
+  style={{ maxWidth: "100%", margin: "0 auto" }}
+>
+  {/* Imagen */}
+  <div
+    className="w-full lg:w-1/2 h-[240px] sm:h-[300px] md:h-[340px] lg:h-full bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden"
+    style={{
+      boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D",
+    }}
+  >
+    <div
+      className="absolute inset-0 pointer-events-none rounded-2xl"
+      style={{
+        boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D",
+      }}
+    ></div>
+    {slide.img ? (
+      <img
+        src={slide.img}
+        alt={slide.title}
+        className="w-full h-full object-cover rounded-2xl z-10"
+      />
+    ) : (
+      <span className="text-gray-400 text-6xl z-10">🖼️</span>
+    )}
+  </div>
 
-                {/* Contenido */}
-                <div className="flex-1 flex flex-col justify-center">
-                  <div className="flex items-center gap-4 mb-2">
-                    <span className="bg-gradient-to-r from-[#FE5900] to-[#D42D2D] text-white font-black px-3 py-5 rounded-full text-2xl shadow-lg border-1 border-black/30">
-                      {slide.year}
-                    </span>
-                    <span className="text-2xl sm:text-3xl md:text-4xl font-black text-white drop-shadow break-words max-w-full">
-                      {slide.title}
-                    </span>
-                  </div>
-                  <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-4 leading-relaxed max-w-full break-words">
-                    {slide.desc}
-                  </p>
-                  <div className="mt-2">
-                    <div className="bg-gradient-to-r from-[#2a0a0a] to-[#3a1a1a] border border-[#D42D2D] rounded-xl px-8 py-5 flex items-center gap-3">
-                      <span className="w-3 h-3 rounded-full bg-[#D42D2D] inline-block"></span>
-                      <span className="text-[#D42D2D] font-bold">Logro destacado:</span>
-                      <span className="ml-2 text-white font-extrabold">{slide.logro}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+  {/* Texto */}
+  <div className="w-full lg:w-1/2 flex flex-col justify-center">
+    <div className="flex flex-wrap items-center gap-4 mb-2">
+      <span className="bg-gradient-to-r from-[#FE5900] to-[#D42D2D] text-white font-black px-3 py-3 rounded-full text-xl sm:text-2xl shadow-lg border border-black/30">
+        {slide.year}
+      </span>
+      <span className="text-xl sm:text-2xl md:text-4xl font-black text-white drop-shadow break-words text-wrap max-w-full">
+        {slide.title}
+      </span>
+    </div>
+    <p className="text-sm sm:text-base md:text-xl text-gray-200 mb-4 leading-relaxed max-w-full break-words text-wrap">
+      {slide.desc}
+    </p>
+    <div className="mt-2">
+      <div className="bg-gradient-to-r from-[#2a0a0a] to-[#3a1a1a] border border-[#D42D2D] rounded-xl px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2">
+        <span className="w-3 h-3 rounded-full bg-[#D42D2D] inline-block"></span>
+        <span className="text-[#D42D2D] font-bold text-sm sm:text-base">
+          Logro destacado:
+        </span>
+        <span className="ml-2 text-white font-extrabold text-sm sm:text-base break-words max-w-full">
+          {slide.logro}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
             </div>
           </div>
         </div>
 
         {/* Paginación por años */}
-        <div className="flex justify-center gap-2 mt-6 flex-wrap">
+        <div className="flex justify-center gap-2 mt-6 flex-wrap px-2">
           {historiaData.map((item, idx) => (
             <button
               key={item.year}
               onClick={() => handleYear(idx)}
-              className={`px-5 py-2 rounded-lg font-bold border border-gray-700 transition-all ${
+              className={`px-4 py-2 rounded-lg font-bold border border-gray-700 transition-all text-sm sm:text-base ${
                 idx === active
                   ? "bg-[#D42D2D] text-white"
                   : "bg-neutral-800 text-gray-300 hover:bg-[#D42D2D]/80 hover:text-white"
@@ -306,6 +318,7 @@ const TrayectoriaCarousel = () => {
     </div>
   );
 };
+
 
 const Historia = () => {
   

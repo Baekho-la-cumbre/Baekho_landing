@@ -18,4 +18,16 @@ module.exports = {
     tailwindcssAnimate,
     tailwindScrollbar({ nocompatible: true }),
   ],
+
+  theme: {
+    extend: {
+      screens: {
+        'xlmin': '1025px',
+        'xlmed': '1225px',
+      },
+    },
+  }
+
 };
+
+
