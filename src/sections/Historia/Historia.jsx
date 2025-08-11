@@ -129,6 +129,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
 
 // Datos de ejemplo para el carrusel
 const historiaData = [
+  { year: 2015, title: "", desc: "", logro: "", video: "public/Video de WhatsApp 2025-08-09 a las 10.29.04_04de78c2.mp4" },
   { year: 2016, title: "Fundación del Club", desc: "El 4 de abril nace el Club Academia de Taekwondo Baekho, fruto de la visión de nuestro entrenador fundador tras emprender un proyecto independiente, llevando el Taekwondo a comunidades vulnerables y fomentando valores como disciplina, respeto y superación.", logro: "Inicio de actividades formativas", img: '/ImgInicio.jpg' },
   { year: 2017, title: "Años de desafío", desc: "Enfrentamos retos por la falta de recursos y un espacio adecuado, pero la pasión y perseverancia permitieron continuar formando deportistas incluso en condiciones adversas.", logro: "Superación de adversidades iniciales", img: '/ImgInicio.jpg' },
   { year: 2018, title: "Primeras competencias", desc: "Participamos en festivales infantiles y campeonatos oficiales, demostrando la calidad del proceso formativo y fortaleciendo la confianza de la comunidad.", logro: "Primeras apariciones competitivas", img: '/ImgInicio.jpg' },
@@ -148,18 +149,20 @@ const stats = [
 ];
 
 const TrayectoriaCarousel = () => {
-  const [active, setActive] = useState(historiaData.length - 3);
-  const [prev, setPrev] = useState(historiaData.length - 3);
+  const [active, setActive] = useState(0);
+  const [prev, setPrev] = useState(0);
   const [direction, setDirection] = useState("right");
   const [fade, setFade] = useState(true);
   const autoplayRef = useRef();
   const yearsBarRef = useRef(null);
   const yearRefs = useRef([]);
+  const [autoplay, setAutoplay] = useState(true);
 
   const handleYear = (idx) => {
     setFade(false);
     setDirection(idx > active ? "right" : "left");
     setPrev(active);
+    setAutoplay(false); // Desactivar autoplay al hacer clic
     setTimeout(() => {
       setActive(idx);
       setFade(true);
@@ -175,6 +178,8 @@ const TrayectoriaCarousel = () => {
   }, [active]);
 
   useEffect(() => {
+    if (!autoplay) return; // Si autoplay está desactivado, no hacer nada
+
     autoplayRef.current = setInterval(() => {
       setFade(false);
       setDirection("right");
@@ -188,7 +193,7 @@ const TrayectoriaCarousel = () => {
       }, 300);
     }, 5000);
     return () => clearInterval(autoplayRef.current);
-  }, [active]);
+  }, [active, autoplay]);
 
   const slide = historiaData[active];
 
@@ -201,31 +206,60 @@ const TrayectoriaCarousel = () => {
               <div className={`transition-all duration-500 ease-in-out transform flex flex-col lg:flex-row items-stretch gap-6 lg:gap-12 relative ${
                 fade ? "opacity-100 translate-x-0" : direction === "right" ? "opacity-0 translate-x-20" : "opacity-0 -translate-x-20"
               } bg-transparent p-6 rounded-xl`} style={{ maxWidth: "100%", margin: "0 auto" }}>
-                {/* Imagen */}
-                <div className="w-full lg:w-1/2 h-[240px] sm:h-[300px] md:h-[340px] lg:h-full bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden" style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}>
-                  <div className="absolute inset-0 pointer-events-none rounded-2xl" style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}></div>
-                  {slide.img ? (
-                    <img src={slide.img} alt={slide.title} className="w-full h-full object-cover rounded-2xl z-10" />
-                  ) : (
-                    <span className="text-gray-400 text-6xl z-10">🖼️</span>
-                  )}
-                </div>
+                {/* Imagen / Video */}
+                  <div
+                    className={`${slide.video ? "w-full" : "w-full lg:w-1/2"} h-[300px] sm:h-[400px] md:h-[500px] bg-neutral-900 border-2 border-[#D42D2D] rounded-2xl flex items-center justify-center shadow-lg relative overflow-hidden`}
+                    style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}
+                  >
+                    <div
+                      className="absolute inset-0 pointer-events-none rounded-2xl"
+                      style={{ boxShadow: "0 0 24px 2px #D42D2D,0 0 0 2px #D42D2D" }}
+                    ></div>
+                    
+                    {slide.video ? (
+                      <video
+                        src={slide.video}
+                        controls
+                        className="w-full h-full object-contain object-center rounded-2xl z-10"
+                      />
+                    ) : slide.img ? (
+                      <img
+                        src={slide.img}
+                        alt={slide.title}
+                        className="w-full h-full object-cover rounded-2xl z-10"
+                      />
+                    ) : (
+                      <span className="text-gray-400 text-6xl z-10">🖼️</span>
+                    )}
+                  </div>
 
-                {/* Texto */}
-                <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                  <div className="flex flex-wrap items-center gap-4 mb-2">
-                    <span className="bg-gradient-to-r from-[#FE5900] to-[#D42D2D] text-white font-black px-3 py-3 rounded-full text-xl sm:text-2xl shadow-lg border border-black/30">{slide.year}</span>
-                    <span className="text-xl sm:text-2xl md:text-4xl font-black text-white drop-shadow break-words max-w-full">{slide.title}</span>
-                  </div>
-                  <p className="text-sm sm:text-base md:text-xl text-gray-200 mb-4 leading-relaxed">{slide.desc}</p>
-                  <div className="mt-2">
-                    <div className="bg-gradient-to-r from-[#2a0a0a] to-[#3a1a1a] border border-[#D42D2D] rounded-xl px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2">
-                      <span className="w-3 h-3 rounded-full bg-[#D42D2D] inline-block"></span>
-                      <span className="text-[#D42D2D] font-bold text-sm sm:text-base">Logro destacado:</span>
-                      <span className="ml-2 text-white font-extrabold text-sm sm:text-base">{slide.logro}</span>
+                  {/* Texto */}
+                  {!slide.video && (
+                    <div className="w-full lg:w-1/2 flex flex-col justify-center">
+                      <div className="flex flex-wrap items-center gap-4 mb-2">
+                        <span className="bg-gradient-to-r from-[#FE5900] to-[#D42D2D] text-white font-black px-3 py-3 rounded-full text-xl sm:text-2xl shadow-lg border border-black/30">
+                          {slide.year}
+                        </span>
+                        <span className="text-xl sm:text-2xl md:text-4xl font-black text-white drop-shadow break-words max-w-full">
+                          {slide.title}
+                        </span>
+                      </div>
+                      <p className="text-sm sm:text-base md:text-xl text-gray-200 mb-4 leading-relaxed">
+                        {slide.desc}
+                      </p>
+                      <div className="mt-2">
+                        <div className="bg-gradient-to-r from-[#2a0a0a] to-[#3a1a1a] border border-[#D42D2D] rounded-xl px-4 sm:px-6 py-4 flex flex-wrap items-center gap-2">
+                          <span className="w-3 h-3 rounded-full bg-[#D42D2D] inline-block"></span>
+                          <span className="text-[#D42D2D] font-bold text-sm sm:text-base">
+                            Logro destacado:
+                          </span>
+                          <span className="ml-2 text-white font-extrabold text-sm sm:text-base">
+                            {slide.logro}
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )}
               </div>
             </div>
           </div>
