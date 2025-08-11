@@ -129,12 +129,16 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
 
 // Datos de ejemplo para el carrusel
 const historiaData = [
-  { year: 2009, title: "Fundación de la Academia", desc: "Nace Baekho con la misión de formar campeones y personas íntegras.", logro: "Primeros estudiantes inscritos", img: '/ImgInicio.jpg' },
-  { year: 2012, title: "Primeros logros nacionales", desc: "Nuestros atletas obtienen medallas en campeonatos nacionales.", logro: "Primera medalla nacional", img: '/ImgInicio.jpg' },
-  { year: 2015, title: "Crecimiento y expansión", desc: "La academia crece en estudiantes y reconocimiento.", logro: "Más de 100 estudiantes", img: '/ImgInicio.jpg' },
-  { year: 2018, title: "Reconocimiento Nacional", desc: "Baekho se posiciona como una de las academias más prestigiosas del país. Nuestros atletas representan a la región en competencias nacionales, obteniendo múltiples medallas y reconocimientos.", logro: "15 medallas nacionales", img: '/ImgInicio.jpg' },
-  { year: 2021, title: "Proyección Internacional", desc: "Carlos López se convierte en nuestro primer atleta en competir internacionalmente, obteniendo una medalla de plata en el Open Internacional. Este logro marca un hito en nuestra historia.", logro: "Primera medalla internacional", img: '/ImgInicio.jpg' },
-  { year: 2024, title: "Presente y futuro", desc: "Seguimos creciendo y formando nuevas generaciones de campeones.", logro: "Academia 100% dedicada", img: '/ImgInicio.jpg' },
+  { year: 2016, title: "Fundación del Club", desc: "El 4 de abril nace el Club Academia de Taekwondo Baekho, fruto de la visión de nuestro entrenador fundador tras emprender un proyecto independiente, llevando el Taekwondo a comunidades vulnerables y fomentando valores como disciplina, respeto y superación.", logro: "Inicio de actividades formativas", img: '/ImgInicio.jpg' },
+  { year: 2017, title: "Años de desafío", desc: "Enfrentamos retos por la falta de recursos y un espacio adecuado, pero la pasión y perseverancia permitieron continuar formando deportistas incluso en condiciones adversas.", logro: "Superación de adversidades iniciales", img: '/ImgInicio.jpg' },
+  { year: 2018, title: "Primeras competencias", desc: "Participamos en festivales infantiles y campeonatos oficiales, demostrando la calidad del proceso formativo y fortaleciendo la confianza de la comunidad.", logro: "Primeras apariciones competitivas", img: '/ImgInicio.jpg' },
+  { year: 2019, title: "Reconocimiento y formalización", desc: "Afiliación oficial a la Liga Santandereana de Taekwondo y reconocimiento deportivo municipal, abriendo puertas al calendario competitivo departamental y nacional.", logro: "Reconocimiento deportivo oficial", img: '/ImgInicio.jpg' },
+  { year: 2020, title: "Resiliencia en pandemia", desc: "Frente al COVID-19, adaptamos entrenamientos virtuales y estrategias motivacionales, manteniendo el progreso y compromiso de los atletas.", logro: "Entrenamientos virtuales implementados", img: '/ImgInicio.jpg' },
+  { year: 2021, title: "Reactivación competitiva", desc: "Retorno a la presencialidad con resultados destacados a nivel departamental y nacional, y proyección de atletas hacia eventos internacionales.", logro: "Regreso a competencias con medallas", img: '/ImgInicio.jpg' },
+  { year: 2022, title: "Orgullo Panamericano", desc: "Nicole Tatiana Muentes integra la Selección Colombia Infantil y gana medalla de bronce en el Panamericano, enfrentando a rivales de Brasil y Nicaragua.", logro: "Medalla de bronce Panamericano", img: '/ImgInicio.jpg' },
+  { year: 2023, title: "Campeones mundiales", desc: "Nicole Tatiana Muentes, en la categoría TK3 Infantil, se corona Campeona Mundial en el evento de WT en Sogamoso, consolidando el trabajo del club.", logro: "Título Mundial TK3 Infantil", img: '/ImgInicio.jpg' },
+  { year: 2024, title: "Consolidación del alto rendimiento", desc: "Seguimos participando en eventos nacionales e internacionales, fortaleciendo procesos para el rendimiento élite.", logro: "Expansión del equipo de alto nivel", img: '/ImgInicio.jpg' },
+  { year: 2025, title: "Rumbo a Juegos Nacionales 2027", desc: "Planificamos y preparamos un grupo selecto de atletas para clasificar y destacar en los Juegos Nacionales, manteniendo la excelencia deportiva.", logro: "Proyección hacia Juegos Nacionales", img: '/ImgInicio.jpg' },
 ];
 
 const stats = [
