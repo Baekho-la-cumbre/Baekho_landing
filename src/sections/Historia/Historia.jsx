@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import BootstrapIcon from "../../shared/components/BootstrapIcon";
 
 // Simple ScrollReveal (fade-in on scroll)
 const ScrollReveal = ({ children, delay = 0 }) => {
@@ -11,9 +12,17 @@ const ScrollReveal = ({ children, delay = 0 }) => {
         if (rect.top < window.innerHeight - 80) setVisible(true);
       }
     };
-    window.addEventListener("scroll", onScroll);
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    
+    // Delay para evitar que se ejecute inmediatamente
+    const timeoutId = setTimeout(() => {
+      window.addEventListener("scroll", onScroll);
+      onScroll();
+    }, 500);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
   return (
     <div
@@ -129,7 +138,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
 
 // Datos de ejemplo para el carrusel
 const historiaData = [
-  { year: 2015, title: "", desc: "", logro: "", video: "public/Video de WhatsApp 2025-08-09 a las 10.29.04_04de78c2.mp4" },
+  { year: "video", title: "", desc: "", logro: "", video: "https://www.youtube.com/embed/RXI9L5DADl8" },
   { year: 2016, title: "Fundación del Club", desc: "El 4 de abril nace el Club Academia de Taekwondo Baekho, fruto de la visión de nuestro entrenador fundador tras emprender un proyecto independiente, llevando el Taekwondo a comunidades vulnerables y fomentando valores como disciplina, respeto y superación.", logro: "Inicio de actividades formativas", img: '/ImgInicio.jpg' },
   { year: 2017, title: "Años de desafío", desc: "Enfrentamos retos por la falta de recursos y un espacio adecuado, pero la pasión y perseverancia permitieron continuar formando deportistas incluso en condiciones adversas.", logro: "Superación de adversidades iniciales", img: '/ImgInicio.jpg' },
   { year: 2018, title: "Primeras competencias", desc: "Participamos en festivales infantiles y campeonatos oficiales, demostrando la calidad del proceso formativo y fortaleciendo la confianza de la comunidad.", logro: "Primeras apariciones competitivas", img: '/ImgInicio.jpg' },
@@ -169,13 +178,16 @@ const TrayectoriaCarousel = () => {
     }, 300);
   };
 
-  // Centrar el año activo en la barra
+  // Centrar el año activo en la barra (solo cuando se hace clic manualmente)
   useEffect(() => {
-    const el = yearRefs.current[active];
-    if (el && el.scrollIntoView) {
-      el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    // Solo centrar si no es por autoplay
+    if (!autoplay) {
+      const el = yearRefs.current[active];
+      if (el && el.scrollIntoView) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
     }
-  }, [active]);
+  }, [active, autoplay]);
 
   useEffect(() => {
     if (!autoplay) return; // Si autoplay está desactivado, no hacer nada
@@ -217,11 +229,22 @@ const TrayectoriaCarousel = () => {
                     ></div>
                     
                     {slide.video ? (
-                      <video
-                        src={slide.video}
-                        controls
-                        className="w-full h-full object-contain object-center rounded-2xl z-10"
-                      />
+                      slide.video.includes('youtube.com') ? (
+                        <iframe
+                          src={`${slide.video}?autoplay=0&mute=1`}
+                          title="YouTube video"
+                          className="w-full h-full rounded-2xl z-10"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <video
+                          src={slide.video}
+                          controls
+                          className="w-full h-full object-contain object-center rounded-2xl z-10"
+                        />
+                      )
                     ) : slide.img ? (
                       <img
                         src={slide.img}
@@ -268,19 +291,27 @@ const TrayectoriaCarousel = () => {
         {/* Paginación por años (centrada siempre) */}
         <div className="mt-6">
           <div ref={yearsBarRef} className="w-full max-w-4xl mx-auto flex justify-center gap-2 px-2 overflow-x-auto no-scrollbar">
-            {historiaData.map((item, idx) => (
-              <button
-                key={item.year}
-                ref={(el) => (yearRefs.current[idx] = el)}
-                onClick={() => handleYear(idx)}
-                className={`shrink-0 px-4 py-2 rounded-lg font-bold border transition-all text-sm sm:text-base
-                  ${idx === active ? "bg-[#D42D2D] text-white border-[#D42D2D]" : "bg-neutral-800 text-gray-300 border-gray-700 hover:bg-[#D42D2D]/80 hover:text-white"}`}
-                aria-current={idx === active ? "true" : undefined}
-                aria-label={`Ir al año ${item.year}`}
-              >
-                {item.year}
-              </button>
-            ))}
+                         {historiaData.map((item, idx) => (
+               <button
+                 key={item.year}
+                 ref={(el) => (yearRefs.current[idx] = el)}
+                 onClick={() => handleYear(idx)}
+                 className={`shrink-0 font-bold border transition-all text-sm sm:text-base ${
+                   item.year === "video" 
+                     ? "w-12 h-12 rounded-full flex items-center justify-center" 
+                     : "px-4 py-2 rounded-lg"
+                 }
+                   ${idx === active ? "bg-[#D42D2D] text-white border-[#D42D2D]" : "bg-neutral-800 text-gray-300 border-gray-700 hover:bg-[#D42D2D]/80 hover:text-white"}`}
+                 aria-current={idx === active ? "true" : undefined}
+                 aria-label={item.year === "video" ? "Ver video" : `Ir al año ${item.year}`}
+               >
+                 {item.year === "video" ? (
+                   <BootstrapIcon name="play-circle-fill" size="1.5rem" />
+                 ) : (
+                   item.year
+                 )}
+               </button>
+             ))}
           </div>
         </div>
       </div>
