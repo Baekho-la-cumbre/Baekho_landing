@@ -4,13 +4,16 @@ html {
   scroll-behavior: smooth;
 }
 
+
 @font-face {
-  font-family: 'Karate';
+  font-family: 'Karate1';
   src: url('./shared/fonts/Karate.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-
+.baekho-title {
+  font-family: 'Karate', sans-serif;
+}
 @media (min-width: 1650px) {
   .header-gap-xl {
     gap: 6rem !important;

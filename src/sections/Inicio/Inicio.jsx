@@ -16,36 +16,36 @@ const Inicio = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden"
     >
       {/* Fondo: imagen, video o gradiente */}
       <div className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0 w-full h-full bg-center bg-cover z-0"
+          className="absolute inset-0 z-0 w-full h-full bg-center bg-cover"
           style={{ backgroundImage: "url('/ImgInicio.jpg')" }}
         />
         {/* Si tienes un video, puedes ponerlo aquí */}
-        {/* <video autoPlay loop muted className="w-full h-full object-cover">...</video> */}
+        {/* <video autoPlay loop muted className="object-cover w-full h-full">...</video> */}
         {/* Imagen de fondo o gradiente */}
         <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-[#7a1a1a] via-black to-[#D42D2D] opacity-90"></div>
         {/* Puedes agregar aquí partículas, blobs, o un canvas para efectos */}
       </div>
 
       {/* Contenido principal o cuadrícula de horarios */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto w-full">
+      <div className="relative z-10 w-full max-w-5xl px-4 mx-auto text-center">
         {/* Solo renderiza el contenido de inicio si no está oculto */}
         {!hideInicio && (
           <div className={`transition-all duration-500 ${hideInicio ? "opacity-0 pointer-events-none" : "opacity-100"} relative`}>
-            <h1 className=" text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent drop-shadow-lg mb-2">
+            <h1 className="mb-2 text-6xl font-extrabold text-transparent md:text-7xl bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text drop-shadow-lg baekho-title">
               BAEKHO
             </h1>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg mb-6">
+            <h2 className="mb-6 text-3xl font-extrabold text-white md:text-4xl drop-shadow-lg">
               CLUB DEPORTIVA
             </h2>
-            <p className="text-lg md:text-xl text-gray-200 mb-2">
+            <p className="mb-2 text-lg text-gray-200 md:text-xl">
               Forjando campeones, inspirando futuros.
             </p>
-            <p className="text-lg md:text-xl text-red-400 font-semibold mb-8">
+            <p className="mb-8 text-lg font-semibold text-red-400 md:text-xl">
               Descubre la excelencia en Taekwondo.
             </p>
           </div>
@@ -57,7 +57,7 @@ const Inicio = () => {
           </div>
         )}
         {/* Botones */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+        <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
           {!showSchedule ? (
             <>
               <button
