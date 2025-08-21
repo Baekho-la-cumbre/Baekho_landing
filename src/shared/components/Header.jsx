@@ -14,21 +14,59 @@ function HeaderNav() {
   const [active, setActive] = useState('inicio');
   const [goldBorder, setGoldBorder] = useState(null);
 
+  // Manejar hash de URL al cargar la página
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    console.log('Initial hash:', hash);
+    console.log('Current URL:', window.location.href);
+    
+    if (hash && navItems.some(item => item.id === hash)) {
+      console.log('Setting active from hash:', hash);
+      setActive(hash);
+      // Scroll suave a la sección si hay hash
+      setTimeout(() => {
+        const targetElement = document.getElementById(hash);
+        if (targetElement) {
+          const offsetTop = targetElement.offsetTop - 80;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth',
+          });
+        }
+      }, 100);
+    }
+  }, []);
+
   // Scrollspy: actualiza el botón activo según la sección visible
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 150; // Aumentar offset para ser más preciso
+      
+      console.log('Scroll position:', scrollPosition);
+      console.log('Sections:', sections.map((s, i) => ({ id: navItems[i].id, offsetTop: s?.offsetTop })));
+      
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section && section.offsetTop <= scrollPosition) {
+          console.log('Setting active to:', navItems[i].id);
           setActive(navItems[i].id);
           break;
         }
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Delay inicial para evitar que se ejecute inmediatamente al cargar
+    const timeoutId = setTimeout(() => {
+      console.log('Initial scroll check');
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+    }, 1000); // Aumentar el delay a 1000ms para dar más tiempo
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   // Smooth scroll al hacer clic

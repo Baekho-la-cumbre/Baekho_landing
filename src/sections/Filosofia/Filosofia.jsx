@@ -1,4 +1,5 @@
 import React from "react";
+import BootstrapIcon from "../../shared/components/BootstrapIcon";
 
 // ScrollReveal simple (fade-in)
 const ScrollReveal = ({ children, delay = 0 }) => {
@@ -86,14 +87,14 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
 
 // Valores de ejemplo
 const valoresData = [
-  { valor: "DISCIPLINA", descripcion: "La constancia y el orden en el entrenamiento son la base del progreso. Cultivamos la autodisciplina como herramienta para alcanzar metas.", icono: "🥋" },
-  { valor: "INTEGRIDAD", descripcion: "Actuamos con honestidad y coherencia entre nuestros valores y acciones, tanto en el dojang como en la vida cotidiana.", icono: "⚖️" },
-  { valor: "PERSEVERANCIA", descripcion: "Nunca rendirse ante las dificultades. Cada obstáculo es una oportunidad para crecer y demostrar nuestro verdadero carácter.", icono: "💪" },
-  { valor: "AUTOCONTROL", descripcion: "El dominio de nuestras emociones y reacciones nos permite tomar decisiones sabias y actuar con serenidad en cualquier situación.", icono: "🧘" },
-  { valor: "ESPÍRITU INDOMABLE", descripcion: "Un corazón valiente que no se rinde jamás. La fuerza interior que nos impulsa a superar cualquier adversidad con determinación.", icono: "🔥" },
-  { valor: "CIENCIA", descripcion: "El conocimiento y la técnica perfecta son fundamentales. Estudiamos cada movimiento, cada estrategia, para alcanzar la maestría.", icono: "🧠" },
-  { valor: "BONDAD", descripcion: "La compasión y el respeto hacia otros son esenciales. Usamos nuestras habilidades para proteger y ayudar, nunca para dañar.", icono: "❤️" },
-  { valor: "AMOR", descripcion: "El amor por el arte marcial, por nuestros compañeros y por el crecimiento personal es lo que nos motiva cada día a ser mejores.", icono: "💖" },
+  { valor: "DISCIPLINA", descripcion: "La constancia y el orden en el entrenamiento son la base del progreso. Cultivamos la autodisciplina como herramienta para alcanzar metas.", icono: "clock" },
+  { valor: "INTEGRIDAD", descripcion: "Actuamos con honestidad y coherencia entre nuestros valores y acciones, tanto en el dojang como en la vida cotidiana.", icono: "shield-check" },
+  { valor: "PERSEVERANCIA", descripcion: "Nunca rendirse ante las dificultades. Cada obstáculo es una oportunidad para crecer y demostrar nuestro verdadero carácter.", icono: "lightning-charge" },
+  { valor: "AUTOCONTROL", descripcion: "El dominio de nuestras emociones y reacciones nos permite tomar decisiones sabias y actuar con serenidad en cualquier situación.", icono: "peace" },
+  { valor: "ESPÍRITU INDOMABLE", descripcion: "Un corazón valiente que no se rinde jamás. La fuerza interior que nos impulsa a superar cualquier adversidad con determinación.", icono: "fire" },
+  { valor: "CIENCIA", descripcion: "El conocimiento y la técnica perfecta son fundamentales. Estudiamos cada movimiento, cada estrategia, para alcanzar la maestría.", icono: "cpu" },
+  { valor: "BONDAD", descripcion: "La compasión y el respeto hacia otros son esenciales. Usamos nuestras habilidades para proteger y ayudar, nunca para dañar.", icono: "heart" },
+  { valor: "AMOR", descripcion: "El amor por el arte marcial, por nuestros compañeros y por el crecimiento personal es lo que nos motiva cada día a ser mejores.", icono: "heart-fill" },
 ];
 
 const Filosofia = () => (
@@ -167,8 +168,8 @@ const Filosofia = () => (
             <ScrollReveal key={index} delay={index * 100}>
               <InteractiveCard className="bg-black/30 rounded-xl p-6">
                 <div className="text-center mb-4">
-                  <div className="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
-                    {item.icono}
+                  <div className="mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                    <BootstrapIcon name={item.icono} size="3rem" className="text-red-400" />
                   </div>
                   <h4 className="text-xl font-black text-red-400 mb-4">{item.valor}</h4>
                 </div>

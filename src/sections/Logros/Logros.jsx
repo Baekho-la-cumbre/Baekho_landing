@@ -1,4 +1,5 @@
 import React from "react";
+import BootstrapIcon from "../../shared/components/BootstrapIcon";
 
 // ScrollReveal simple (fade-in)
 const ScrollReveal = ({ children, delay = 0 }) => {
@@ -146,13 +147,15 @@ const atletasDestacados = [
     nombre: "Ana Pérez",
     imagen: "/deportista1.jpg",
     categoria: "Cinturón Negro 2º Dan",
-    logros: "Campeona Nacional 2024, 3 medallas de oro."
+    logros: "Campeona Nacional 2024, 3 medallas de oro.",
+    medalla: "Oro"
   },
   {
     nombre: "Carlos López",
     imagen: "/deportista2.jpg",
     categoria: "Cinturón Negro 1º Dan",
-    logros: "Subcampeón Internacional 2024, 2 medallas de plata."
+    logros: "Subcampeón Internacional 2024, 2 medallas de plata.",
+    medalla: "Plata"
   },
 ];
 
@@ -165,7 +168,7 @@ const getMedallaColor = (medalla) => {
     case "Bronce":
       return "text-orange-600 border-orange-600";
     default:
-      return "text-white border-white";
+      return "text-white border-white";r
   }
 };
 
@@ -203,9 +206,9 @@ const Logros = () => (
                   className="absolute inset-0 w-full h-full object-cover opacity-30 brightness-125 pointer-events-none select-none z-0"
                   style={{ zIndex: 0 }}
                 />
-                {/* Fondo decorativo (emoji corazón) */}
+                {/* Fondo decorativo (ícono corazón) */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none z-10">
-                  <span className="text-[8rem] text-red-500">❤️</span>
+                  <BootstrapIcon name="heart-fill" size="8rem" className="text-red-500" />
                 </div>
                 <div className="relative z-10 bg-black/60 rounded-3xl p-8 flex flex-col items-center">
                   <div className="w-36 h-36 mx-auto mb-4 rounded-full border-8 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden">
@@ -215,9 +218,9 @@ const Logros = () => (
                         alt={atleta.nombre}
                         className="w-full h-full object-cover rounded-full border-4 border-white shadow-xl"
                       />
-                    ) : (
-                      <span className="text-6xl text-red-400">🧑‍🎓</span>
-                    )}
+                                         ) : (
+                       <BootstrapIcon name="person-circle" size="3rem" className="text-red-400" />
+                     )}
                   </div>
                   <h4 className="text-3xl md:text-4xl font-black text-red-400 mb-2 text-center tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow">
                     {atleta.nombre}
@@ -305,11 +308,13 @@ const Logros = () => (
                   </h4>
                   {/* Competencia */}
                   <p className="text-gray-300 text-base mb-2 text-center italic">{logro.competencia}</p>
-                  {/* Descripción del mérito en div traslúcido con emoji */}
+                  {/* Descripción del mérito en div traslúcido con ícono */}
                   <div className="mb-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2">
-                    <span className="text-xl">
-                      {logro.medalla === "Oro" ? "🥇" : logro.medalla === "Plata" ? "🥈" : "🥉"}
-                    </span>
+                    <BootstrapIcon 
+                      name={logro.medalla === "Oro" ? "award-fill" : logro.medalla === "Plata" ? "award" : "award"} 
+                      size="1.5rem" 
+                      className={logro.medalla === "Oro" ? "text-yellow-400" : logro.medalla === "Plata" ? "text-gray-300" : "text-orange-600"}
+                    />
                     <span className="text-gray-100 text-sm text-center">
                       {`${logro.atleta} obtuvo la medalla de ${logro.medalla.toLowerCase()} en el ${logro.competencia}, ${logro.año}.`}
                     </span>

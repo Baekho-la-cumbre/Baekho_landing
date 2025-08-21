@@ -4,12 +4,20 @@ function MobileMenu({ open, setOpen, navItems, id }) {
   const [active, setActive] = useState('inicio');
   const [goldBorder, setGoldBorder] = useState(null);
 
+  // Manejar hash de URL al cargar la página
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && navItems.some(item => item.id === hash)) {
+      setActive(hash);
+    }
+  }, [navItems]);
+
   // Scrollspy: actualiza el botón activo según la sección visible
   useEffect(() => {
     if (!open) return;
     const handleScroll = () => {
       const sections = navItems.map((item) => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+      const scrollPosition = window.scrollY + 150; // Aumentar offset para ser más preciso
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section && section.offsetTop <= scrollPosition) {
@@ -18,8 +26,17 @@ function MobileMenu({ open, setOpen, navItems, id }) {
         }
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    // Delay inicial para evitar que se ejecute inmediatamente al cargar
+    const timeoutId = setTimeout(() => {
+      handleScroll();
+      window.addEventListener('scroll', handleScroll);
+    }, 100);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [open, navItems]);
 
   // Smooth scroll al hacer clic
