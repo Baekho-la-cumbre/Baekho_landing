@@ -168,7 +168,7 @@ const getMedallaColor = (medalla) => {
     case "Bronce":
       return "text-orange-600 border-orange-600";
     default:
-      return "text-white border-white";
+      return "text-white border-white";r
   }
 };
 

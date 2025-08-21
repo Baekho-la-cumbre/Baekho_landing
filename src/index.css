@@ -12,6 +12,8 @@ html {
   font-style: normal;
 }
 
+
+
 @media (min-width: 1650px) {
   .header-gap-xl {
     gap: 6rem !important;
@@ -132,4 +134,89 @@ html {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
+}
+
+/* Estilos para el scroll horizontal de años */
+.years-scroll {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.years-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Asegurar que el scroll horizontal funcione correctamente */
+.years-scroll {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.years-scroll button {
+  scroll-snap-align: center;
+}
+
+/* Mejorar la experiencia de scroll en móviles */
+@media (max-width: 920px) {
+  .years-scroll {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    width: calc(100% + 2rem);
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  
+  .years-scroll button {
+    min-width: max-content;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    touch-action: pan-x;
+  }
+}
+
+/* Estilos para la navegación en pantallas pequeñas */
+@media (max-width: 920px) {
+  .years-scroll {
+    display: none;
+  }
+  
+  .years-nav-desktop {
+    display: none;
+  }
+  
+  .years-nav-mobile {
+    display: flex;
+  }
+}
+
+@media (min-width: 921px) {
+  .years-nav-mobile {
+    display: none;
+  }
+  
+  .years-nav-desktop {
+    display: block;
+  }
+}
+
+/* Asegurar que el scroll funcione en todos los navegadores */
+.years-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.years-scroll::-webkit-scrollbar {
+  display: none;
 }

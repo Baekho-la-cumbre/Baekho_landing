@@ -184,7 +184,14 @@ const TrayectoriaCarousel = () => {
     if (!autoplay) {
       const el = yearRefs.current[active];
       if (el && el.scrollIntoView) {
-        el.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        // Usar un timeout para asegurar que el DOM esté actualizado
+        setTimeout(() => {
+          el.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "nearest", 
+            inline: "center" 
+          });
+        }, 50);
       }
     }
   }, [active, autoplay]);
@@ -288,30 +295,88 @@ const TrayectoriaCarousel = () => {
           </div>
         </div>
 
-        {/* Paginación por años (centrada siempre) */}
-        <div className="mt-6">
-          <div ref={yearsBarRef} className="w-full max-w-4xl mx-auto flex justify-center gap-2 px-2 overflow-x-auto no-scrollbar">
-                         {historiaData.map((item, idx) => (
-               <button
-                 key={item.year}
-                 ref={(el) => (yearRefs.current[idx] = el)}
-                 onClick={() => handleYear(idx)}
-                 className={`shrink-0 font-bold border transition-all text-sm sm:text-base ${
-                   item.year === "video" 
-                     ? "w-12 h-12 rounded-full flex items-center justify-center" 
-                     : "px-4 py-2 rounded-lg"
-                 }
-                   ${idx === active ? "bg-[#D42D2D] text-white border-[#D42D2D]" : "bg-neutral-800 text-gray-300 border-gray-700 hover:bg-[#D42D2D]/80 hover:text-white"}`}
-                 aria-current={idx === active ? "true" : undefined}
-                 aria-label={item.year === "video" ? "Ver video" : `Ir al año ${item.year}`}
-               >
-                 {item.year === "video" ? (
-                   <BootstrapIcon name="play-circle-fill" size="1.5rem" />
-                 ) : (
-                   item.year
-                 )}
-               </button>
-             ))}
+        {/* Paginación por años con navegación responsiva */}
+        <div className="mt-6 w-full">
+          {/* Navegación con flechas para pantallas pequeñas */}
+          <div className="flex items-center justify-center gap-4 mb-4 years-nav-mobile">
+            <button
+              onClick={() => {
+                const newIndex = active > 0 ? active - 1 : historiaData.length - 1;
+                handleYear(newIndex);
+              }}
+              className="w-10 h-10 bg-neutral-800 border border-gray-700 rounded-full flex items-center justify-center text-white hover:bg-[#D42D2D]/80 transition-colors"
+              aria-label="Año anterior"
+            >
+              <BootstrapIcon name="chevron-left" size="1.2rem" />
+            </button>
+            
+            <div className="flex-1 text-center">
+              <span className="text-white font-bold text-lg">
+                {historiaData[active].year === "video" ? "Video" : historiaData[active].year}
+              </span>
+              <div className="text-gray-400 text-sm">
+                {active + 1} de {historiaData.length}
+              </div>
+            </div>
+            
+            <button
+              onClick={() => {
+                const newIndex = active < historiaData.length - 1 ? active + 1 : 0;
+                handleYear(newIndex);
+              }}
+              className="w-10 h-10 bg-neutral-800 border border-gray-700 rounded-full flex items-center justify-center text-white hover:bg-[#D42D2D]/80 transition-colors"
+              aria-label="Siguiente año"
+            >
+              <BootstrapIcon name="chevron-right" size="1.2rem" />
+            </button>
+          </div>
+
+          {/* Scroll horizontal para pantallas grandes */}
+          <div className="years-nav-desktop">
+            <div 
+              ref={yearsBarRef}
+              className="years-scroll flex gap-2 overflow-x-auto no-scrollbar justify-center"
+              style={{ 
+                scrollPaddingInline: '1rem',
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
+              {historiaData.map((item, idx) => (
+                <button
+                  key={item.year}
+                  ref={(el) => (yearRefs.current[idx] = el)}
+                  onClick={() => handleYear(idx)}
+                  className={`shrink-0 font-bold border transition-all text-sm sm:text-base ${
+                    item.year === "video" 
+                      ? "w-12 h-12 rounded-full flex items-center justify-center" 
+                      : "px-4 py-2 rounded-lg"
+                  }
+                    ${idx === active ? "bg-[#D42D2D] text-white border-[#D42D2D]" : "bg-neutral-800 text-gray-300 border-gray-700 hover:bg-[#D42D2D]/80 hover:text-white"}`}
+                  aria-current={idx === active ? "true" : undefined}
+                  aria-label={item.year === "video" ? "Ver video" : `Ir al año ${item.year}`}
+                >
+                  {item.year === "video" ? (
+                    <BootstrapIcon name="play-circle-fill" size="1.5rem" />
+                  ) : (
+                    item.year
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Indicadores de puntos para pantallas pequeñas */}
+          <div className="flex justify-center gap-2 mt-4 years-nav-mobile">
+            {historiaData.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleYear(idx)}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  idx === active ? "bg-[#D42D2D]" : "bg-gray-600 hover:bg-gray-500"
+                }`}
+                aria-label={`Ir al año ${historiaData[idx].year}`}
+              />
+            ))}
           </div>
         </div>
       </div>
