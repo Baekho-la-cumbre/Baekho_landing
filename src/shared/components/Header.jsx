@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MobileMenu from './MobileMenu';
 
 const navItems = [
@@ -9,6 +9,37 @@ const navItems = [
   { label: 'Filosofía', id: 'filosofia' },
   { label: 'Contacto', id: 'contacto' },
 ];
+
+function useScrollDirection(threshold = 6) {
+  const [direction, setDirection] = useState("up");   // "up" | "down"
+  const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset;
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const delta = y - lastY.current;
+          if (Math.abs(delta) > threshold) {
+            setDirection(delta > 0 ? "down" : "up");
+            lastY.current = y;
+          }
+          setScrolled(y > 2);
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    lastY.current = window.scrollY || 0;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [threshold]);
+
+  return { direction, scrolled };
+}
 
 function HeaderNav() {
   const [active, setActive] = useState('inicio');
@@ -89,7 +120,7 @@ function HeaderNav() {
 
   return (
     // Cambia de 'md:flex' a 'lg:flex' para que el menú horizontal solo aparezca en >=1024px
-    <nav className="hidden lg:flex space-x-8">
+    <nav className="hidden space-x-8 lg:flex">
       {navItems.map((item) => {
         let base =
           "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
@@ -123,24 +154,32 @@ function HeaderNav() {
 
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { direction, scrolled } = useScrollDirection(6);
   return (
     <header
-      className="relative shadow-sm sticky top-0 z-50 w-full h-20 custom-header"
+      className={[
+    "relative sticky top-0 z-50 w-full h-20 custom-header",
+    "transition-transform duration-300 will-change-transform",
+    "overflow-x-clip",
+    scrolled ? "shadow-sm" : "",
+    direction === "down" ? "-translate-y-full" : "translate-y-0",
+  ].join(" ")}
+      
       style={{
         background: 'radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)'
       }}
     >
-      <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 header-gap-xl header-wide-xl">
+      <div className="top-0 z-50 flex items-center justify-between w-full px-3 mx-auto max-w-7xl h-19 header-gap-xl header-wide-xl">
         {/* Logo */}
         <div className="flex items-center h-19">
           <img
             src="/logo.svg"
             alt="Baekho Logo"
-            className="header-logo-img h-19 w-32 mr-2 -mt-1"
+            className="w-32 mr-2 -mt-1 header-logo-img h-19"
             style={{ filter: 'drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)' }}
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-gray-800 tracking-wide text-white">BAEKHO </span>
+            <span className="text-2xl font-bold tracking-wide text-white text-gray-800">BAEKHO </span>
             <span
               className="text-xs font-bold tracking-wide"
               style={{ color: '#D42D2D' }}
