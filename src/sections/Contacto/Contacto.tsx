@@ -1,9 +1,12 @@
 import React from "react";
 
-// ScrollReveal simple (fade-in)
-const ScrollReveal = ({ children, delay = 0 }) => {
-  const [visible, setVisible] = React.useState(false);
-  const ref = React.useRef();
+/** ScrollReveal simple (fade-in) */
+type ScrollRevealProps = React.PropsWithChildren<{ delay?: number }>;
+
+const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const ref = React.useRef<HTMLDivElement | null>(null);
+
   React.useEffect(() => {
     const onScroll = () => {
       if (ref.current) {
@@ -15,6 +18,7 @@ const ScrollReveal = ({ children, delay = 0 }) => {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   return (
     <div
       ref={ref}
@@ -29,23 +33,37 @@ const ScrollReveal = ({ children, delay = 0 }) => {
   );
 };
 
-// InteractiveCard
-const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
-  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = React.useState(false);
+/** InteractiveCard */
+type GlowKey = "red" | "yellow" | "orange";
 
-  const handleMouseMove = (e) => {
+interface InteractiveCardProps {
+  children: React.ReactNode;
+  className?: string;
+  glowColor?: GlowKey;
+}
+
+const InteractiveCard: React.FC<InteractiveCardProps> = ({
+  children,
+  className = "",
+  glowColor = "red",
+}) => {
+  const [mousePosition, setMousePosition] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = React.useState<boolean>(false);
+
+  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setMousePosition({ x, y });
   };
 
-  const glowColors = {
+  const glowColors: Record<GlowKey, string> = {
     red: "rgba(239, 68, 68, 0.3)",
     yellow: "rgba(234, 179, 8, 0.3)",
     orange: "rgba(249, 115, 22, 0.3)",
   };
+
+  const color = glowColors[glowColor] ?? glowColors.red;
 
   return (
     <div
@@ -57,9 +75,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
       onMouseLeave={() => setIsHovered(false)}
       style={{
         background: isHovered
-          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${
-              glowColors[glowColor] || glowColors.red
-            }, transparent 50%)`
+          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${color}, transparent 50%)`
           : "transparent",
         borderColor: "#ef4444",
       }}
@@ -73,9 +89,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
             top: mousePosition.y - 50,
             width: 100,
             height: 100,
-            background: `radial-gradient(circle, ${
-              glowColors[glowColor] || glowColors.red
-            }, transparent 70%)`,
+            background: `radial-gradient(circle, ${color}, transparent 70%)`,
             borderRadius: "50%",
             opacity: 0.6,
           }}
@@ -85,7 +99,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
   );
 };
 
-const Contacto = () => (
+const Contacto: React.FC = () => (
   <section
     id="contacto"
     className="relative px-4 py-16"
@@ -97,9 +111,7 @@ const Contacto = () => (
       <ScrollReveal>
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-4xl font-black text-white sm:text-5xl md:text-6xl">
-            <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">
-              CONTACTO
-            </span>
+            <span className="text-red-500 drop-shadow-[0_0_16px_#D42D2D]">CONTACTO</span>
           </h2>
           <p className="max-w-2xl mx-auto text-base text-gray-300 sm:text-lg md:text-xl">
             ¿Listo para comenzar tu camino hacia la excelencia? Contáctanos y únete a la familia Baekho
@@ -179,7 +191,11 @@ const Contacto = () => (
                   </div>
                   <div>
                     <h4 className="mb-1 font-semibold text-white">Dirección</h4>
-                    <p className="text-gray-300">carrera 9AE 29A-56<br />Floridablanca, Colombia</p>
+                    <p className="text-gray-300">
+                      carrera 9AE 29A-56
+                      <br />
+                      Floridablanca, Colombia
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -214,10 +230,18 @@ const Contacto = () => (
                 <a href="https://www.facebook.com/share/1BoxMgww6V/" target="_blank" rel="noopener noreferrer">
                   <img src="/facebook.png" alt="Facebook" className="w-8 h-8" />
                 </a>
-                <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src="/tik-tok.png" alt="TikTok" className="w-9 h-9" />
                 </a>
-                <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img src="/instagram.png" alt="Instagram" className="w-9 h-9" />
                 </a>
               </div>
