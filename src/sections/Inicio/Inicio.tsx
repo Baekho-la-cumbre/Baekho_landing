@@ -1,14 +1,14 @@
-import React from "react";
+import { useState, JSX } from "react";
 import HorarioGrid from "../Horario/Horario";
 
-const Inicio = () => {
-  const [showSchedule, setShowSchedule] = React.useState(false);
-  const [hideInicio, setHideInicio] = React.useState(false);
+export default function Inicio(): JSX.Element {
+  const [showSchedule, setShowSchedule] = useState<boolean>(false);
+  const [hideInicio, setHideInicio] = useState<boolean>(false);
 
   // Maneja la transición para mostrar HorarioGrid
-  const handleShowSchedule = () => {
+  const handleShowSchedule = (): void => {
     setHideInicio(true); // inicia animación de salida
-    setTimeout(() => {
+    window.setTimeout((): void => {
       setShowSchedule(true); // muestra HorarioGrid
     }, 500); // igual a la duración de la animación (500ms)
   };
@@ -24,18 +24,18 @@ const Inicio = () => {
           className="absolute inset-0 z-0 w-full h-full bg-center bg-cover"
           style={{ backgroundImage: "url('/ImgInicio.jpg')" }}
         />
-        {/* Si tienes un video, puedes ponerlo aquí */}
         {/* <video autoPlay loop muted className="object-cover w-full h-full">...</video> */}
-        {/* Imagen de fondo o gradiente */}
-        <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-[#7a1a1a] via-black to-[#D42D2D] opacity-90"></div>
-        {/* Puedes agregar aquí partículas, blobs, o un canvas para efectos */}
+        <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-[#7a1a1a] via-black to-[#D42D2D] opacity-90" />
       </div>
 
       {/* Contenido principal o cuadrícula de horarios */}
       <div className="relative z-10 w-full max-w-5xl px-4 mx-auto text-center">
-        {/* Solo renderiza el contenido de inicio si no está oculto */}
         {!hideInicio && (
-          <div className={`transition-all duration-500 ${hideInicio ? "opacity-0 pointer-events-none" : "opacity-100"} relative`}>
+          <div
+            className={`transition-all duration-500 ${
+              hideInicio ? "opacity-0 pointer-events-none" : "opacity-100"
+            } relative`}
+          >
             <h1 className="mb-2 text-6xl font-extrabold text-transparent md:text-7xl bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text drop-shadow-lg baekho-title">
               BAEKHO
             </h1>
@@ -50,12 +50,13 @@ const Inicio = () => {
             </p>
           </div>
         )}
-        {/* Solo renderiza HorarioGrid si showSchedule es true */}
+
         {showSchedule && (
-          <div className={`transition-all duration-500 opacity-100 relative`}>
+          <div className="transition-all duration-500 opacity-100 relative">
             <HorarioGrid />
           </div>
         )}
+
         {/* Botones */}
         <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
           {!showSchedule ? (
@@ -93,6 +94,4 @@ const Inicio = () => {
       </div>
     </section>
   );
-};
-
-export default Inicio; 
+}

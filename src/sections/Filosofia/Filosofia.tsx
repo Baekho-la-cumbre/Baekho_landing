@@ -1,10 +1,14 @@
 import React from "react";
 import BootstrapIcon from "../../shared/components/BootstrapIcon";
+import { valoresData } from "../../shared/assets/DataValoresFilosofia";
 
-// ScrollReveal simple (fade-in)
-const ScrollReveal = ({ children, delay = 0 }) => {
-  const [visible, setVisible] = React.useState(false);
-  const ref = React.useRef();
+/** ScrollReveal simple (fade-in) */
+type ScrollRevealProps = React.PropsWithChildren<{ delay?: number }>;
+
+const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
+  const [visible, setVisible] = React.useState<boolean>(false);
+  const ref = React.useRef<HTMLDivElement | null>(null);
+
   React.useEffect(() => {
     const onScroll = () => {
       if (ref.current) {
@@ -16,6 +20,7 @@ const ScrollReveal = ({ children, delay = 0 }) => {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
   return (
     <div
       ref={ref}
@@ -30,25 +35,39 @@ const ScrollReveal = ({ children, delay = 0 }) => {
   );
 };
 
-// InteractiveCard simple
-const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
-  const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = React.useState(false);
+/** InteractiveCard simple */
+type GlowKey = "red" | "yellow" | "orange" | "#FE5900" | "#D42D2D";
 
-  const handleMouseMove = (e) => {
+interface InteractiveCardProps {
+  children: React.ReactNode;
+  className?: string;
+  glowColor?: GlowKey;
+}
+
+const InteractiveCard: React.FC<InteractiveCardProps> = ({
+  children,
+  className = "",
+  glowColor = "red",
+}) => {
+  const [mousePosition, setMousePosition] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = React.useState<boolean>(false);
+
+  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     setMousePosition({ x, y });
   };
 
-  const glowColors = {
+  const glowColors: Record<GlowKey, string> = {
     red: "rgba(239, 68, 68, 0.3)",
     yellow: "rgba(234, 179, 8, 0.3)",
     orange: "rgba(249, 115, 22, 0.3)",
     "#FE5900": "#FE5900",
     "#D42D2D": "#D42D2D",
   };
+
+  const color = glowColors[glowColor] ?? glowColors.red;
 
   return (
     <div
@@ -60,7 +79,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
       onMouseLeave={() => setIsHovered(false)}
       style={{
         background: isHovered
-          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${glowColors[glowColor] || glowColors.red}, transparent 50%)`
+          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${color}, transparent 50%)`
           : "transparent",
         borderColor: "#ef4444",
       }}
@@ -74,7 +93,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
             top: mousePosition.y - 50,
             width: 100,
             height: 100,
-            background: `radial-gradient(circle, ${glowColors[glowColor] || glowColors.red}, transparent 70%)`,
+            background: `radial-gradient(circle, ${color}, transparent 70%)`,
             borderRadius: "50%",
             opacity: 0.6,
             pointerEvents: "none",
@@ -85,19 +104,7 @@ const InteractiveCard = ({ children, className = "", glowColor = "red" }) => {
   );
 };
 
-// Valores de ejemplo
-const valoresData = [
-  { valor: "DISCIPLINA", descripcion: "La constancia y el orden en el entrenamiento son la base del progreso. Cultivamos la autodisciplina como herramienta para alcanzar metas.", icono: "clock" },
-  { valor: "INTEGRIDAD", descripcion: "Actuamos con honestidad y coherencia entre nuestros valores y acciones, tanto en el dojang como en la vida cotidiana.", icono: "shield-check" },
-  { valor: "PERSEVERANCIA", descripcion: "Nunca rendirse ante las dificultades. Cada obstáculo es una oportunidad para crecer y demostrar nuestro verdadero carácter.", icono: "lightning-charge" },
-  { valor: "AUTOCONTROL", descripcion: "El dominio de nuestras emociones y reacciones nos permite tomar decisiones sabias y actuar con serenidad en cualquier situación.", icono: "peace" },
-  { valor: "ESPÍRITU INDOMABLE", descripcion: "Un corazón valiente que no se rinde jamás. La fuerza interior que nos impulsa a superar cualquier adversidad con determinación.", icono: "fire" },
-  { valor: "CIENCIA", descripcion: "El conocimiento y la técnica perfecta son fundamentales. Estudiamos cada movimiento, cada estrategia, para alcanzar la maestría.", icono: "cpu" },
-  { valor: "BONDAD", descripcion: "La compasión y el respeto hacia otros son esenciales. Usamos nuestras habilidades para proteger y ayudar, nunca para dañar.", icono: "heart" },
-  { valor: "AMOR", descripcion: "El amor por el arte marcial, por nuestros compañeros y por el crecimiento personal es lo que nos motiva cada día a ser mejores.", icono: "heart-fill" },
-];
-
-const Filosofia = () => (
+const Filosofia: React.FC = () => (
   <section id="filosofia" className="py-20 px-4 bg-gradient-to-b from-black to-gray-900 relative">
     <div className="max-w-6xl mx-auto">
       {/* Header */}
@@ -125,7 +132,10 @@ const Filosofia = () => (
               </h3>
             </div>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Formar atletas integrales a través del Taekwondo, desarrollando no solo sus habilidades físicas y técnicas, sino también su carácter, disciplina y valores. Nos comprometemos a brindar una educación marcial de excelencia que inspire a nuestros estudiantes a alcanzar su máximo potencial tanto dentro como fuera del dojang, contribuyendo positivamente a la sociedad.
+              Formar atletas integrales a través del Taekwondo, desarrollando no solo sus habilidades físicas y
+              técnicas, sino también su carácter, disciplina y valores. Nos comprometemos a brindar una educación
+              marcial de excelencia que inspire a nuestros estudiantes a alcanzar su máximo potencial tanto dentro
+              como fuera del dojang, contribuyendo positivamente a la sociedad.
             </p>
           </InteractiveCard>
         </div>
@@ -134,10 +144,7 @@ const Filosofia = () => (
       {/* Visión */}
       <ScrollReveal delay={300}>
         <div className="mb-16">
-          <InteractiveCard
-            className="bg-black/30 rounded-xl p-6"
-            glowColor="orange"
-          >
+          <InteractiveCard className="bg-black/30 rounded-xl p-6" glowColor="orange">
             <div className="flex items-center mb-8">
               <div className="w-16 h-16 rounded-full flex items-center justify-center mr-6 bg-black/0">
                 <img src="/calvin.png" alt="Calvin" className="w-14 h-14 object-contain" />
@@ -147,7 +154,10 @@ const Filosofia = () => (
               </h3>
             </div>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Ser reconocidos como la academia de Taekwondo líder en la región, destacando por la formación de campeones nacionales e internacionales, y por ser un referente en la enseñanza de valores y principios marciales. Aspiramos a expandir nuestra influencia positiva, creando una comunidad global de practicantes comprometidos con la excelencia y el crecimiento personal.
+              Ser reconocidos como la academia de Taekwondo líder en la región, destacando por la formación de campeones
+              nacionales e internacionales, y por ser un referente en la enseñanza de valores y principios marciales.
+              Aspiramos a expandir nuestra influencia positiva, creando una comunidad global de practicantes
+              comprometidos con la excelencia y el crecimiento personal.
             </p>
           </InteractiveCard>
         </div>
@@ -222,7 +232,7 @@ const Filosofia = () => (
                   <div className="w-3 h-3 bg-red-500 rounded-full mr-4 flex-shrink-0"></div>
                   <p className="text-gray-300">Honra la tradición, abraza la innovación</p>
                 </div>
-                <div className="flex items-center transform hover:translate-x-2 transition-transform duration-300">
+                <div className="flex items-center transform hover:translate-x-2 transition-transform duración-300">
                   <div className="w-3 h-3 bg-red-500 rounded-full mr-4 flex-shrink-0"></div>
                   <p className="text-gray-300">Sé un ejemplo dentro y fuera del dojang</p>
                 </div>
@@ -235,8 +245,8 @@ const Filosofia = () => (
           </InteractiveCard>
         </div>
       </ScrollReveal>
-      </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 
-export default Filosofia; 
+export default Filosofia;
