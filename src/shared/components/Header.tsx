@@ -1,4 +1,4 @@
-import React, { useState, useEffect, JSX } from "react";
+import React, { useEffect, useRef, useState, JSX } from "react";
 import MobileMenu from "./MobileMenu";
 
 type NavItem = { label: string; id: string };
@@ -12,14 +12,47 @@ const navItems: NavItem[] = [
   { label: "Contacto", id: "contacto" },
 ];
 
+/** Hook: detecta dirección del scroll y si ya se scrolleó */
+function useScrollDirection(threshold = 6) {
+  const [direction, setDirection] = useState<"up" | "down">("up");
+  const [scrolled, setScrolled] = useState(false);
+  const lastY = useRef(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset || 0;
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const delta = y - lastY.current;
+          if (Math.abs(delta) > threshold) {
+            setDirection(delta > 0 ? "down" : "up");
+            lastY.current = y;
+          }
+          setScrolled(y > 2);
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    lastY.current = window.scrollY || 0;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [threshold]);
+
+  return { direction, scrolled };
+}
+
 function HeaderNav(): JSX.Element {
   const [active, setActive] = useState<string>("inicio");
   const [goldBorder, setGoldBorder] = useState<string | null>(null);
 
-  // Manejar hash de URL al cargar la página
+  // Activa sección desde hash inicial
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
     let tid: number | undefined;
+
     if (hash && navItems.some((item) => item.id === hash)) {
       setActive(hash);
       tid = window.setTimeout(() => {
@@ -31,9 +64,7 @@ function HeaderNav(): JSX.Element {
       }, 100);
     }
     return () => {
-      if (tid !== undefined) {
-        window.clearTimeout(tid);
-      }
+      if (tid !== undefined) window.clearTimeout(tid);
     };
   }, []);
 
@@ -46,19 +77,8 @@ function HeaderNav(): JSX.Element {
       }));
       const scrollPosition = window.scrollY + 150;
 
-      // Log seguro (sin re-indexar)
-      console.log(
-        "Sections:",
-        pairs.map(({ item, section }) => ({
-          id: item.id,
-          offsetTop: section?.offsetTop,
-        }))
-      );
-
       for (let i = pairs.length - 1; i >= 0; i--) {
-        const pair = pairs[i];
-        if (!pair) continue;
-        const { item, section } = pair;
+        const { item, section } = pairs[i]!;
         if (section && section.offsetTop <= scrollPosition) {
           setActive(item.id);
           break;
@@ -103,6 +123,7 @@ function HeaderNav(): JSX.Element {
         if (isGold) btnClass += " gold";
         else if (isActive) btnClass += " red active";
         const bg = isActive ? "bg-red-500" : "";
+
         return (
           <a
             key={item.id}
@@ -126,11 +147,20 @@ function HeaderNav(): JSX.Element {
 
 function Header(): JSX.Element {
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+  const { direction, scrolled } = useScrollDirection(6);
 
   return (
     <header
-      className="relative shadow-sm sticky top-0 z-50 w-full h-20 custom-header"
-      style={{ background: "radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)" }}
+      className={[
+        "relative sticky top-0 z-50 w-full h-20 custom-header",
+        "transition-transform duration-300 will-change-transform",
+        "overflow-x-clip",
+        scrolled ? "shadow-sm" : "",
+        direction === "down" ? "-translate-y-full" : "translate-y-0",
+      ].join(" ")}
+      style={{
+        background: "radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)",
+      }}
     >
       <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 header-gap-xl header-wide-xl">
         {/* Logo */}
@@ -142,7 +172,7 @@ function Header(): JSX.Element {
             style={{ filter: "drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)" }}
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold text-gray-800 tracking-wide text-white">BAEKHO </span>
+            <span className="text-2xl font-bold tracking-wide text-white">BAEKHO </span>
             <span className="text-xs font-bold tracking-wide" style={{ color: "#D42D2D" }}>
               ACADEMIA DEPORTIVA
             </span>
@@ -152,7 +182,7 @@ function Header(): JSX.Element {
         {/* Navegación */}
         <HeaderNav />
 
-        {/* Menú móvil */}
+        {/* Menú móvil/tablet */}
         <div className="lg:hidden">
           <button
             className="text-gray-700 hover:text-blue-600 focus:outline-none"
@@ -167,6 +197,7 @@ function Header(): JSX.Element {
           </button>
         </div>
 
+        {/* El id se usa para aria-controls */}
         <MobileMenu open={mobileOpen} setOpen={setMobileOpen} navItems={navItems} id="mobile-menu" />
       </div>
     </header>
