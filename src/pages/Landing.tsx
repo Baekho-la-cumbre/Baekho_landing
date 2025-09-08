@@ -1,4 +1,6 @@
-import Header from '../shared/components/Header.js';
+import { useEffect, useState } from "react";
+import Header from "../shared/components/Header";
+import HeaderMovil from "../shared/components/HeaderMovil";
 import Inicio from '../sections/Inicio/Inicio.js';
 import Historia from '../sections/Historia/Historia.jsx';
 import Galeria from '../sections/Galeria/Galeria.js';
@@ -12,11 +14,21 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function Landing() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(min-width: 1024px)"); // lg en Tailwind
+    const update = () => setIsDesktop(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   return (
     <div>
       <WhatsAppButton />
       <ScrollPag />
-      <Header />
+      {isDesktop ? <Header /> : <HeaderMovil />}
       <Inicio />
       <Historia />
       <Galeria />
