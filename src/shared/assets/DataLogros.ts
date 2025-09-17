@@ -7,15 +7,16 @@ export interface LogroItem {
   competencia: string;
   medalla: Medalla;
   foto: string;
+  fondo?: string;
 }
 
 export const logrosData: LogroItem[] = [
-  { atleta: "Ana Pérez",    año: 2024, competencia: "Campeonato Nacional", medalla: "Oro",   foto: "/deportista1.jpg" },
-  { atleta: "Carlos López", año: 2024, competencia: "Open Internacional",  medalla: "Plata", foto: "/deportista2.jpg" },
-  { atleta: "María González", año: 2023, competencia: "Copa Panamericana", medalla: "Oro",   foto: "/deportista1.jpg" },
-  { atleta: "Diego Marín",  año: 2023, competencia: "Torneo Regional",     medalla: "Bronce", foto: "/deportista2.jpg" },
-  { atleta: "Sofía Ruiz",   año: 2023, competencia: "Campeonato Juvenil",  medalla: "Plata", foto: "/deportista1.jpg" },
-  { atleta: "Andrés Castro", año: 2022, competencia: "Copa Nacional",      medalla: "Oro",   foto: "/deportista2.jpg" },
+  { atleta: "Ana Pérez",    año: 2024, competencia: "Campeonato Nacional", medalla: "Oro",   foto: "/deportista1.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Carlos López", año: 2024, competencia: "Open Internacional",  medalla: "Plata", foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
+  { atleta: "María González", año: 2023, competencia: "Copa Panamericana", medalla: "Oro",   foto: "/deportista1.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Diego Marín",  año: 2023, competencia: "Torneo Regional",     medalla: "Bronce", foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Sofía Ruiz",   año: 2023, competencia: "Campeonato Juvenil",  medalla: "Plata", foto: "/deportista1.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Andrés Castro", año: 2022, competencia: "Copa Nacional",      medalla: "Oro",   foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
 ];
 
 export interface AtletaDestacado {
