@@ -24,21 +24,24 @@ export interface AtletaDestacado {
   categoria: string;
   logros: string;
   medalla: Medalla;
+  fondo?: string;
 }
 
 export const atletasDestacados: AtletaDestacado[] = [
   {
-    nombre: "Ana Pérez",
-    imagen: "/deportista1.jpg",
-    categoria: "Cinturón Negro 2º Dan",
-    logros: "Campeona Nacional 2024, 3 medallas de oro.",
+    nombre: "Sarith Sofía Gómez Pinto",
+    imagen: "/deportistaDestacado1.jpg",
+    categoria: "Cinturón Franga Negro",
+    logros: "Campeona departamental sénior Negros ranking -46 kg y campeona departamental intercolegiados superare 2025 juvenil -44 kg",
     medalla: "Oro",
+    fondo: "/sofia.jpg",
   },
   {
-    nombre: "Carlos López",
-    imagen: "/deportista2.jpg",
+    nombre: "Nicole Tatiana muentes Diaz ",
+    imagen: "/deportistaDestacado2.jpg",
     categoria: "Cinturón Negro 1º Dan",
-    logros: "Subcampeón Internacional 2024, 2 medallas de plata.",
-    medalla: "Plata",
+    logros: "Medalla de bronce infantil  Panamericana y Campeona mundial infantil categoría tk3 infantil sogamoso 2023",
+    medalla: "Oro",
+    fondo: "/nicol.jpg",
   },
 ];

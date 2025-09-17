@@ -208,7 +208,7 @@ const Logros: React.FC = () => (
               <div className="relative group rounded-3xl overflow-visible shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-full">
                 {/* Fondo decorativo */}
                 <img
-                  src="/fondocard.png"
+                  src={atleta.fondo || "/fondocard.png"}
                   alt="Fondo decorativo"
                   className="absolute inset-0 w-full h-full object-cover opacity-30 brightness-125 pointer-events-none select-none z-0"
                   style={{ zIndex: 0 }}
