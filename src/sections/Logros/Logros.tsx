@@ -104,76 +104,6 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   );
 };
 
-/** InteractiveCard con efecto glow interactivo */
-type GlowKey = "red" | "yellow" | "orange" | "#FE5900";
-
-interface InteractiveCardProps {
-  children: React.ReactNode;
-  className?: string;
-  glowColor?: GlowKey;
-  style?: React.CSSProperties;
-}
-
-const InteractiveCard: React.FC<InteractiveCardProps> = ({
-  children,
-  className = "",
-  glowColor = "red",
-  style,
-}) => {
-  const [mousePosition, setMousePosition] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = React.useState<boolean>(false);
-
-  const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePosition({ x, y });
-  };
-
-  const glowColors: Record<GlowKey, string> = {
-    red: "rgba(239, 68, 68, 0.3)",
-    yellow: "rgba(234, 179, 8, 0.3)",
-    orange: "rgba(249, 115, 22, 0.3)",
-    "#FE5900": "#FE5900",
-  };
-
-  const color = glowColors[glowColor] ?? glowColors.red;
-
-  return (
-    <div
-      className={`relative overflow-hidden transition-all duration-300 transform ${
-        isHovered ? "scale-105 border-[2.7px]" : "border-2"
-      } border-red-500 ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        background: isHovered
-          ? `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, ${color} 0%, transparent 70%)`
-          : "transparent",
-        borderColor: "#ef4444",
-        ...style,
-      }}
-    >
-      {children}
-      {isHovered && (
-        <div
-          className="absolute pointer-events-none transition-opacity duration-300"
-          style={{
-            left: mousePosition.x - 50,
-            top: mousePosition.y - 50,
-            width: 100,
-            height: 100,
-            background: `radial-gradient(circle, ${color}, transparent 70%)`,
-            borderRadius: "50%",
-            opacity: 0.6,
-            pointerEvents: "none",
-          }}
-        />
-      )}
-    </div>
-  );
-};
 
 const Logros: React.FC = () => (
   <section
@@ -181,6 +111,14 @@ const Logros: React.FC = () => (
     className="py-20 px-4 min-h-[100vh] relative"
     style={{ background: "radial-gradient(ellipse at top, #181c24 0%, #0a0a0a 100%)" }}
   >
+    <style>{`
+      .rotate-y-0 {
+        transform: rotateY(0deg);
+      }
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+    `}</style>
     <div className="max-w-6xl mx-auto">
       {/* Header */}
       <ScrollReveal>
@@ -203,9 +141,18 @@ const Logros: React.FC = () => (
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto items-stretch">
-          {atletasDestacados.map((atleta, index) => (
+          {atletasDestacados.map((atleta, index) => {
+            const [isFlipped, setIsFlipped] = React.useState(false);
+            
+            return (
             <ScrollReveal key={atleta.nombre} delay={index * 200}>
-              <div className="relative group rounded-3xl overflow-visible shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-full">
+              <div 
+                className={`relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-700 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-[650px] cursor-pointer ${
+                  isFlipped ? 'rotate-y-180' : 'rotate-y-0'
+                }`}
+                onClick={() => setIsFlipped(!isFlipped)}
+                style={{ transformStyle: 'preserve-3d' }}
+              >
                 {/* Fondo decorativo */}
                 <img
                   src={atleta.fondo || "/fondocard.png"}
@@ -218,37 +165,74 @@ const Logros: React.FC = () => (
                   <BootstrapIcon name="heart-fill" size="8rem" className="text-red-500" />
                 </div>
 
-                <div className="relative z-10 bg-black/60 rounded-3xl p-8 flex flex-col items-center">
-                  <div className="w-36 h-36 mx-auto mb-4 rounded-full border-8 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden">
-                    {atleta.imagen ? (
-                      <img
-                        src={atleta.imagen}
-                        alt={atleta.nombre}
-                        className="w-full h-full object-cover rounded-full border-4 border-white shadow-xl"
-                      />
-                    ) : (
-                      <BootstrapIcon name="person-circle" size="3rem" className="text-red-400" />
-                    )}
+                {/* Frente de la tarjeta */}
+                <div 
+                  className={`relative z-10 bg-black/60 rounded-3xl p-10 flex flex-col h-full transition-opacity duration-700 ${
+                    isFlipped ? 'opacity-0' : 'opacity-100'
+                  }`}
+                  style={{ 
+                    backfaceVisibility: 'hidden'
+                  }}
+                >
+                  {/* Header con foto y nombre */}
+                  <div className="flex items-start justify-between mb-8">
+                    {/* Foto en esquina superior izquierda */}
+                    <div className="w-28 h-28 rounded-full border-6 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      {atleta.imagen ? (
+                        <img
+                          src={atleta.imagen}
+                          alt={atleta.nombre}
+                          className="w-full h-full object-cover rounded-full border-4 border-white shadow-xl"
+                        />
+                      ) : (
+                        <BootstrapIcon name="person-circle" size="2.5rem" className="text-red-400" />
+                      )}
+                    </div>
+
+                    {/* Nombre y categoría en esquina superior derecha */}
+                    <div className="flex-1 ml-6 text-right">
+                      <h4 className="text-2xl font-black text-red-400 mb-2 tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow leading-tight">
+                        {atleta.nombre}
+                      </h4>
+                      <p className="text-red-200 font-semibold text-lg drop-shadow">{atleta.categoria}</p>
+                    </div>
                   </div>
 
-                  <h4 className="text-3xl md:text-4xl font-black text-red-400 mb-2 text-center tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow">
-                    {atleta.nombre}
-                  </h4>
-                  <p className="text-red-200 font-semibold mb-4 text-lg text-center drop-shadow">{atleta.categoria}</p>
+                  {/* Espacio flexible para empujar el contenido hacia abajo */}
+                  <div className="flex-1"></div>
 
-                  <div className="bg-red-50/10 rounded-xl p-4 border border-red-200/30 w-full">
-                    <h5 className="text-red-400 font-bold mb-2 text-center">Inspirando a nuestra comunidad:</h5>
-                    <p className="text-red-100 text-base leading-relaxed text-center">
+                  {/* Contenedor transparente fijado en la parte inferior */}
+                  <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full h-36 sm:h-45 flex flex-col justify-center">
+                    <h5 className="text-red-400 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Inspirando a nuestra comunidad:</h5>
+                    <p className="text-red-100 text-sm sm:text-base leading-relaxed">
                       {atleta.logros} <br />
-                      <span className="italic text-sm text-orange-300">Ejemplo de dedicación y excelencia.</span>
+                      <span className="italic text-xs sm:text-sm text-orange-300">Ejemplo de dedicación y excelencia.</span>
                     </p>
                   </div>
+                </div>
+
+                {/* Reverso de la tarjeta - Solo fondo sin overlay */}
+                <div 
+                  className={`absolute inset-0 rounded-3xl transition-opacity duration-700 ${
+                    isFlipped ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  style={{ 
+                    backfaceVisibility: 'hidden'
+                  }}
+                >
+                  <img
+                    src={atleta.fondo || "/fondocard.png"}
+                    alt="Fondo del atleta"
+                    className="w-full h-full object-cover rounded-3xl"
+                    style={{ transform: 'rotateY(180deg)' }}
+                  />
                 </div>
 
                 <div className="absolute inset-0 rounded-3xl pointer-events-none group-hover:shadow-[0_0_64px_16px_#D42D2D99] transition-all duration-300" />
               </div>
             </ScrollReveal>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -266,6 +250,8 @@ const Logros: React.FC = () => (
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {logrosData.map((logro, index) => {
+            const [isFlipped, setIsFlipped] = React.useState(false);
+            
             const borderColor =
               logro.medalla === "Oro"
                 ? "#FFD700"
@@ -286,38 +272,60 @@ const Logros: React.FC = () => (
 
             return (
               <ScrollReveal key={`${logro.atleta}-${logro.año}-${index}`} delay={index * 100}>
-                <InteractiveCard
-                  className="bg-gradient-to-br from-black/80 to-gray-900/80 p-8 rounded-2xl shadow-xl flex flex-col items-center border-4 min-h-[320px] relative overflow-hidden h-full"
-                  style={{ borderColor, boxShadow: shadowColor }}
+                <div 
+                  className={`bg-gradient-to-br from-black/80 to-gray-900/80 p-8 rounded-2xl shadow-xl flex flex-col items-center border-4 min-h-[320px] relative overflow-hidden h-full cursor-pointer transition-transform duration-700 ${
+                    isFlipped ? 'rotate-y-180' : 'rotate-y-0'
+                  }`}
+                  style={{ borderColor, boxShadow: shadowColor, transformStyle: 'preserve-3d' }}
+                  onClick={() => setIsFlipped(!isFlipped)}
                 >
                   {/* Fondo */}
                   <img
                     src="/fondocard.png"
                     alt="Fondo decorativo"
-                    className="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none select-none"
+                    className={`absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none select-none transition-opacity duration-700 ${
+                      isFlipped ? 'opacity-0' : 'opacity-10'
+                    }`}
                     style={{ zIndex: 0 }}
                   />
 
-                  {/* Contenido */}
-                  <div className="relative z-10 flex flex-col items-center w-full h-full">
-                    <div
-                      className="w-20 h-20 rounded-full mb-4 shadow-lg flex items-center justify-center overflow-hidden relative"
-                      style={{ border: `4px solid ${borderColor}` }}
-                    >
-                      <img
-                        src={logro.foto || "/deportista1.jpg"}
-                        alt={logro.atleta}
-                        className="w-full h-full object-cover rounded-full"
-                      />
+                  {/* Frente de la tarjeta */}
+                  <div 
+                    className={`relative z-10 flex flex-col w-full h-full transition-opacity duration-700 ${
+                      isFlipped ? 'opacity-0' : 'opacity-100'
+                    }`}
+                    style={{ 
+                      backfaceVisibility: 'hidden'
+                    }}
+                  >
+                    {/* Header con foto y nombre */}
+                    <div className="flex items-start justify-between mb-4">
+                      {/* Foto en esquina superior izquierda */}
+                      <div
+                        className="w-16 h-16 rounded-full shadow-lg flex items-center justify-center overflow-hidden flex-shrink-0"
+                        style={{ border: `3px solid ${borderColor}` }}
+                      >
+                        <img
+                          src={logro.foto || "/deportista1.jpg"}
+                          alt={logro.atleta}
+                          className="w-full h-full object-cover rounded-full"
+                        />
+                      </div>
+
+                      {/* Nombre y competencia en esquina superior derecha */}
+                      <div className="flex-1 ml-3 text-right">
+                        <h4 className="text-white font-extrabold text-lg md:text-xl mb-1 tracking-wide">
+                          {logro.atleta}
+                        </h4>
+                        <p className="text-gray-300 text-sm italic">{logro.competencia}</p>
+                      </div>
                     </div>
 
-                    <h4 className="text-white font-extrabold text-xl md:text-2xl mb-1 text-center tracking-wide">
-                      {logro.atleta}
-                    </h4>
+                    {/* Espacio flexible para empujar el div de medalla hacia abajo */}
+                    <div className="flex-1"></div>
 
-                    <p className="text-gray-300 text-base mb-2 text-center italic">{logro.competencia}</p>
-
-                    <div className="mb-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2">
+                    {/* Div de medalla fijado en la parte inferior */}
+                    <div className="mt-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2">
                       <BootstrapIcon
                         name={logro.medalla === "Oro" ? "award-fill" : "award"}
                         size="1.5rem"
@@ -334,7 +342,24 @@ const Logros: React.FC = () => (
                       </span>
                     </div>
                   </div>
-                </InteractiveCard>
+
+                  {/* Reverso de la tarjeta - Solo fondo sin overlay */}
+                  <div 
+                    className={`absolute inset-0 rounded-2xl transition-opacity duration-700 ${
+                      isFlipped ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{ 
+                      backfaceVisibility: 'hidden'
+                    }}
+                  >
+                    <img
+                      src="/fondocard.png"
+                      alt="Fondo del reconocimiento"
+                      className="w-full h-full object-cover rounded-2xl"
+                      style={{ transform: 'rotateY(180deg)' }}
+                    />
+                  </div>
+                </div>
               </ScrollReveal>
             );
           })}

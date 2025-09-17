@@ -40,7 +40,7 @@ export const atletasDestacados: AtletaDestacado[] = [
     nombre: "Nicole Tatiana muentes Diaz ",
     imagen: "/deportistaDestacado2.jpg",
     categoria: "Cinturón Negro 1º Dan",
-    logros: "Medalla de bronce infantil  Panamericana y Campeona mundial infantil categoría tk3 infantil sogamoso 2023",
+    logros: "Medalla de bronce infantil  Panamericana y Campeona mundial infantil categoría tk3 sogamoso 2023",
     medalla: "Oro",
     fondo: "/nicol.jpg",
   },
