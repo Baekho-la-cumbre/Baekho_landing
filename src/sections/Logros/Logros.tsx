@@ -160,10 +160,6 @@ const Logros: React.FC = () => (
                   className="absolute inset-0 w-full h-full object-cover opacity-30 brightness-125 pointer-events-none select-none z-0"
                   style={{ zIndex: 0 }}
                 />
-                {/* Ícono decorativo */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none z-10">
-                  <BootstrapIcon name="heart-fill" size="8rem" className="text-red-500" />
-                </div>
 
                 {/* Frente de la tarjeta */}
                 <div 
