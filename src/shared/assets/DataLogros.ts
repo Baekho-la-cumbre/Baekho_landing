@@ -11,12 +11,12 @@ export interface LogroItem {
 }
 
 export const logrosData: LogroItem[] = [
-  { atleta: "Ana Pérez",    año: 2024, competencia: "Campeonato Nacional", medalla: "Oro",   foto: "/reconocimiento1.jpg" , fondo: "/danna.jpg" },
-  { atleta: "Carlos López", año: 2024, competencia: "Open Internacional",  medalla: "Plata", foto: "/reconocimiento2.jpg" , fondo: "/richard.jpg" },
-  { atleta: "María González", año: 2023, competencia: "Copa Panamericana", medalla: "Oro",   foto: "/reconocimiento3.jpg" , fondo: "/juanPablo.jpg" },
-  { atleta: "Diego Marín",  año: 2023, competencia: "Torneo Regional",     medalla: "Bronce", foto: "/reconocimiento4.jpg" , fondo: "/luna.jpg" },
-  { atleta: "Sofía Ruiz",   año: 2023, competencia: "Campeonato Juvenil",  medalla: "Plata", foto: "/reconocimiento5.jpg" , fondo: "/niño.jpg" },
-  { atleta: "Andrés Castro", año: 2022, competencia: "Copa Nacional",      medalla: "Oro",   foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Danna Sofía Sierra Daza",    año: 2025, competencia: "campeonato ranking G1 Cartagena", medalla: "Plata",   foto: "/reconocimiento1.jpg" , fondo: "/danna.jpg" },
+  { atleta: "Richard Daniel Grueso Quiñonez", año: 2025, competencia: "campeonato ranking G1 Cartagena",  medalla: "Bronce", foto: "/reconocimiento2.jpg" , fondo: "/richard.jpg" },
+  { atleta: "Juan Pablo Silva Durán", año: 2025, competencia: "campeonato ranking G1 Cartagena", medalla: "Plata",   foto: "/reconocimiento3.jpg" , fondo: "/juanPablo.jpg" },
+  { atleta: "Luna Sofía Ospina",  año: 2025, competencia: "campeonato ranking G1 Cartagena",     medalla: "Oro", foto: "/reconocimiento4.jpg" , fondo: "/luna.jpg" },
+  { atleta: "Ihaan Daniel Rivera Naranjo",   año: 2025, competencia: "campeonato open Cartagena",  medalla: "Oro", foto: "/reconocimiento5.jpg" , fondo: "/ihaan.jpg" },
+  { atleta: "Marco Aurelio Ospina Jaimes", año: 2025, competencia: "campeonato open Cartagena",      medalla: "Plata",   foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
 ];
 
 export interface AtletaDestacado {
