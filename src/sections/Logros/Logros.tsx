@@ -157,7 +157,7 @@ const Logros: React.FC = () => (
                 <img
                   src={atleta.fondo || "/fondocard.png"}
                   alt="Fondo decorativo"
-                  className={`absolute inset-0 w-full h-full object-cover opacity-30 brightness-125 pointer-events-none select-none z-0 transition-opacity duration-700 ${
+                  className={`absolute inset-0 w-full h-full object-cover opacity-20 brightness-125 pointer-events-none select-none z-0 transition-opacity duration-700 ${
                     isFlipped ? 'opacity-0' : 'opacity-30'
                   }`}
                   style={{ zIndex: 0 }}
@@ -281,8 +281,8 @@ const Logros: React.FC = () => (
                   <img
                     src={logro.fondo || "/fondocard.png"}
                     alt="Fondo decorativo"
-                    className={`absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none select-none transition-opacity duration-700 ${
-                      isFlipped ? 'opacity-0' : 'opacity-10'
+                    className={`absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none select-none transition-opacity duration-700 ${
+                      isFlipped ? 'opacity-0' : 'opacity-20'
                     }`}
                     style={{ zIndex: 0 }}
                   />

@@ -25,7 +25,7 @@ export default function Inicio(): JSX.Element {
           style={{ backgroundImage: "url('/ImgInicio.jpg')" }}
         />
         {/* <video autoPlay loop muted className="object-cover w-full h-full">...</video> */}
-        <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-[#7a1a1a] via-black to-[#D42D2D] opacity-90" />
+        <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-[#7a1a1a] via-black to-[#D42D2D] opacity-80" />
       </div>
 
       {/* Contenido principal o cuadrícula de horarios */}
