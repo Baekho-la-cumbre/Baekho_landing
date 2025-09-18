@@ -166,10 +166,9 @@ function Header(): JSX.Element {
         {/* Logo */}
         <div className="flex items-center h-19">
           <img
-            src="/logo.svg"
+            src="/logo.png"
             alt="Baekho Logo"
-            className="w-32 mr-2 -mt-1 header-logo-img h-19"
-            style={{ filter: "drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)" }}
+            className="w-32 mr-2 -mt-1 header-logo-img h-16"
           />
           <div className="flex flex-col">
             <span className="text-2xl font-bold tracking-wide text-white">BAEKHO </span>

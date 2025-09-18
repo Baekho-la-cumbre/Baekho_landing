@@ -8,10 +8,9 @@ const Footer: React.FC = () => (
         <div className="flex items-top gap-3 ">
           <div className="flex items-top h-19">
             <img
-              src="/logo.svg"
+              src="/logo.png"
               alt="Baekho Logo"
-              className="header-logo-img h-19 w-32 mr-2 -mt-2"
-              style={{ filter: "drop-shadow(0 0 9px white) drop-shadow(0 0 24px white)" }}
+              className="h-16 w-26 mx-auto mb-2 md:h-16 md:w-32 md:mr-2 md:mb-0 object-contain"
             />
             <div className="hidden md:block">
               <span className="block text-lg font-bold text-white leading-tight">BAEKHO</span>

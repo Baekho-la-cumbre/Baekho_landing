@@ -127,16 +127,15 @@ function HeaderMovil(): JSX.Element {
         {/* Logo */}
         <div className="flex items-center h-full">
           <img
-            src="/logo.svg"
+            src="/logo.png"
             alt="Baekho Logo"
-            className="header-logo-img h-19 w-32 mr-2 -mt-1"
-            style={{
-              filter:
-                "drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)",
-            }}
+            className="header-logo-img h-10 w-32 mr-2 -mt-1
+              sm:h-10 sm:w-32 sm:mr-2
+              xs:h-8 xs:w-24 xs:mr-1 xs:-mt-0.5
+              max-w-[110px] object-contain"
           />
           <div className="flex flex-col">
-            <span className="text-2xl font-bold tracking-wide text-white">
+            <span className="text-2xl font-bold tracking-wide text-white xs:text-xl">
               BAEKHO
             </span>
             <span
