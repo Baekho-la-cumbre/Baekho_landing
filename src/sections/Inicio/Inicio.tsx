@@ -36,23 +36,23 @@ export default function Inicio(): JSX.Element {
               hideInicio ? "opacity-0 pointer-events-none" : "opacity-100"
             } relative`}
           >
-            <h1 className="mb-2 text-6xl font-extrabold text-transparent md:text-7xl bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text drop-shadow-lg baekho-title">
+            <h2 className="font-extrabold text-white text-1xl md:text-4xl drop-shadow-lg">
+              CLUB DEPORTIVO
+            </h2>
+            <h1 className="mb-5 text-6xl text-transparent mfont-extrabold md:text-9xl bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text drop-shadow-lg baekho-title">
               BAEKHO
             </h1>
-            <h2 className="mb-6 text-3xl font-extrabold text-white md:text-4xl drop-shadow-lg">
-              CLUB DEPORTIVA
-            </h2>
-            <p className="mb-2 text-lg text-gray-200 md:text-xl">
+            <p className="text-sm text-gray-200 md:text-xl">
               Forjando campeones, inspirando futuros.
             </p>
-            <p className="mb-8 text-lg font-semibold text-red-400 md:text-xl">
+            <p className="mb-8 text-sm font-semibold text-red-400 md:text-xl">
               Descubre la excelencia en Taekwondo.
             </p>
           </div>
         )}
 
         {showSchedule && (
-          <div className="transition-all duration-500 opacity-100 relative">
+          <div className="relative transition-all duration-500 opacity-100">
             <HorarioGrid />
           </div>
         )}

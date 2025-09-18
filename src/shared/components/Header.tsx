@@ -113,7 +113,7 @@ function HeaderNav(): JSX.Element {
   };
 
   return (
-    <nav className="hidden lg:flex space-x-8">
+    <nav className="hidden space-x-1 lg:flex">
       {navItems.map((item) => {
         const base =
           "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
@@ -162,13 +162,13 @@ function Header(): JSX.Element {
         background: "radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-3 flex items-center justify-between top-0 z-50 w-full h-19 header-gap-xl header-wide-xl">
+      <div className="top-0 z-50 flex items-center justify-between w-full px-3 mx-auto max-w-7xl h-19 header-gap-xl header-wide-xl">
         {/* Logo */}
         <div className="flex items-center h-19">
           <img
             src="/logo.svg"
             alt="Baekho Logo"
-            className="header-logo-img h-19 w-32 mr-2 -mt-1"
+            className="w-32 mr-2 -mt-1 header-logo-img h-19"
             style={{ filter: "drop-shadow(0 0 12px white) drop-shadow(0 0 24px white)" }}
           />
           <div className="flex flex-col">
