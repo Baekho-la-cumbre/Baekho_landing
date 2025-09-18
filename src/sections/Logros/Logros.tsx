@@ -189,7 +189,7 @@ const Logros: React.FC = () => (
 
                     {/* Nombre y categoría en esquina superior derecha */}
                     <div className="flex-1 ml-6 text-right">
-                      <h4 className="text-2xl font-black text-red-400 mb-2 tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow leading-tight">
+                      <h4 className="text-sm min-[390px]:text-lg min-[520px]:text-2xl font-black text-red-400 mb-2 tracking-wider drop-shadow-[0_0_16px_#D42D2D] animate-glow leading-tight">
                         {atleta.nombre}
                       </h4>
                       <p className="text-red-200 font-semibold text-lg drop-shadow">{atleta.categoria}</p>
@@ -200,7 +200,7 @@ const Logros: React.FC = () => (
                   <div className="flex-1"></div>
 
                   {/* Contenedor transparente fijado en la parte inferior */}
-                  <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full h-36 sm:h-45 flex flex-col justify-center">
+                  <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full min-h-[120px] flex flex-col justify-center">
                     <h5 className="text-red-400 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Inspirando a nuestra comunidad:</h5>
                     <p className="text-red-100 text-sm sm:text-base leading-relaxed">
                       {atleta.logros} <br />
