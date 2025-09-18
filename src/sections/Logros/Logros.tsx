@@ -175,7 +175,7 @@ const Logros: React.FC = () => (
                   {/* Header con foto y nombre */}
                   <div className="flex items-start justify-between mb-8">
                     {/* Foto en esquina superior izquierda */}
-                    <div className="w-28 h-28 rounded-full border-6 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden flex-shrink-0">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 sm:border-6 border-red-500 shadow-lg bg-gradient-to-tr from-red-400 via-red-200 to-red-600 flex items-center justify-center overflow-hidden flex-shrink-0">
                       {atleta.imagen ? (
                         <img
                           src={atleta.imagen}
@@ -313,7 +313,8 @@ const Logros: React.FC = () => (
                       {/* Nombre y competencia en esquina superior derecha */}
                       <div className="flex-1 ml-3 text-right">
                         <h4 className="text-white font-extrabold text-lg md:text-xl mb-1 tracking-wide">
-                          {logro.atleta}
+                          {logro.atleta.split(' ').slice(0, 2).join(' ')}<br />
+                          {logro.atleta.split(' ').slice(2).join(' ')}
                         </h4>
                         <p className="text-gray-300 text-sm italic">{logro.competencia}</p>
                       </div>
