@@ -173,17 +173,17 @@ const Filosofia: React.FC = () => (
             <p className="text-gray-300">Los pilares fundamentales que sostienen nuestra enseñanza</p>
           </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {valoresData.map((item, index) => (
             <ScrollReveal key={index} delay={index * 100}>
-              <InteractiveCard className="bg-black/30 rounded-xl p-6">
+              <InteractiveCard className="bg-black/30 rounded-xl p-6 h-full flex flex-col">
                 <div className="text-center mb-4">
                   <div className="mb-3 transform group-hover:scale-110 transition-transform duration-300">
                     <BootstrapIcon name={item.icono} size="3rem" className="text-red-400" />
                   </div>
                   <h4 className="text-xl font-black text-red-400 mb-4">{item.valor}</h4>
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed text-center">{item.descripcion}</p>
+                <p className="text-gray-300 text-sm leading-relaxed text-center flex-1 flex items-center justify-center">{item.descripcion}</p>
               </InteractiveCard>
             </ScrollReveal>
           ))}
