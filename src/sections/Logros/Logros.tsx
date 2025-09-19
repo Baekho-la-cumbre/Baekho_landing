@@ -3,6 +3,7 @@ import BootstrapIcon from "../../shared/components/BootstrapIcon";
 import {
   logrosData,
   atletasDestacados,
+  conmemoracionData,
 } from "../../shared/assets/DataLogros";
 
 /** ScrollReveal simple (fade-in) */
@@ -105,7 +106,10 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 };
 
 
-const Logros: React.FC = () => (
+const Logros: React.FC = () => {
+  const [showConmemoracion, setShowConmemoracion] = React.useState(false);
+
+  return (
   <section
     id="logros"
     className="py-20 px-4 min-h-[100vh] relative"
@@ -117,6 +121,13 @@ const Logros: React.FC = () => (
       }
       .rotate-y-180 {
         transform: rotateY(180deg);
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
       }
     `}</style>
     <div className="max-w-6xl mx-auto">
@@ -132,22 +143,48 @@ const Logros: React.FC = () => (
         </div>
       </ScrollReveal>
 
-      {/* Atletas Destacados */}
+      {/* Botones de alternancia */}
+      <ScrollReveal>
+        <div className="flex justify-center gap-4 mb-8">
+          <button
+            onClick={() => setShowConmemoracion(false)}
+            className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
+              !showConmemoracion
+                ? "bg-red-500 text-white shadow-lg"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+            }`}
+          >
+            Atletas Destacados
+          </button>
+          <button
+            onClick={() => setShowConmemoracion(true)}
+            className={`px-6 py-3 rounded-lg font-bold transition-all duration-300 ${
+              showConmemoracion
+                ? "bg-red-500 text-white shadow-lg"
+                : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+            }`}
+          >
+            Conmemoración
+          </button>
+        </div>
+      </ScrollReveal>
+
+      {/* Atletas Destacados / Conmemoración */}
       <div>
         <ScrollReveal>
           <h3 className="text-3xl md:text-4xl font-black text-red-500 mb-12 text-center drop-shadow-[0_0_24px_#D42D2D] tracking-widest flex items-center justify-center gap-2">
-            ATLETAS DESTACADOS
+            {showConmemoracion ? "CONMEMORACIÓN" : "ATLETAS DESTACADOS"}
           </h3>
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto items-stretch">
-          {atletasDestacados.map((atleta, index) => {
+          {(showConmemoracion ? conmemoracionData : atletasDestacados).map((atleta, index) => {
             const [isFlipped, setIsFlipped] = React.useState(false);
             
             return (
             <ScrollReveal key={atleta.nombre} delay={index * 200}>
               <div 
-                className={`relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-700 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-[650px] cursor-pointer ${
+                className={`relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-red-500 bg-gradient-to-br from-red-700/30 via-red-900/10 to-black/0 p-0 transition-transform duration-700 hover:scale-105 hover:shadow-[0_0_64px_0_#D42D2D99] h-[650px] cursor-pointer flex flex-col ${
                   isFlipped ? 'rotate-y-180' : 'rotate-y-0'
                 }`}
                 onClick={() => setIsFlipped(!isFlipped)}
@@ -200,7 +237,7 @@ const Logros: React.FC = () => (
                   <div className="flex-1"></div>
 
                   {/* Contenedor transparente fijado en la parte inferior */}
-                  <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full min-h-[120px] flex flex-col justify-center">
+                  <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full h-50 overflow-y-auto flex flex-col justify-center scrollbar-hide">
                     <h5 className="text-red-400 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Inspirando a nuestra comunidad:</h5>
                     <p className="text-red-100 text-sm sm:text-base leading-relaxed">
                       {atleta.logros} <br />
@@ -391,6 +428,7 @@ const Logros: React.FC = () => (
       </ScrollReveal>
     </div>
   </section>
-);
+  );
+};
 
 export default Logros;
