@@ -8,10 +8,10 @@ export interface ValorItem {
 
 export const valoresData: ValorItem[] = [
   {
-    valor: "CORTESÍA",
+    valor: "DISCIPLINA",
     descripcion:
-      "El respeto y la consideración hacia los demás son fundamentales. Tratamos a todos con amabilidad y educación, reflejando la nobleza del arte marcial.",
-    icono: "hand-thumbs-up",
+      "La constancia y el orden en el entrenamiento son la base del progreso. Cultivamos la autodisciplina como herramienta para alcanzar metas.",
+    icono: "clock",
   },
   {
     valor: "INTEGRIDAD",
@@ -38,27 +38,21 @@ export const valoresData: ValorItem[] = [
     icono: "fire",
   },
   {
-    valor: "LEALTAD",
+    valor: "CIENCIA",
     descripcion:
-      "La fidelidad y compromiso hacia nuestros principios, compañeros y maestros. Construimos relaciones sólidas basadas en la confianza mutua.",
-    icono: "people",
+      "El conocimiento y la técnica perfecta son fundamentales. Estudiamos cada movimiento, cada estrategia, para alcanzar la maestría.",
+    icono: "cpu",
   },
   {
-    valor: "EMPATÍA",
+    valor: "BONDAD",
     descripcion:
-      "La capacidad de entender y compartir los sentimientos de otros. Nos conectamos con nuestros compañeros y creamos un ambiente de apoyo mutuo.",
-    icono: "people-fill",
+      "La compasión y el respeto hacia otros son esenciales. Usamos nuestras habilidades para proteger y ayudar, nunca para dañar.",
+    icono: "heart",
   },
   {
     valor: "AMOR",
     descripcion:
       "El amor por el arte marcial, por nuestros compañeros y por el crecimiento personal es lo que nos motiva cada día a ser mejores.",
     icono: "heart-fill",
-  },
-  {
-    valor: "RESPETO",
-    descripcion:
-      "El reconocimiento del valor y dignidad de cada persona. Honramos a nuestros maestros, compañeros y a nosotros mismos con reverencia y consideración.",
-    icono: "award",
   },
 ];
