@@ -324,7 +324,7 @@ const Logros: React.FC = () => (
                     <div className="flex-1"></div>
 
                     {/* Div de medalla fijado en la parte inferior */}
-                    <div className="mt-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2 h-20">
+                    <div className="mt-4 px-4 py-2 rounded-xl bg-white/10 border border-white/20 shadow flex items-center justify-center gap-2">
                       <BootstrapIcon
                         name={logro.medalla === "Oro" ? "award-fill" : "award"}
                         size="1.5rem"
