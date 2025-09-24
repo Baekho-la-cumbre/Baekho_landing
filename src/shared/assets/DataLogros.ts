@@ -41,36 +41,8 @@ export const atletasDestacados: AtletaDestacado[] = [
     nombre: "Nicole Tatiana muentes Diaz ",
     imagen: "/deportistaDestacado2.jpg",
     categoria: "Cinturón Negro 1º Dan",
-    logros: "Medalla de bronce infantil  Panamericana y Campeona mundial infantil categoría tk3 sogamoso 2023",
+    logros: "Medalla de bronce infantil  Panamericana y Campeona mundial infantil categoría tk3 sogamoso 2023",
     medalla: "Oro",
     fondo: "/nicol.jpg",
-  },
-];
-
-export interface ConmemoracionItem {
-  nombre: string;
-  imagen: string;
-  categoria: string;
-  logros: string;
-  medalla: Medalla;
-  fondo?: string;
-}
-
-export const conmemoracionData: ConmemoracionItem[] = [
-  {
-    nombre: "Jeyson Daniel Méndez",
-    imagen: "/calvin.png",
-    categoria: "Cinturón Amarrillo",
-    logros: "Campeón nacional categoría junior del campeonato feria de la flores Medellín Antioquia.",
-    medalla: "Oro",
-    fondo: "/jeison.jpg",
-  },
-  {
-    nombre: "Rubí Katherine Santos Santos",
-    imagen: "/conmemoracion2.jpg",
-    categoria: "Cinturón Franga Negro",
-    logros: "Primera campeona nacional del club. Representó a Colombia en competencias internacionales y fue ejemplo de dedicación y perseverancia.",
-    medalla: "Oro",
-    fondo: "/rubi.jpg",
   },
 ];
