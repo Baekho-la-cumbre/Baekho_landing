@@ -16,7 +16,7 @@ export const logrosData: LogroItem[] = [
   { atleta: "Juan Pablo Silva Durán", año: 2025, competencia: "campeonato ranking G1 Cartagena", medalla: "Plata",   foto: "/reconocimiento3.jpg" , fondo: "/juanPablo.jpg" },
   { atleta: "Luna Sofía Ospina",  año: 2025, competencia: "campeonato ranking G1 Cartagena",     medalla: "Oro", foto: "/reconocimiento4.jpg" , fondo: "/luna.jpg" },
   { atleta: "Ihaan Daniel Rivera Naranjo",   año: 2025, competencia: "campeonato open Cartagena",  medalla: "Oro", foto: "/reconocimiento5.jpg" , fondo: "/ihaan.jpg" },
-  { atleta: "Marco Aurelio Ospina Jaimes", año: 2025, competencia: "campeonato open Cartagena",      medalla: "Plata",   foto: "/deportista2.jpg" , fondo: "/fondocard.png" },
+  { atleta: "Marco Aurelio Ospina Jaimes", año: 2025, competencia: "campeonato open Cartagena",      medalla: "Plata",   foto: "/deportista6.jpg" , fondo: "/marco.jpg" },
 ];
 
 export interface AtletaDestacado {
