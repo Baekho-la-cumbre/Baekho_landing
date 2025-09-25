@@ -4,6 +4,7 @@ import {
   logrosData,
   atletasDestacados,
   conmemoracionData,
+  Medalla,
 } from "../../shared/assets/DataLogros";
 
 /** ScrollReveal simple (fade-in) */
@@ -106,8 +107,24 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 };
 
 
+// Función para ordenar por medallas: Oro > Plata > Bronce
+const ordenarPorMedallas = (a: { medalla: Medalla }, b: { medalla: Medalla }): number => {
+  const ordenMedallas: Record<Medalla, number> = {
+    "Oro": 1,
+    "Plata": 2,
+    "Bronce": 3
+  };
+  
+  return ordenMedallas[a.medalla] - ordenMedallas[b.medalla];
+};
+
 const Logros: React.FC = () => {
   const [showConmemoracion, setShowConmemoracion] = React.useState(false);
+  
+  // Ordenar los datos por medallas
+  const logrosOrdenados = [...logrosData].sort(ordenarPorMedallas);
+  const atletasOrdenados = [...atletasDestacados].sort(ordenarPorMedallas);
+  const conmemoracionOrdenada = [...conmemoracionData].sort(ordenarPorMedallas);
 
   return (
   <section
@@ -178,7 +195,7 @@ const Logros: React.FC = () => {
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto items-stretch">
-          {(showConmemoracion ? conmemoracionData : atletasDestacados).map((atleta, index) => {
+          {(showConmemoracion ? conmemoracionOrdenada : atletasOrdenados).map((atleta, index) => {
             const [isFlipped, setIsFlipped] = React.useState(false);
             
             return (
@@ -288,7 +305,7 @@ const Logros: React.FC = () => {
         </ScrollReveal>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-          {logrosData.map((logro, index) => {
+          {logrosOrdenados.map((logro, index) => {
             const [isFlipped, setIsFlipped] = React.useState(false);
             
             const borderColor =
