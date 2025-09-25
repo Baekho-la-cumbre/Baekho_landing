@@ -164,7 +164,7 @@ const Logros: React.FC = () => {
                 : "bg-gray-700 text-gray-300 hover:bg-gray-600"
             }`}
           >
-            Conmemoración
+            Glorias del Pasado
           </button>
         </div>
       </ScrollReveal>
@@ -173,7 +173,7 @@ const Logros: React.FC = () => {
       <div>
         <ScrollReveal>
           <h3 className="text-3xl md:text-4xl font-black text-red-500 mb-12 text-center drop-shadow-[0_0_24px_#D42D2D] tracking-widest flex items-center justify-center gap-2">
-            {showConmemoracion ? "CONMEMORACIÓN" : "ATLETAS DESTACADOS"}
+            {showConmemoracion ? "GLORIAS DEL PASADO" : "ATLETAS DESTACADOS"}
           </h3>
         </ScrollReveal>
 
@@ -238,10 +238,14 @@ const Logros: React.FC = () => {
 
                   {/* Contenedor transparente fijado en la parte inferior */}
                   <div className="bg-red-50/10 text-center rounded-xl p-3 sm:p-4 border border-red-200/30 w-full h-50 overflow-y-auto flex flex-col justify-center scrollbar-hide">
-                    <h5 className="text-red-400 font-bold mb-2 sm:mb-3 text-sm sm:text-base">Inspirando a nuestra comunidad:</h5>
+                    <h5 className="text-red-400 font-bold mb-2 sm:mb-3 text-sm sm:text-base">
+                      {showConmemoracion ? "Legado que perdura:" : "Inspirando a nuestra comunidad:"}
+                    </h5>
                     <p className="text-red-100 text-sm sm:text-base leading-relaxed">
                       {atleta.logros} <br />
-                      <span className="italic text-xs sm:text-sm text-orange-300">Ejemplo de dedicación y excelencia.</span>
+                      <span className="italic text-xs sm:text-sm text-orange-300">
+                        {showConmemoracion ? "Referentes de nuestra historia." : "Ejemplo de dedicación y excelencia."}
+                      </span>
                     </p>
                   </div>
                 </div>

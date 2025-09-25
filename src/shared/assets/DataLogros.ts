@@ -59,17 +59,17 @@ export interface ConmemoracionItem {
 export const conmemoracionData: ConmemoracionItem[] = [
   {
     nombre: "Jeyson Daniel Méndez",
-    imagen: "/calvin.png",
+    imagen: "/conmemoracion1.jpg",
     categoria: "Cinturón Amarrillo",
     logros: "Campeón nacional categoría junior del campeonato feria de la flores Medellín Antioquia.",
     medalla: "Oro",
-    fondo: "/jeison.jpg",
+    fondo: "/jeyson.jpg",
   },
   {
     nombre: "Rubí Katherine Santos Santos",
     imagen: "/conmemoracion2.jpg",
     categoria: "Cinturón Franga Negro",
-    logros: "Primera campeona nacional del club. Representó a Colombia en competencias internacionales y fue ejemplo de dedicación y perseverancia.",
+    logros: "campeona nacional poomsae intercolegiados 2021.",
     medalla: "Oro",
     fondo: "/rubi.jpg",
   },
