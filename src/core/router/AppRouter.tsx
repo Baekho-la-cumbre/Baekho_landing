@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Landing from "../../pages/Landing";
+import VideoPlayer from "@/pages/VideoPlayer";
 
 const AppRouter: React.FC = () => {
   return (
@@ -9,6 +10,8 @@ const AppRouter: React.FC = () => {
 
       {/* Fallback a la raíz */}
       <Route path="*" element={<Navigate to="/" replace />} />
+      {/* Reproductor de video por URL */}
+      <Route path="/video" element={<VideoPlayer />} />
     </Routes>
   );
 };

@@ -434,6 +434,7 @@ const Logros: React.FC = () => {
               <div className="transform hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={50} duration={2000} suffix="+" className="text-4xl font-black text-white mb-2" />
                 <div className="text-white">Medallas Ganadas</div>
+
               </div>
               <div className="transform hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={15} duration={2000} className="text-4xl font-black text-white mb-2" />

@@ -1,19 +1,7 @@
 import { JSX, useState } from "react";
+import { momentos, type Momento } from "@/shared/assets/DataGaleria";
 
-type MomentoTipo = "imagen" | "video";
-
-interface Momento {
-  tipo: MomentoTipo;
-  src: string;
-  titulo: string;
-}
-
-const momentos: Momento[] = [
-  { tipo: "imagen", src: "/galeria1.jpg", titulo: "Unidos en el Camino" },
-  { tipo: "imagen", src: "/galeria2.jpg", titulo: "Futuros Campeones" },
-  { tipo: "imagen", src: "/ImgInicio.jpg", titulo: "Disciplina y Enfoque" },
-  { tipo: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4", titulo: "Video de Ejemplo" },
-];
+// Tipos y datos fueron movidos a DataGaleria.ts
 
 interface MomentoCardProps extends Momento {
   onClick: () => void;
