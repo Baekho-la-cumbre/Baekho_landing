@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { JSX } from "react";
 
 export default function VideoPlayer(): JSX.Element {
   const url = useMemo(() => {
