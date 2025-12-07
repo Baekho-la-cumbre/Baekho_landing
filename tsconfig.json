@@ -41,8 +41,8 @@
       "@/tokens/*": ["src/core/styles/tokens/*"],
       "@/presets/*": ["src/core/styles/presettedStyles/*"],
       "@/ui/*": ["src/shared/components/ui/*"],
-      "@/utils/*": ["src/shared/lib/utils/*"],
-      "@/lib/*": ["src/shared/lib/*"],
+      "@/utils/*": ["src/lib/utils/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/components/*": ["src/shared/components/*"]
     },
