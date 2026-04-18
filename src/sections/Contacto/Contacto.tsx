@@ -1,15 +1,10 @@
 // src/sections/Contacto/Contacto.tsx
 import React from "react";
-import { enviarFormularioContacto } from "@/sections/Contacto/service/Contacto.services";
-import {
-  ContactoFormSchema,
-  ContactoFormValues,
-} from "@/sections/Contacto/validations/Contacto.validations";
 
 /** ScrollReveal simple (fade-in) */
-type ScrollRevealProps = React.PropsWithChildren<{ delay?: number }>;
+type ScrollRevealProps = React.PropsWithChildren<{ delay?: number; className?: string }>;
 
-const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
+const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0, className = "" }) => {
   const [visible, setVisible] = React.useState<boolean>(false);
   const ref = React.useRef<HTMLDivElement | null>(null);
 
@@ -28,6 +23,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({ children, delay = 0 }) => {
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(40px)",
@@ -109,72 +105,6 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
 };
 
 const Contacto: React.FC = () => {
-  // Estados de los campos del formulario (nombres "amistosos" para el front)
-  const [nombre, setNombre] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [mensaje, setMensaje] = React.useState("");
-
-  // Errores Zod: usan las keys del schema -> nombre_completo, email, mensaje_texto
-  const [errors, setErrors] = React.useState<
-    Partial<Record<keyof ContactoFormValues, string>>
-  >({});
-  const [loading, setLoading] = React.useState(false);
-  const [successMsg, setSuccessMsg] = React.useState<string | null>(null);
-  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
-
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    setSuccessMsg(null);
-    setErrorMsg(null);
-    setErrors({});
-
-    // Validamos usando las MISMAS keys que el schema
-    const result = ContactoFormSchema.safeParse({
-      nombre_completo: nombre.trim(),
-      email: email.trim(),
-      mensaje_texto: mensaje.trim(),
-    });
-
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof ContactoFormValues, string>> = {};
-      const zodErrors = result.error.flatten().fieldErrors;
-
-      if (zodErrors.nombre_completo?.[0]) {
-        fieldErrors.nombre_completo = zodErrors.nombre_completo[0];
-      }
-      if (zodErrors.email?.[0]) {
-        fieldErrors.email = zodErrors.email[0];
-      }
-      if (zodErrors.mensaje_texto?.[0]) {
-        fieldErrors.mensaje_texto = zodErrors.mensaje_texto[0];
-      }
-
-      setErrors(fieldErrors);
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const validData = result.data; // { nombre_completo, email, mensaje_texto }
-
-      // Enviamos al backend exactamente lo que él espera
-      await enviarFormularioContacto(validData);
-
-      setSuccessMsg("¡Tu mensaje fue enviado correctamente! Pronto nos pondremos en contacto.");
-      setNombre("");
-      setEmail("");
-      setMensaje("");
-    } catch (error: any) {
-      console.error(error);
-      const backendMessage =
-        error?.response?.data?.message ||
-        "Ocurrió un error al enviar el mensaje. Intenta nuevamente más tarde.";
-      setErrorMsg(backendMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <section
       id="contacto"
@@ -196,100 +126,10 @@ const Contacto: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* Formulario */}
-          <ScrollReveal delay={200}>
-            <div className="flex flex-col h-full p-4 border bg-black/80 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
-              <h3 className="mb-4 text-xl font-bold text-white sm:text-2xl sm:mb-6">
-                Envíanos un <span className="text-red-500">Mensaje</span>
-              </h3>
-
-              {/* Mensajes globales */}
-              {successMsg && (
-                <div className="px-4 py-3 mb-4 text-sm font-semibold text-green-300 border border-green-500/40 rounded-lg bg-green-900/20">
-                  {successMsg}
-                </div>
-              )}
-              {errorMsg && (
-                <div className="px-4 py-3 mb-4 text-sm font-semibold text-red-300 border border-red-500/40 rounded-lg bg-red-900/20">
-                  {errorMsg}
-                </div>
-              )}
-
-              <form className="flex flex-col space-y-6" onSubmit={handleSubmit}>
-                <div>
-                  <label htmlFor="nombre" className="block mb-1 font-semibold text-gray-300">
-                    Nombre Completo *
-                  </label>
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    required
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
-                    className="w-full px-4 py-3 text-white transition-all duration-300 bg-gray-900 border border-gray-700 rounded-lg focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 hover:border-red-400"
-                    placeholder="Tu nombre completo"
-                  />
-                  {errors.nombre_completo && (
-                    <p className="mt-1 text-sm text-red-400">{errors.nombre_completo}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block mb-1 font-semibold text-gray-300">
-                    Correo Electrónico *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 text-white transición-all duration-300 bg-gray-900 border border-gray-700 rounded-lg focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 hover:border-red-400"
-                    placeholder="tu@email.com"
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-400">{errors.email}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label htmlFor="mensaje" className="block mb-1 font-semibold text-gray-300">
-                    Mensaje *
-                  </label>
-                  <textarea
-                    id="mensaje"
-                    name="mensaje"
-                    required
-                    rows={5}
-                    value={mensaje}
-                    onChange={(e) => setMensaje(e.target.value)}
-                    className="w-full px-4 py-3 text-white transition-all duration-300 bg-gray-900 border border-gray-700 rounded-lg resize-none focus:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500/20 hover:border-red-400"
-                    placeholder="Cuéntanos sobre tu interés en el Taekwondo, tu experiencia previa, horarios preferidos, etc."
-                  />
-                  {errors.mensaje_texto && (
-                    <p className="mt-1 text-sm text-red-400">{errors.mensaje_texto}</p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full px-6 py-3 font-bold text-white transition-all duration-300 transform rounded-lg shadow-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 sm:py-4 sm:px-8 hover:scale-105 hover:shadow-red-500/25 interactive-btn disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {loading ? "Enviando..." : "Enviar Mensaje"}
-                </button>
-              </form>
-            </div>
-          </ScrollReveal>
-
-          {/* Información de Contacto */}
-          <div className="space-y-8">
-            {/* Dirección, WhatsApp, Correo */}
-            <ScrollReveal delay={300}>
-              <InteractiveCard className="p-4 border bg-gradient-to-r from-red-900/30 to-black/50 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-stretch">
+          <ScrollReveal delay={200} className="h-full">
+            <div className="h-full">
+              <InteractiveCard className="flex h-full flex-col p-4 border bg-gradient-to-r from-red-900/30 to-black/50 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
                 <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
                   Información de <span className="text-red-500">Contacto</span>
                 </h3>
@@ -327,52 +167,56 @@ const Contacto: React.FC = () => {
                   </div>
                 </div>
               </InteractiveCard>
+            </div>
+          </ScrollReveal>
+
+          <div className="flex flex-col gap-8 lg:h-full">
+            <ScrollReveal delay={300} className="h-full">
+              <div className="h-full">
+                <InteractiveCard className="flex h-full flex-col items-center justify-center p-4 border bg-black/80 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
+                  <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
+                    Síguenos en <span className="text-red-500">Redes</span>
+                  </h3>
+                  <div className="flex space-x-6">
+                    <a
+                      href="https://www.facebook.com/share/1BoxMgww6V/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/facebook.png" alt="Facebook" className="w-8 h-8" />
+                    </a>
+                    <a
+                      href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/tik-tok.png" alt="TikTok" className="w-9 h-9" />
+                    </a>
+                    <a
+                      href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ=="
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/instagram.png" alt="Instagram" className="w-9 h-9" />
+                    </a>
+                  </div>
+                </InteractiveCard>
+              </div>
             </ScrollReveal>
 
-            {/* Redes sociales */}
-            <ScrollReveal delay={400}>
-              <InteractiveCard className="flex flex-col items-center p-4 border bg-black/80 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
-                <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
-                  Síguenos en <span className="text-red-500">Redes</span>
-                </h3>
-                <div className="flex space-x-6">
+            <ScrollReveal delay={400} className="h-full">
+              <div className="h-full">
+                <InteractiveCard className="flex h-full flex-col items-center justify-center p-4 border bg-black/80 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
                   <a
-                    href="https://www.facebook.com/share/1BoxMgww6V/"
+                    href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/@7.0779666,-73.0970339,15z/data=!3m1!4b1!4m6!3m5!1s0x8e683f4005ef85b3:0xabe0ad6590ee3710!8m2!3d7.0779454!4d-73.0867341!16s%2Fg%2F11fkbcdqb5?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D/..."
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="w-full px-6 py-3 text-base font-bold text-center text-white transition-all duración-300 transform rounded-lg shadow-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 sm:px-10 hover:scale-105 sm:text-lg md:text-xl"
                   >
-                    <img src="/facebook.png" alt="Facebook" className="w-8 h-8" />
+                    Cómo encontrarnos
                   </a>
-                  <a
-                    href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src="/tik-tok.png" alt="TikTok" className="w-9 h-9" />
-                  </a>
-                  <a
-                    href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ=="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src="/instagram.png" alt="Instagram" className="w-9 h-9" />
-                  </a>
-                </div>
-              </InteractiveCard>
-            </ScrollReveal>
-
-            {/* CTA Google Maps */}
-            <ScrollReveal delay={500}>
-              <InteractiveCard className="flex flex-col items-center p-4 border bg-black/80 border-red-500/30 rounded-2xl sm:p-6 md:p-8">
-                <a
-                  href="https://www.google.com/maps/place/CLUB+ACADEMIA+DE+TAEKWONDO+BAEKHO/@7.0779666,-73.0970339,15z/data=!3m1!4b1!4m6!3m5!1s0x8e683f4005ef85b3:0xabe0ad6590ee3710!8m2!3d7.0779454!4d-73.0867341!16s%2Fg%2F11fkbcdqb5?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D/..."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full px-6 py-3 text-base font-bold text-center text-white transition-all duración-300 transform rounded-lg shadow-lg bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 sm:px-10 hover:scale-105 sm:text-lg md:text-xl"
-                >
-                  Cómo encontrarnos
-                </a>
-              </InteractiveCard>
+                </InteractiveCard>
+              </div>
             </ScrollReveal>
           </div>
         </div>
