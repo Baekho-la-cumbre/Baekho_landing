@@ -1,16 +1,7 @@
-import React, { useEffect, useRef, useState, JSX } from "react";
+import React, { useEffect, useRef, useState, type JSX } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
-
-type NavItem = { label: string; id: string };
-
-const navItems: NavItem[] = [
-  { label: "Inicio", id: "inicio" },
-  { label: "Historia", id: "historia" },
-  { label: "Galería", id: "galeria" },
-  { label: "Logros", id: "logros" },
-  { label: "Filosofía", id: "filosofia" },
-  { label: "Contacto", id: "contacto" },
-];
+import { navItems, sectionNavItems } from "../constants/navItems";
 
 /** Hook: detecta dirección del scroll y si ya se scrolleó */
 function useScrollDirection(threshold = 6) {
@@ -44,34 +35,48 @@ function useScrollDirection(threshold = 6) {
   return { direction, scrolled };
 }
 
+function scrollToSection(id: string) {
+  const targetElement = document.getElementById(id);
+  if (!targetElement) return;
+
+  const headerEl = document.querySelector(".baekho-header");
+  const headerH = headerEl instanceof HTMLElement ? headerEl.offsetHeight : 72;
+  const offsetTop = targetElement.offsetTop - (headerH + 8);
+  window.scrollTo({ top: Math.max(0, offsetTop), behavior: "smooth" });
+}
+
 function HeaderNav(): JSX.Element {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [active, setActive] = useState<string>("inicio");
-  const [goldBorder, setGoldBorder] = useState<string | null>(null);
+  const isHome = location.pathname === "/";
 
-  // Activa sección desde hash inicial
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    let tid: number | undefined;
-
-    if (hash && navItems.some((item) => item.id === hash)) {
-      setActive(hash);
-      tid = window.setTimeout(() => {
-        const targetElement = document.getElementById(hash);
-        if (targetElement) {
-          const offsetTop = targetElement.offsetTop - 80;
-          window.scrollTo({ top: offsetTop, behavior: "smooth" });
-        }
-      }, 100);
+    if (location.pathname === "/logros") {
+      setActive("logros");
+      return undefined;
     }
-    return () => {
-      if (tid !== undefined) window.clearTimeout(tid);
-    };
-  }, []);
+    if (location.pathname === "/deportistas") {
+      setActive("deportistas");
+      return undefined;
+    }
+    if (isHome) {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && sectionNavItems.some((item) => item.id === hash)) {
+        setActive(hash);
+        const tid = window.setTimeout(() => scrollToSection(hash), 100);
+        return () => window.clearTimeout(tid);
+      }
+      setActive("inicio");
+    }
+    return undefined;
+  }, [location.pathname, location.hash, isHome]);
 
-  // Scrollspy
   useEffect(() => {
+    if (!isHome) return;
+
     const handleScroll = () => {
-      const pairs = navItems.map((item) => ({
+      const pairs = sectionNavItems.map((item) => ({
         item,
         section: document.getElementById(item.id),
       }));
@@ -95,50 +100,48 @@ function HeaderNav(): JSX.Element {
       window.clearTimeout(timeoutId);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isHome]);
 
-  // Smooth scroll al hacer clic
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: string,
+    href: string,
+    isRoute?: boolean
+  ) => {
     e.preventDefault();
-    const targetElement = document.getElementById(id);
-    if (targetElement) {
-      const offsetTop = targetElement.offsetTop - 80;
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
-    }
-    setGoldBorder(id);
-    window.setTimeout(() => {
+
+    if (isRoute) {
+      navigate(href);
       setActive(id);
-      setGoldBorder(null);
-    }, 200);
+      return;
+    }
+
+    if (isHome) {
+      scrollToSection(id);
+      window.history.replaceState(null, "", `#${id}`);
+    } else {
+      navigate(`/#${id}`);
+    }
+
+    setActive(id);
   };
 
   return (
-    <nav className="hidden space-x-1 lg:flex">
-      {navItems.map((item) => {
-        const base =
-          "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
+    <nav className="baekho-header__nav" aria-label="Navegación principal">
+      {navItems.map((item, index) => {
         const isActive = active === item.id;
-        const isGold = goldBorder === item.id;
-        let btnClass = base;
-        if (isGold) btnClass += " gold";
-        else if (isActive) btnClass += " red active";
-        const bg = isActive ? "bg-red-500" : "";
 
         return (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            onClick={(e) => handleNavClick(e, item.id)}
-            className={
-              `${btnClass} ${bg} ` +
-              (isActive
-                ? "text-white shadow-lg shadow-red-500/25 scale-105"
-                : "text-white hover:text-yellow-400 hover:bg-red-500/20 hover:scale-105")
-            }
-          >
-            {item.label}
-            <span className="border-anim" />
-          </a>
+          <React.Fragment key={item.id}>
+            {index > 0 ? <span className="baekho-header__sep" aria-hidden="true" /> : null}
+            <a
+              href={item.href}
+              onClick={(e) => handleNavClick(e, item.id, item.href, item.isRoute)}
+              className={`baekho-header__link${isActive ? " is-active" : ""}`}
+            >
+              <span className="baekho-header__link-label">{item.label}</span>
+            </a>
+          </React.Fragment>
         );
       })}
     </nav>
@@ -152,53 +155,52 @@ function Header(): JSX.Element {
   return (
     <header
       className={[
-        "relative sticky top-0 z-50 w-full h-20 custom-header",
+        "baekho-header",
+        "sticky top-0 z-50 w-full",
         "transition-transform duration-300 will-change-transform",
-        "overflow-x-clip",
-        scrolled ? "shadow-sm" : "",
+        scrolled ? "baekho-header--scrolled" : "",
         direction === "down" ? "-translate-y-full" : "translate-y-0",
       ].join(" ")}
-      style={{
-        background: "radial-gradient(circle, #000 0%, #7a1a1a 60%, #D42D2D 100%)",
-      }}
     >
-      <div className="top-0 z-50 flex items-center justify-between w-full px-3 mx-auto max-w-7xl h-19 header-gap-xl header-wide-xl">
-        {/* Logo */}
-        <div className="flex items-center h-19">
-          <img
-            src="/logo.png"
-            alt="Baekho Logo"
-            className="w-32 mr-2 -mt-1 header-logo-img h-16"
-          />
-          <div className="flex flex-col">
-            <span className="text-2xl font-bold tracking-wide text-white">BAEKHO </span>
-            <span className="text-xs font-bold tracking-wide" style={{ color: "#D42D2D" }}>
-              ACADEMIA DEPORTIVA
+      <div className="baekho-header__shell">
+        <div className="baekho-header__texture baekho-header__texture--left" aria-hidden="true" />
+
+        <div className="baekho-header__row">
+          <Link to="/" className="baekho-header__brand">
+            <img
+              src="/logo.png"
+              alt="Baekho"
+              className="baekho-header__brand-logo"
+            />
+            <span className="baekho-header__brand-text">
+              <span className="baekho-header__brand-name">BAEKHO</span>
+              <span className="baekho-header__brand-sub">ACADEMIA DEPORTIVA</span>
             </span>
+          </Link>
+
+          <HeaderNav />
+
+          <div className="baekho-header__mobile-btn">
+            <button
+              type="button"
+              className="text-white focus:outline-none"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Abrir menú de navegación"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
+            >
+              <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
 
-        {/* Navegación */}
-        <HeaderNav />
-
-        {/* Menú móvil/tablet */}
-        <div className="lg:hidden">
-          <button
-            className="text-gray-700 hover:text-blue-600 focus:outline-none"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Abrir menú de navegación"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
-          >
-            <svg className="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-
-        {/* El id se usa para aria-controls */}
-        <MobileMenu open={mobileOpen} setOpen={setMobileOpen} navItems={navItems} id="mobile-menu" />
+        {/* Línea roja bajo TODO el header negro (desde el corte del diseño hacia la derecha) */}
+        <div className="baekho-header__glow-line" aria-hidden="true" />
       </div>
+
+      <MobileMenu open={mobileOpen} setOpen={setMobileOpen} navItems={navItems} id="mobile-menu" />
     </header>
   );
 }

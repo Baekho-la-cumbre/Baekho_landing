@@ -15,52 +15,644 @@ html {
 .baekho-title {
   font-family: 'Karate', sans-serif;
 }
-@media (min-width: 1650px) {
-  .header-gap-xl {
-    gap: 6rem !important;
-     /* Puedes ajustar el valor, por ejemplo 6rem = 96px */
-  }  
-  .header-wide-xl {
-    max-width: 1500px !important; /* o el valor que prefieras, por ejemplo 1600px */
+
+/* ========== Header Baekho (diseño angular / glow) ========== */
+.baekho-header {
+  --bh-red: #e31b1b;
+  --bh-red-glow: #ff1e1e;
+  --bh-black: #050505;
+  /* Tokens fluidos (móvil primero) */
+  --bh-nav-h: 3.65rem;
+  --bh-brand-extra: 0.5rem;
+  --bh-brand-w: clamp(11.25rem, 62vw, 14.5rem);
+  --bh-cut-top: 94%;
+  --bh-cut-bot: 78%;
+  --bh-logo-h: clamp(2.35rem, 9vw, 2.85rem);
+  --bh-name-size: clamp(1rem, 4.2vw, 1.25rem);
+  --bh-sub-size: clamp(0.42rem, 1.7vw, 0.52rem);
+  font-family: "Exo 2", system-ui, sans-serif;
+  overflow: visible;
+  padding-bottom: var(--bh-brand-extra);
+  margin-bottom: calc(var(--bh-brand-extra) * -1);
+}
+
+@media (min-width: 400px) {
+  .baekho-header {
+    --bh-brand-w: clamp(12.5rem, 58vw, 16rem);
+    --bh-name-size: clamp(1.05rem, 3.8vw, 1.35rem);
+    --bh-sub-size: clamp(0.45rem, 1.5vw, 0.55rem);
   }
+}
+
+@media (min-width: 640px) {
+  .baekho-header {
+    --bh-nav-h: 4rem;
+    --bh-brand-extra: 0.65rem;
+    --bh-brand-w: clamp(14rem, 42vw, 18rem);
+    --bh-logo-h: clamp(2.6rem, 6vw, 3.2rem);
+    --bh-name-size: clamp(1.15rem, 2.6vw, 1.45rem);
+    --bh-sub-size: clamp(0.48rem, 1.1vw, 0.58rem);
+    --bh-cut-top: 95%;
+    --bh-cut-bot: 80%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .baekho-header {
+    --bh-nav-h: 4.35rem;
+    --bh-brand-extra: 0.8rem;
+    /* Más estrecho en laptop para dejar sitio a 7 links */
+    --bh-brand-w: clamp(13.5rem, 22vw, 18rem);
+    --bh-logo-h: clamp(2.7rem, 4.2vw, 3.4rem);
+    --bh-name-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    --bh-sub-size: clamp(0.5rem, 0.7vw, 0.6rem);
+    --bh-cut-top: 96%;
+    --bh-cut-bot: 82%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .baekho-header {
+    --bh-nav-h: 4.5rem;
+    --bh-brand-extra: 0.9rem;
+    --bh-brand-w: clamp(16rem, 26vw, 22rem);
+    --bh-logo-h: clamp(2.9rem, 4.5vw, 3.7rem);
+    --bh-name-size: clamp(1.3rem, 1.9vw, 1.65rem);
+    --bh-sub-size: clamp(0.52rem, 0.72vw, 0.64rem);
+  }
+}
+
+@media (min-width: 1536px) {
+  .baekho-header {
+    --bh-brand-w: clamp(18rem, 28vw, 24rem);
+    --bh-logo-h: clamp(3.1rem, 4.8vw, 3.85rem);
+    --bh-name-size: clamp(1.45rem, 2vw, 1.75rem);
+  }
+}
+
+/* Ultra-wide: logo fijo, sin seguir escalando ni desplazarse */
+@media (min-width: 1800px) {
+  .baekho-header {
+    --bh-nav-h: 4.5rem;
+    --bh-brand-extra: 0.9rem;
+    --bh-brand-w: 24rem;
+    --bh-logo-h: 3.85rem;
+    --bh-name-size: 1.75rem;
+    --bh-sub-size: 0.65rem;
+    --bh-cut-top: 96%;
+    --bh-cut-bot: 82%;
+  }
+
+  .baekho-header__row {
+    max-width: none;
+    margin: 0;
+    padding-right: 1.5rem;
+  }
+
+  .baekho-header__brand {
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  .baekho-header__brand-logo {
+    max-width: 5.75rem;
+  }
+}
+
+.baekho-header__shell {
+  position: relative;
+  height: var(--bh-nav-h);
+  background: var(--bh-black);
+  overflow: visible;
+  isolation: isolate;
+}
+
+.baekho-header--scrolled .baekho-header__shell {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+.baekho-header__texture {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: #4a0000;
+  background-image: url("/header-splatter.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: luminosity;
+}
+
+.baekho-header__texture--left {
+  left: 0;
+  top: 0;
+  width: var(--bh-brand-w);
+  height: calc(var(--bh-nav-h) + var(--bh-brand-extra));
+  bottom: auto;
+  clip-path: polygon(0 0, var(--bh-cut-top) 0, var(--bh-cut-bot) 100%, 0 100%);
+  z-index: 4;
+  filter: saturate(2.4) brightness(1.35) contrast(1.2);
+}
+
+.baekho-header__texture--left::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 20%;
+  top: 30%;
+  height: 40%;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 0, 0, 0.28) 0%,
+    rgba(20, 0, 0, 0.12) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.baekho-header__texture--left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(227, 27, 27, 0.55) 0%,
+    rgba(180, 10, 10, 0.35) 45%,
+    rgba(120, 0, 0, 0.15) 100%
+  );
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+.baekho-header__texture--right {
+  display: none;
+}
+
+.baekho-header__row {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 0.35rem 0 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .baekho-header__row {
+    padding-right: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .baekho-header__row {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-right: 0.5rem;
+  }
+}
+
+.baekho-header__row--mobile {
+  padding-right: 0.35rem;
+}
+
+.baekho-header__brand {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  gap: clamp(3px, 1vw, 6px);
+  flex-shrink: 0;
+  width: var(--bh-brand-w);
+  max-width: calc(100% - 3.25rem);
+  height: calc(var(--bh-nav-h) + var(--bh-brand-extra));
+  margin: 0;
+  padding: 0 clamp(4px, 1.2vw, 8px);
+  text-decoration: none;
+  clip-path: polygon(0 0, var(--bh-cut-top) 0, var(--bh-cut-bot) 100%, 0 100%);
+  box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+  .baekho-header__brand {
+    max-width: none;
+  }
+}
+
+.baekho-header__brand-logo {
+  height: var(--bh-logo-h);
+  width: auto;
+  max-width: clamp(3.4rem, 14vw, 5.75rem);
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.baekho-header__brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1;
+  line-height: 1.05;
+}
+
+.baekho-header__brand-name {
+  font-size: var(--bh-name-size);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.baekho-header__brand-sub {
+  margin-top: 0.18rem;
+  font-size: var(--bh-sub-size);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--bh-red);
+  text-transform: uppercase;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 359px) {
+  .baekho-header__brand-sub {
+    display: none;
+  }
+}
+
+.baekho-header__black-zone {
+  display: none;
+}
+
+.baekho-header__nav {
+  display: none;
+  flex: 1;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0 0.5rem 0 0.35rem;
+}
+
+@media (min-width: 1024px) {
+  .baekho-header__nav {
+    display: flex;
+  }
+}
+
+@media (min-width: 1280px) {
+  .baekho-header__nav {
+    gap: 0.35rem;
+    padding: 0 1.25rem 0 0.75rem;
+  }
+}
+
+.baekho-header__sep {
+  width: 1px;
+  height: 0.85rem;
+  background: rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+  margin: 0 0.05rem;
+}
+
+@media (min-width: 1280px) {
+  .baekho-header__sep {
+    height: 1rem;
+    margin: 0 0.2rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .baekho-header__sep {
+    display: none;
+  }
+}
+
+.baekho-header__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  padding: 0 clamp(0.28rem, 0.7vw, 0.55rem);
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+@media (min-width: 1280px) {
+  .baekho-header__link {
+    height: 2.15rem;
+    padding: 0 clamp(0.55rem, 1.1vw, 1.05rem);
+    font-size: clamp(0.68rem, 0.95vw, 0.8rem);
+    letter-spacing: 0.06em;
+  }
+}
+
+.baekho-header__link:hover {
+  color: #ffd0d0;
+}
+
+.baekho-header__link-label {
+  position: relative;
+  z-index: 2;
+}
+
+.baekho-header__link.is-active .baekho-header__link-label {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+}
+
+.baekho-header__link.is-active::before {
+  content: "";
+  position: absolute;
+  inset: 0.15rem -0.15rem;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, transparent 0%, #d40f0f 8%, #e31b1b 50%, #d40f0f 92%, transparent 100%);
+  clip-path: polygon(
+    4% 18%,
+    12% 8%,
+    88% 10%,
+    97% 22%,
+    100% 50%,
+    96% 78%,
+    88% 90%,
+    12% 92%,
+    3% 80%,
+    0% 50%
+  );
+  box-shadow: 0 0 18px rgba(227, 27, 27, 0.55);
+  transform: skewX(-6deg);
+}
+
+.baekho-header__link.is-active::after {
+  display: none;
+}
+
+.baekho-header__glow-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 8%,
+    var(--bh-red-glow) 18%,
+    #ff3b3b 35%,
+    #ff3b3b 70%,
+    var(--bh-red-glow) 92%,
+    transparent 100%
+  );
+  box-shadow:
+    0 1px 6px var(--bh-red-glow),
+    0 2px 14px rgba(255, 30, 30, 0.55);
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+.baekho-header--mobile .baekho-header__glow-line {
+  left: 0;
+  right: 0;
+  display: block;
+}
+
+.baekho-header__mobile-btn,
+.baekho-header__burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: 0.15rem;
+  padding: 0.35rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 7;
+}
+
+.baekho-header__mobile-btn svg,
+.baekho-header__burger svg {
+  width: clamp(1.55rem, 5vw, 1.75rem);
+  height: clamp(1.55rem, 5vw, 1.75rem);
+}
+
+.baekho-header__burger:hover,
+.baekho-header__mobile-btn:hover {
+  color: #ffb3b3;
+}
+
+@media (min-width: 1024px) {
+  .baekho-header__mobile-btn {
+    display: none;
+  }
+}
+
+/* Sidebar hamburguesa: textura + links del nuevo header */
+.baekho-mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  pointer-events: none;
+  transition: background 0.3s ease, visibility 0.3s ease;
+}
+
+.baekho-mobile-menu-overlay.is-open {
+  background: rgba(0, 0, 0, 0.55);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.baekho-mobile-menu {
+  --bh-red: #e31b1b;
+  --bh-red-glow: #ff1e1e;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(16rem, 82vw);
+  background: #050505;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translateX(105%);
+  transition: transform 0.3s ease;
+  box-shadow: -10px 0 28px rgba(0, 0, 0, 0.45);
+  font-family: "Exo 2", system-ui, sans-serif;
+}
+
+.baekho-mobile-menu.is-open {
+  transform: translateX(0);
+}
+
+.baekho-mobile-menu__texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #4a0000;
+  background-image: url("/header-splatter.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: luminosity;
+  filter: saturate(2.4) brightness(1.25) contrast(1.15);
+}
+
+.baekho-mobile-menu__texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(227, 27, 27, 0.4) 0%,
+    rgba(20, 0, 0, 0.3) 45%,
+    rgba(5, 5, 5, 0.5) 100%
+  );
+  mix-blend-mode: color;
+}
+
+.baekho-mobile-menu__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 5;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.baekho-mobile-menu__close:hover {
+  color: #ffb3b3;
+}
+
+.baekho-mobile-menu__nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 4.25rem;
+  padding: 0 1.1rem 1.5rem;
+  overflow-y: auto;
+  height: calc(100% - 4.25rem);
+}
+
+.baekho-mobile-menu__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 2.55rem;
+  padding: 0.5rem 0.85rem;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.07em;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.baekho-mobile-menu__link:hover {
+  color: #ffd0d0;
+  transform: translateX(2px);
+}
+
+.baekho-mobile-menu__link-label {
+  position: relative;
+  z-index: 2;
+}
+
+.baekho-mobile-menu__link.is-active .baekho-mobile-menu__link-label {
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+}
+
+.baekho-mobile-menu__link.is-active::before {
+  content: "";
+  position: absolute;
+  inset: 0.12rem 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #d40f0f 8%,
+    #e31b1b 50%,
+    #d40f0f 92%,
+    transparent 100%
+  );
+  clip-path: polygon(
+    4% 18%,
+    12% 8%,
+    88% 10%,
+    97% 22%,
+    100% 50%,
+    96% 78%,
+    88% 90%,
+    12% 92%,
+    3% 80%,
+    0% 50%
+  );
+  box-shadow: 0 0 18px rgba(227, 27, 27, 0.45);
+  transform: skewX(-6deg);
+}
+
+@media (min-width: 1650px) {
   .horario-width-xl {
     max-width: 1200px;
   }
-  
 }
 
 @media (max-width: 1100px) and (min-width: 768px) {
-  .header-nav-btn {
-    font-size: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .header-logo-img {
-    width: 6rem;
-    height: 4rem;
-  }
   .horario-width-md {
     max-width: 800px;
     max-height: 40wp;
   }
- 
 }
+
 @media (max-width: 767px) {
-  .header-nav-btn {
-    font-size: 0.875rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  .header-logo-img {
-    width: 6rem;
-    height: 5rem;
-  }
   .horario-width-sm {
     max-width: 95vw;
   }
-
 }
 
+/* Mobile menu: conservar estilo de botones */
 .header-nav-btn {
   position: relative;
   overflow: hidden;
@@ -75,25 +667,21 @@ html {
   z-index: 2;
   border-radius: 0.5rem;
 }
-/* Top border */
 .header-nav-btn::before {
   top: 0; left: 0; right: 0; height: 2px;
   transform: scaleX(0);
   transform-origin: left;
 }
-/* Right border */
 .header-nav-btn span::before {
   top: 0; right: 0; bottom: 0; width: 2px;
   transform: scaleY(0);
   transform-origin: top;
 }
-/* Bottom border */
 .header-nav-btn::after {
   left: 0; right: 0; bottom: 0; height: 2px;
   transform: scaleX(0);
   transform-origin: right;
 }
-/* Left border */
 .header-nav-btn span::after {
   top: 0; left: 0; bottom: 0; width: 2px;
   transform: scaleY(0);
@@ -139,7 +727,6 @@ html {
 .header-nav-btn.active .border-anim {
   border-color: #D42D2D;
 }
-/* Cuando está activo, oculta los bordes dorados animados */
 .header-nav-btn.active::before,
 .header-nav-btn.active::after,
 .header-nav-btn.active span::before,
@@ -147,6 +734,248 @@ html {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
+}
+
+/* ========== Footer Baekho (misma línea visual del header) ========== */
+.baekho-footer {
+  --bh-red: #e31b1b;
+  --bh-red-glow: #ff1e1e;
+  --bh-black: #050505;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--bh-black);
+  font-family: "Exo 2", system-ui, sans-serif;
+  padding: 3rem 1.25rem 1.25rem;
+}
+
+.baekho-footer__texture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #4a0000;
+  background-image: url("/header-splatter.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: luminosity;
+  filter: saturate(2.4) brightness(1.15) contrast(1.12);
+  opacity: 0.9;
+}
+
+.baekho-footer__texture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0.55) 0%,
+    rgba(20, 0, 0, 0.35) 40%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+.baekho-footer__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--bh-red-glow) 12%,
+    #ff3b3b 45%,
+    var(--bh-red-glow) 78%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px var(--bh-red-glow),
+    0 2px 16px rgba(255, 30, 30, 0.45);
+}
+
+.baekho-footer__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 72rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.25rem;
+  justify-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .baekho-footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2rem;
+    justify-items: start;
+    text-align: left;
+  }
+}
+
+.baekho-footer__brand-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 22rem;
+}
+
+@media (min-width: 768px) {
+  .baekho-footer__brand-col {
+    align-items: flex-start;
+  }
+}
+
+.baekho-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+}
+
+.baekho-footer__brand-logo {
+  height: clamp(3.25rem, 8vw, 4rem);
+  width: auto;
+  max-width: 5.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.baekho-footer__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.baekho-footer__brand-name {
+  font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
+}
+
+.baekho-footer__brand-sub {
+  margin-top: 0.2rem;
+  font-size: clamp(0.48rem, 1vw, 0.58rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--bh-red);
+  text-transform: uppercase;
+}
+
+.baekho-footer__copy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.baekho-footer__socials {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.baekho-footer__socials a {
+  display: inline-flex;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.baekho-footer__socials a:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(255, 30, 30, 0.55));
+}
+
+.baekho-footer__socials img {
+  width: 1.55rem;
+  height: 1.55rem;
+  object-fit: contain;
+}
+
+.baekho-footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+@media (min-width: 768px) {
+  .baekho-footer__col {
+    align-items: flex-start;
+  }
+}
+
+.baekho-footer__title {
+  margin: 0 0 0.4rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.baekho-footer__text {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.baekho-footer__link {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.baekho-footer__link:hover {
+  color: #ffb3b3;
+}
+
+.baekho-footer__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 1.5rem;
+  width: 100%;
+  max-width: 16rem;
+  text-align: left;
+}
+
+.baekho-footer__bottom {
+  position: relative;
+  z-index: 2;
+  max-width: 72rem;
+  margin: 1.75rem auto 0;
+  text-align: center;
+}
+
+.baekho-footer__bottom-line {
+  height: 1px;
+  margin-bottom: 1rem;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(227, 27, 27, 0.55) 20%,
+    rgba(255, 59, 59, 0.7) 50%,
+    rgba(227, 27, 27, 0.55) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(255, 30, 30, 0.25);
+}
+
+.baekho-footer__bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
 }
 
 /* Estilos para el scroll horizontal de años */

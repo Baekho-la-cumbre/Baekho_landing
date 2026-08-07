@@ -1,83 +1,102 @@
 import React, { useEffect, useState } from "react";
-
-type NavItem = { label: string; id: string };
+import { createPortal } from "react-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import type { NavItem } from "../constants/navItems";
+import { sectionNavItems } from "../constants/navItems";
 
 interface MobileMenuProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   navItems: NavItem[];
-  id: string; // id del aside para aria-controls
+  id: string;
+}
+
+function scrollToSection(sectionId: string) {
+  const targetElement = document.getElementById(sectionId);
+  if (!targetElement) return;
+
+  const headerEl = document.querySelector(".baekho-header");
+  const headerH = headerEl instanceof HTMLElement ? headerEl.offsetHeight : 72;
+  const offsetTop = targetElement.offsetTop - (headerH + 8);
+  window.scrollTo({ top: Math.max(0, offsetTop), behavior: "smooth" });
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems, id }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [active, setActive] = useState<string>("inicio");
-  const [goldBorder, setGoldBorder] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const isHome = location.pathname === "/";
 
-  // Manejar hash de URL al cargar la página
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && navItems.some((item) => item.id === hash)) {
-      setActive(hash);
-    }
-  }, [navItems]);
+    setMounted(true);
+  }, []);
 
-  // Scrollspy: actualiza el botón activo según la sección visible
+  useEffect(() => {
+    if (location.pathname === "/logros") {
+      setActive("logros");
+      return;
+    }
+    if (location.pathname === "/deportistas") {
+      setActive("deportistas");
+      return;
+    }
+    if (isHome) {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && sectionNavItems.some((item) => item.id === hash)) {
+        setActive(hash);
+      } else {
+        setActive("inicio");
+      }
+    }
+  }, [location.pathname, location.hash, isHome]);
+
   useEffect(() => {
     if (!open) return;
-
-    const handleScroll = () => {
-      const pairs = navItems.map((item) => ({
-        item,
-        section: document.getElementById(item.id),
-      }));
-      const scrollPosition = window.scrollY + 150;
-
-      for (let i = pairs.length - 1; i >= 0; i--) {
-        const { item, section } = pairs[i]!;
-        if (section && section.offsetTop <= scrollPosition) {
-          setActive(item.id);
-          break;
-        }
-      }
-    };
-
-    // Delay inicial para evitar ejecución inmediata al abrir
-    const timeoutId = window.setTimeout(() => {
-      handleScroll();
-      window.addEventListener("scroll", handleScroll);
-    }, 100);
-
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      window.clearTimeout(timeoutId);
-      window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = prev;
     };
-  }, [open, navItems]);
+  }, [open]);
 
-  // Smooth scroll al hacer clic
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, setOpen]);
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    item: NavItem
+  ) => {
     e.preventDefault();
-    const targetElement = document.getElementById(sectionId);
-    if (targetElement) {
-      const offsetTop = targetElement.offsetTop - 80; // alto del header
-      window.scrollTo({ top: offsetTop, behavior: "smooth" });
+
+    if (item.isRoute) {
+      navigate(item.href);
+    } else if (isHome) {
+      scrollToSection(item.id);
+      window.history.replaceState(null, "", `#${item.id}`);
+    } else {
+      navigate(`/#${item.id}`);
     }
-    setGoldBorder(sectionId);
-    window.setTimeout(() => {
-      setActive(sectionId);
-      setGoldBorder(null);
-      setOpen(false);
-    }, 200);
+
+    setActive(item.id);
+    setOpen(false);
   };
 
-  // Cierra el menú al hacer clic fuera
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) setOpen(false);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <div
-      className={`fixed inset-0 z-50 transition-all duration-300 ${open ? "visible" : "invisible"}`}
-      style={{ background: open ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)" }}
+      className={`baekho-mobile-menu-overlay ${open ? "is-open" : ""}`}
       onClick={handleOverlayClick}
       aria-modal="true"
       role="dialog"
@@ -85,51 +104,41 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems, id }) 
       aria-hidden={!open}
     >
       <aside
-        className={`fixed top-0 right-0 h-full w-64 bg-gradient-to-b from-black via-red-900 to-red-700 shadow-lg transform transition-transform duration-300 ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`baekho-mobile-menu ${open ? "is-open" : ""}`}
         id={id}
       >
+        <div className="baekho-mobile-menu__texture" aria-hidden="true" />
+
         <button
-          className="absolute top-4 right-4 text-white text-2xl focus:outline-none"
+          type="button"
+          className="baekho-mobile-menu__close"
           onClick={() => setOpen(false)}
           aria-label="Cerrar menú de navegación"
         >
           &times;
         </button>
 
-        <nav className="flex flex-col mt-20 space-y-6 px-8">
+        <nav className="baekho-mobile-menu__nav" aria-label="Menú móvil">
           <span id="mobile-menu-label" className="sr-only">
             Menú de navegación
           </span>
           {navItems.map((item) => {
-            let base = "header-nav-btn font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 relative";
             const isActive = active === item.id;
-            const isGold = goldBorder === item.id;
-            let btnClass = base;
-            if (isGold) btnClass += " gold";
-            else if (isActive) btnClass += " red active";
-            const bg = isActive ? "bg-red-500" : "";
             return (
               <a
                 key={item.id}
-                href={`#${item.id}`}
-                onClick={(e) => handleNavClick(e, item.id)}
-                className={
-                  `${btnClass} ${bg} ` +
-                  (isActive
-                    ? "text-white shadow-lg shadow-red-500/25 scale-105"
-                    : "text-white hover:text-yellow-400 hover:bg-red-500/20 hover:scale-105")
-                }
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item)}
+                className={`baekho-mobile-menu__link${isActive ? " is-active" : ""}`}
               >
-                {item.label}
-                <span className="border-anim" />
+                <span className="baekho-mobile-menu__link-label">{item.label}</span>
               </a>
             );
           })}
         </nav>
       </aside>
-    </div>
+    </div>,
+    document.body
   );
 };
 

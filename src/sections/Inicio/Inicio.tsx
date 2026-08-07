@@ -68,7 +68,7 @@ export default function Inicio(): JSX.Element {
                 Ver Horarios
               </button>
               <a
-                href="#logros"
+                href="/logros"
                 className="border-2 border-[#D42D2D] text-white font-bold px-8 py-3 rounded-lg hover:bg-[#D42D2D]/20 transition"
               >
                 Ver Logros
@@ -83,7 +83,7 @@ export default function Inicio(): JSX.Element {
                 Únete ahora
               </a>
               <a
-                href="#logros"
+                href="/logros"
                 className="border-2 border-[#D42D2D] text-white font-bold px-8 py-3 rounded-lg hover:bg-[#D42D2D]/20 transition"
               >
                 Ver Logros

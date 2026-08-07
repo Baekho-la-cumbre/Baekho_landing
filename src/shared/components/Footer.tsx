@@ -1,69 +1,91 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => (
-  <footer className="bg-gradient-to-r from-[#2a0a0a] to-[#181c24] pt-12 pb-4 px-4 border-t-2 border-[#D42D2D]">
-    <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start justify-items-center md:justify-items-start">
-      {/* Logo y descripción */}
-      <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
-        <div className="flex items-top gap-3 ">
-          <div className="flex items-top h-19">
-            <img
-              src="/logo.png"
-              alt="Baekho Logo"
-              className="h-16 w-26 mx-auto mb-2 md:h-16 md:w-32 md:mr-2 md:mb-0 object-contain"
-            />
-            <div className="hidden md:block">
-              <span className="block text-lg font-bold text-white leading-tight">BAEKHO</span>
-              <span className="block text-xs font-bold text-[#D42D2D]">ACADEMIA DEPORTIVA</span>
-            </div>
-          </div>
-        </div>
-        <p className="text-gray-300 text-sm max-w-xs">
-          Forjando campeones desde hace más de 15 años. Únete a nuestra familia y descubre tu potencial en el arte del Taekwondo.
+  <footer className="baekho-footer">
+    <div className="baekho-footer__texture" aria-hidden="true" />
+    <div className="baekho-footer__glow" aria-hidden="true" />
+
+    <div className="baekho-footer__inner">
+      <div className="baekho-footer__brand-col">
+        <Link to="/" className="baekho-footer__brand">
+          <img
+            src="/logo.png"
+            alt="Baekho Logo"
+            className="baekho-footer__brand-logo"
+          />
+          <span className="baekho-footer__brand-text">
+            <span className="baekho-footer__brand-name">BAEKHO</span>
+            <span className="baekho-footer__brand-sub">ACADEMIA DEPORTIVA</span>
+          </span>
+        </Link>
+
+        <p className="baekho-footer__copy">
+          Forjando campeones desde hace más de 15 años. Únete a nuestra familia y
+          descubre tu potencial en el arte del Taekwondo.
         </p>
-        <div className="flex gap-4 mt-2">
-          <a href="https://www.facebook.com/share/1BoxMgww6V/" target="_blank" rel="noopener noreferrer">
-            <img src="/facebook.png" alt="Facebook" className="w-6 h-6 inline" />
+
+        <div className="baekho-footer__socials">
+          <a
+            href="https://www.facebook.com/share/1BoxMgww6V/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <img src="/facebook.png" alt="" />
           </a>
-          <a href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1" target="_blank" rel="noopener noreferrer">
-            <img src="/tik-tok.png" alt="TikTok" className="w-7 h-7 inline" />
+          <a
+            href="https://www.tiktok.com/@club_baekho?_t=ZS-8xiu94xikDa&_r=1"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <img src="/tik-tok.png" alt="" />
           </a>
-          <a href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ==" target="_blank" rel="noopener noreferrer">
-            <img src="/instagram.png" alt="Instagram" className="w-7 h-7 inline" />
+          <a
+            href="https://www.instagram.com/tkd_baekho?igsh=MWgyM2YxaHFodG53MQ=="
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <img src="/instagram.png" alt="" />
           </a>
         </div>
       </div>
 
-      {/* Contacto */}
-      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
-        <span className="text-white font-bold mb-2">Contacto</span>
-        <span className="text-gray-300 text-sm">CRA 9AE #29A-56, Floridablanca, Santander</span>
-        <span className="text-gray-300 text-sm">+57 317 7688456</span>
+      <div className="baekho-footer__col">
+        <h3 className="baekho-footer__title">Contacto</h3>
+        <span className="baekho-footer__text">
+          CRA 9AE #29A-56, Floridablanca, Santander
+        </span>
+        <a href="tel:+573177688456" className="baekho-footer__link">
+          +57 317 7688456
+        </a>
         <a
-          href="mailto:info@baekhoacademy.com"
-          className="text-gray-300 text-sm hover:text-[#D42D2D] transition"
+          href="mailto:Baekhotaekwondo2016@outlook.com"
+          className="baekho-footer__link"
         >
           Baekhotaekwondo2016@outlook.com
         </a>
       </div>
 
-      {/* Enlaces rápidos */}
-      <div className="flex flex-col gap-2 items-center md:items-start text-center md:text-left">
-        <span className="text-white font-bold mb-2">Enlaces Rápidos</span>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-1 w-full text-left">
-          <a href="#inicio" className="text-gray-300 hover:text-[#D42D2D] transition">Inicio</a>
-          <a href="#logros" className="text-gray-300 hover:text-[#D42D2D] transition">Logros</a>
-          <a href="#historia" className="text-gray-300 hover:text-[#D42D2D] transition">Historia</a>
-          <a href="#filosofia" className="text-gray-300 hover:text-[#D42D2D] transition">Filosofía</a>
-          <a href="#galeria" className="text-gray-300 hover:text-[#D42D2D] transition">Galeria</a>
-          <a href="#contacto" className="text-gray-300 hover:text-[#D42D2D] transition">Contacto</a>
+      <div className="baekho-footer__col">
+        <h3 className="baekho-footer__title">Enlaces Rápidos</h3>
+        <div className="baekho-footer__links">
+          <Link to="/#inicio" className="baekho-footer__link">Inicio</Link>
+          <Link to="/logros" className="baekho-footer__link">Logros</Link>
+          <Link to="/#historia" className="baekho-footer__link">Historia</Link>
+          <Link to="/deportistas" className="baekho-footer__link">Deportistas</Link>
+          <Link to="/#filosofia" className="baekho-footer__link">Filosofía</Link>
+          <Link to="/#galeria" className="baekho-footer__link">Galería</Link>
+          <Link to="/#contacto" className="baekho-footer__link">Contacto</Link>
         </div>
       </div>
     </div>
 
-    <hr className="my-6 border-[#D42D2D] opacity-40" />
-    <div className="text-center text-gray-400 text-xs">
-      © 2025 Academia Deportiva Baekho. Todos los derechos reservados.
+    <div className="baekho-footer__bottom">
+      <div className="baekho-footer__bottom-line" aria-hidden="true" />
+      <p>© 2025 Academia Deportiva Baekho. Todos los derechos reservados.</p>
     </div>
   </footer>
 );
