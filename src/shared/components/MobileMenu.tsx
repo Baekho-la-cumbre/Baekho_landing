@@ -77,7 +77,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, setOpen, navItems, id }) 
 
     if (item.isRoute) {
       navigate(item.href);
-    } else if (isHome) {
+      setActive(item.id);
+      setOpen(false);
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      return;
+    }
+
+    if (isHome) {
       scrollToSection(item.id);
       window.history.replaceState(null, "", `#${item.id}`);
     } else {

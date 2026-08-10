@@ -16,6 +16,136 @@ html {
   font-family: 'Karate', sans-serif;
 }
 
+/* ========== Pantalla de carga ========== */
+.baekho-loader {
+  --bh-red: #e31b1b;
+  --bh-red-glow: #ff1e1e;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(90, 0, 0, 0.45) 0%, transparent 70%),
+    #050505;
+  font-family: "Exo 2", system-ui, sans-serif;
+  opacity: 1;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.baekho-loader.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.baekho-loader__glow {
+  position: absolute;
+  width: min(28rem, 80vw);
+  height: min(28rem, 80vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(227, 27, 27, 0.22) 0%, transparent 68%);
+  animation: baekho-loader-pulse 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.baekho-loader__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.baekho-loader__mascot {
+  width: min(15rem, 58vw);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.55));
+  animation: baekho-loader-float 2.4s ease-in-out infinite;
+}
+
+.baekho-loader__brand {
+  margin: 1.1rem 0 0;
+  font-size: clamp(1.55rem, 5vw, 2.1rem);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
+}
+
+.baekho-loader__sub {
+  margin: 0.35rem 0 0;
+  font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--bh-red);
+  text-transform: uppercase;
+}
+
+.baekho-loader__bar {
+  margin-top: 1.5rem;
+  width: min(11rem, 55vw);
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.baekho-loader__bar-fill {
+  display: block;
+  height: 100%;
+  width: 40%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7a0000, var(--bh-red-glow), #ff3b3b);
+  box-shadow: 0 0 12px rgba(255, 30, 30, 0.65);
+  animation: baekho-loader-bar 1.15s ease-in-out infinite;
+}
+
+@keyframes baekho-loader-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes baekho-loader-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes baekho-loader-bar {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baekho-loader__mascot,
+  .baekho-loader__glow,
+  .baekho-loader__bar-fill {
+    animation: none;
+  }
+}
+
 /* ========== Header Baekho (diseño angular / glow) ========== */
 .baekho-header {
   --bh-red: #e31b1b;

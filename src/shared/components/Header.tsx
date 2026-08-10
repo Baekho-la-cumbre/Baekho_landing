@@ -113,6 +113,7 @@ function HeaderNav(): JSX.Element {
     if (isRoute) {
       navigate(href);
       setActive(id);
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       return;
     }
 

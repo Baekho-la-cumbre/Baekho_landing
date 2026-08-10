@@ -73,9 +73,21 @@ const Footer: React.FC = () => (
         <h3 className="baekho-footer__title">Enlaces Rápidos</h3>
         <div className="baekho-footer__links">
           <Link to="/#inicio" className="baekho-footer__link">Inicio</Link>
-          <Link to="/logros" className="baekho-footer__link">Logros</Link>
+          <Link
+            to="/logros"
+            className="baekho-footer__link"
+            onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "auto" })}
+          >
+            Logros
+          </Link>
           <Link to="/#historia" className="baekho-footer__link">Historia</Link>
-          <Link to="/deportistas" className="baekho-footer__link">Deportistas</Link>
+          <Link
+            to="/deportistas"
+            className="baekho-footer__link"
+            onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "auto" })}
+          >
+            Deportistas
+          </Link>
           <Link to="/#filosofia" className="baekho-footer__link">Filosofía</Link>
           <Link to="/#galeria" className="baekho-footer__link">Galería</Link>
           <Link to="/#contacto" className="baekho-footer__link">Contacto</Link>
