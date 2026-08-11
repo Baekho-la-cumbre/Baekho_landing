@@ -374,7 +374,10 @@ const Logros: React.FC = () => {
                           {logro.atleta.split(' ').slice(0, 2).join(' ')}<br />
                           {logro.atleta.split(' ').slice(2).join(' ')}
                         </h4>
-                        <p className="text-gray-300 text-sm italic">{logro.competencia}</p>
+                        {logro.categoria ? (
+                          <p className="text-gray-300 text-sm italic">{logro.categoria}</p>
+                        ) : null}
+                        <p className="text-gray-400 text-xs mt-0.5">{logro.competencia}</p>
                       </div>
                     </div>
 
