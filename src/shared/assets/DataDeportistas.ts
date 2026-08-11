@@ -12,7 +12,7 @@ export const deportistasData: DeportistaItem[] = [
     nombre: "Danna Sofía Sierra Daza",
     foto: "https://i.imgur.com/Cu3iNx5.jpeg",
     fondo: "https://i.imgur.com/v47mSZg.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
     detalle: "Medalla de plata en el campeonato ranking G1 Cartagena, 2025.",
   },
   {
@@ -26,14 +26,14 @@ export const deportistasData: DeportistaItem[] = [
     nombre: "Juan Pablo Silva Durán",
     foto: "/reconocimiento3.jpg",
     fondo: "https://i.imgur.com/ODPP7Mu.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
     detalle: "Medalla de plata en el campeonato ranking G1 Cartagena, 2025.",
   },
   {
     nombre: "Luna Sofía Ospina",
     foto: "https://i.imgur.com/p3CoF99.jpeg",
     fondo: "https://i.imgur.com/KgLsp8h.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
     detalle: "Medalla de oro en el campeonato ranking G1 Cartagena, 2025.",
   },
   {
@@ -56,7 +56,7 @@ export const deportistasData: DeportistaItem[] = [
     fondo: "https://i.imgur.com/NBsScu4.jpeg",
     detalle:
       "Campeona departamental sénior Negros ranking -46 kg y campeona departamental intercolegiados superare 2025 juvenil -44 kg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
   },
   {
     nombre: "José Eduardo Archila Espinel",

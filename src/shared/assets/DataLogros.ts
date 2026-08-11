@@ -19,7 +19,7 @@ export const logrosData: LogroItem[] = [
     medalla: "Plata",
     foto: "https://i.imgur.com/Cu3iNx5.jpeg",
     fondo: "https://i.imgur.com/v47mSZg.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
   },
   {
     atleta: "Richard Daniel Grueso Quiñonez",
@@ -37,7 +37,7 @@ export const logrosData: LogroItem[] = [
     medalla: "Plata",
     foto: "/reconocimiento3.jpg",
     fondo: "https://i.imgur.com/ODPP7Mu.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
   },
   {
     atleta: "Luna Sofía Ospina",
@@ -46,7 +46,7 @@ export const logrosData: LogroItem[] = [
     medalla: "Oro",
     foto: "https://i.imgur.com/p3CoF99.jpeg",
     fondo: "https://i.imgur.com/KgLsp8h.jpeg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
   },
   {
     atleta: "Ihaan Daniel Rivera Naranjo",
@@ -81,7 +81,7 @@ export const atletasDestacados: AtletaDestacado[] = [
   {
     nombre: "Sarith Sofía Gómez Pinto",
     imagen: "/deportistaDestacado1.jpg",
-    categoria: "Cinturón Negro",
+    categoria: "Cinturón Negro 1º Dan",
     logros:
       "Campeona departamental sénior Negros ranking -46 kg y campeona departamental intercolegiados superare 2025 juvenil -44 kg",
     medalla: "Oro",
